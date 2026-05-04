@@ -1,0 +1,12 @@
+node_modules
+.next
+npm-debug.log
+Dockerfile*
+.dockerignore
+.git
+.gitignore
+README.md
+# Do not bake host secrets into image; pass NEXT_PUBLIC_* via Dockerfile ARG / compose build.args instead.
+.env
+.env.*
+!.env.example

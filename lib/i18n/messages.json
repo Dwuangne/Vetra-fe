@@ -1,0 +1,1138 @@
+{
+  "meta": {
+    "locales": ["en", "vi"],
+    "defaultLocale": "en"
+  },
+  "errors": {
+    "AUTH_001": {
+      "en": "Invalid email or password.",
+      "vi": "Email hoặc mật khẩu không đúng."
+    },
+    "AUTH_002": {
+      "en": "Login credentials are required.",
+      "vi": "Vui lòng nhập thông tin đăng nhập."
+    },
+    "AUTH_003": {
+      "en": "This account has been locked.",
+      "vi": "Tài khoản này đã bị khóa."
+    },
+    "USER_001": {
+      "en": "User was not found.",
+      "vi": "Không tìm thấy người dùng."
+    },
+    "USER_002": {
+      "en": "Email already exists.",
+      "vi": "Email đã được sử dụng."
+    },
+    "USER_003": {
+      "en": "Invalid user data.",
+      "vi": "Dữ liệu người dùng không hợp lệ."
+    },
+    "SYS_001": {
+      "en": "A database error occurred.",
+      "vi": "Đã xảy ra lỗi cơ sở dữ liệu."
+    },
+    "VAL_001": {
+      "en": "One or more validation errors occurred.",
+      "vi": "Có một hoặc nhiều lỗi không hợp lệ."
+    },
+    "TEN_001": {
+      "en": "Tenant was not found.",
+      "vi": "Không tìm thấy tenant."
+    },
+    "TEN_002": {
+      "en": "Cannot delete this tenant because users still belong to it.",
+      "vi": "Không thể xóa tenant vì vẫn còn người dùng thuộc tenant đó."
+    },
+    "TEN_003": {
+      "en": "Tenant context is missing from the token.",
+      "vi": "Thiếu thông tin tenant trong token."
+    },
+    "PTY_001": {
+      "en": "Party was not found.",
+      "vi": "Không tìm thấy đối tác (party)."
+    },
+    "PTY_002": {
+      "en": "A party with this GLN already exists for this tenant.",
+      "vi": "Đã tồn tại đối tác với GLN này trong tenant."
+    },
+    "PTY_003": {
+      "en": "Invalid GLN format.",
+      "vi": "Định dạng GLN không hợp lệ."
+    },
+    "PTY_004": {
+      "en": "Cannot delete this party because locations still reference it.",
+      "vi": "Không thể xóa đối tác vì vẫn còn địa điểm đang tham chiếu."
+    },
+    "LOC_001": {
+      "en": "Location was not found.",
+      "vi": "Không tìm thấy địa điểm."
+    },
+    "LOC_002": {
+      "en": "A location with this GLN and extension already exists for this tenant.",
+      "vi": "Đã tồn tại địa điểm với GLN và extension này trong tenant."
+    },
+    "LOC_003": {
+      "en": "The selected party belongs to another tenant.",
+      "vi": "Đối tác được chọn thuộc tenant khác."
+    },
+    "LOC_004": {
+      "en": "Party was not found in this tenant.",
+      "vi": "Không tìm thấy đối tác trong tenant này."
+    },
+    "PRD_001": {
+      "en": "Product was not found.",
+      "vi": "Không tìm thấy sản phẩm."
+    },
+    "PRD_002": {
+      "en": "A product with this GTIN already exists for this tenant.",
+      "vi": "Đã tồn tại sản phẩm với GTIN này trong tenant."
+    },
+    "PRD_003": {
+      "en": "Invalid GTIN format.",
+      "vi": "Định dạng GTIN không hợp lệ."
+    },
+    "PRD_004": {
+      "en": "Cannot delete this product because batches or product instances already exist.",
+      "vi": "Không thể xóa sản phẩm vì đã phát sinh batch hoặc product instance."
+    },
+    "POR_001": {
+      "en": "Production order was not found.",
+      "vi": "Không tìm thấy lệnh sản xuất."
+    },
+    "POR_002": {
+      "en": "A production order with this number already exists for this tenant.",
+      "vi": "Đã tồn tại lệnh sản xuất với mã này trong tenant."
+    },
+    "POR_003": {
+      "en": "Invalid production order planning data.",
+      "vi": "Dữ liệu lập kế hoạch lệnh sản xuất không hợp lệ."
+    },
+    "POR_004": {
+      "en": "Product was not found in this tenant.",
+      "vi": "Không tìm thấy sản phẩm trong tenant này."
+    },
+    "POR_005": {
+      "en": "Production location was not found.",
+      "vi": "Không tìm thấy địa điểm sản xuất."
+    },
+    "POR_006": {
+      "en": "Production location belongs to another tenant.",
+      "vi": "Địa điểm sản xuất thuộc tenant khác."
+    },
+    "POR_007": {
+      "en": "Invalid production order status transition.",
+      "vi": "Chuyển trạng thái lệnh sản xuất không hợp lệ."
+    },
+    "POR_008": {
+      "en": "Actual quantity is required and must be non-negative when completing an order.",
+      "vi": "Khi hoàn tất lệnh, bắt buộc nhập sản lượng thực tế và giá trị phải không âm."
+    },
+    "POR_009": {
+      "en": "Cannot complete order while some batches are still planned or in production.",
+      "vi": "Không thể hoàn tất lệnh khi vẫn còn batch đang Planned hoặc InProduction."
+    },
+    "POR_010": {
+      "en": "Production order number is required.",
+      "vi": "Bắt buộc nhập mã lệnh sản xuất."
+    },
+    "POR_011": {
+      "en": "Cannot complete order without any linked batch.",
+      "vi": "Không thể hoàn tất lệnh khi chưa có batch liên kết."
+    },
+    "BAT_001": {
+      "en": "Batch was not found.",
+      "vi": "Không tìm thấy batch."
+    },
+    "BAT_002": {
+      "en": "A batch with this lot number already exists for this tenant.",
+      "vi": "Đã tồn tại batch với mã lô này trong tenant."
+    },
+    "BAT_003": {
+      "en": "Invalid planned quantity for batch.",
+      "vi": "Số lượng kế hoạch của batch không hợp lệ."
+    },
+    "BAT_004": {
+      "en": "Product was not found in this tenant.",
+      "vi": "Không tìm thấy sản phẩm trong tenant này."
+    },
+    "BAT_005": {
+      "en": "Production order was not found.",
+      "vi": "Không tìm thấy lệnh sản xuất."
+    },
+    "BAT_006": {
+      "en": "Batch product must match production order product.",
+      "vi": "Sản phẩm của batch phải khớp sản phẩm của lệnh sản xuất."
+    },
+    "BAT_007": {
+      "en": "Batch cannot be linked to a draft or cancelled production order.",
+      "vi": "Không thể liên kết batch với lệnh đang Draft hoặc đã hủy."
+    },
+    "BAT_008": {
+      "en": "Invalid batch status transition.",
+      "vi": "Chuyển trạng thái batch không hợp lệ."
+    },
+    "BAT_009": {
+      "en": "Released quantity must be between 1 and planned quantity.",
+      "vi": "Số lượng phát hành phải từ 1 đến tối đa số lượng kế hoạch."
+    },
+    "BAT_010": {
+      "en": "Batch lot number is required.",
+      "vi": "Bắt buộc nhập mã lô (lot number)."
+    },
+    "BAT_011": {
+      "en": "Batch dates must follow ProductionDate <= PackDate <= BestBeforeDate <= ExpiryDate.",
+      "vi": "Ngày của batch phải theo thứ tự ProductionDate <= PackDate <= BestBeforeDate <= ExpiryDate."
+    },
+    "PIN_001": {
+      "en": "Batch was not found in this tenant.",
+      "vi": "Không tìm thấy batch trong tenant này."
+    },
+    "PIN_002": {
+      "en": "Product instances can only be generated for released batches.",
+      "vi": "Chỉ có thể sinh product instance cho batch đã phát hành."
+    },
+    "PIN_003": {
+      "en": "Requested generation quantity must be at least 1.",
+      "vi": "Số lượng cần sinh phải lớn hơn hoặc bằng 1."
+    },
+    "PIN_004": {
+      "en": "Product not found for this batch.",
+      "vi": "Không tìm thấy sản phẩm cho batch này."
+    },
+    "PIN_005": {
+      "en": "Requested quantity exceeds released quantity capacity for this batch.",
+      "vi": "Số lượng cần sinh vượt quá giới hạn số lượng đã phát hành của batch."
+    },
+    "PIN_006": {
+      "en": "Duplicate serial number or EPC already exists.",
+      "vi": "Serial hoặc EPC đã tồn tại."
+    },
+    "PIN_007": {
+      "en": "Tenant company prefix (GCP) is missing or does not match this product GTIN; cannot build SGTIN EPC URI.",
+      "vi": "Thiếu hoặc sai tiền tố công ty GS1 (GCP) của tenant so với GTIN sản phẩm; không tạo được URI SGTIN."
+    },
+    "PIN_008": {
+      "en": "Public web base URL is not configured (App:PublicWebBaseUrl / PUBLIC_WEB_BASE_URL).",
+      "vi": "Chưa cấu hình URL gốc web công khai (App:PublicWebBaseUrl / PUBLIC_WEB_BASE_URL)."
+    },
+    "PIN_009": {
+      "en": "CSV export exceeds the maximum number of rows allowed for one file.",
+      "vi": "Xuất CSV vượt quá số dòng tối đa cho một file."
+    },
+    "PUB_001": {
+      "en": "This QR is not available or has not been published.",
+      "vi": "QR không khả dụng hoặc chưa được công bố."
+    },
+    "PUB_002": {
+      "en": "Invalid GTIN code.",
+      "vi": "Mã GTIN không hợp lệ."
+    },
+    "FTM_001": {
+      "en": "Form template was not found.",
+      "vi": "Không tìm thấy mẫu biểu mẫu."
+    },
+    "FTM_002": {
+      "en": "A form template with this name already exists in this biz step.",
+      "vi": "Đã tồn tại mẫu biểu mẫu có tên này trong biz step."
+    },
+    "FTM_003": {
+      "en": "Invalid biz step value.",
+      "vi": "Giá trị biz step không hợp lệ."
+    },
+    "FTM_004": {
+      "en": "Form template name is required.",
+      "vi": "Bắt buộc nhập tên mẫu biểu mẫu."
+    },
+    "FTM_005": {
+      "en": "Cannot delete form template because it has been used in event ingest.",
+      "vi": "Không thể xóa mẫu biểu mẫu vì đã được dùng trong dữ liệu ingest event."
+    },
+    "ATD_001": {
+      "en": "Attribute definition was not found.",
+      "vi": "Không tìm thấy định nghĩa thuộc tính."
+    },
+    "ATD_002": {
+      "en": "An attribute definition with this name already exists.",
+      "vi": "Đã tồn tại định nghĩa thuộc tính với tên này."
+    },
+    "ATD_003": {
+      "en": "Invalid attribute data type.",
+      "vi": "Kiểu dữ liệu thuộc tính không hợp lệ."
+    },
+    "ATD_004": {
+      "en": "Attribute definition name is required.",
+      "vi": "Bắt buộc nhập tên định nghĩa thuộc tính."
+    },
+    "ATD_005": {
+      "en": "Cannot delete attribute definition while it is referenced.",
+      "vi": "Không thể xóa định nghĩa thuộc tính vì đang được tham chiếu."
+    },
+    "FFD_001": {
+      "en": "Form field was not found in this template.",
+      "vi": "Không tìm thấy trường form trong template này."
+    },
+    "EVT_001": {
+      "en": "Invalid EPCIS event type.",
+      "vi": "Loại EPCIS event không hợp lệ."
+    },
+    "EVT_002": {
+      "en": "Invalid EPCIS action.",
+      "vi": "EPCIS action không hợp lệ."
+    },
+    "EVT_003": {
+      "en": "Timezone offset is required.",
+      "vi": "Bắt buộc timezone offset."
+    },
+    "EVT_004": {
+      "en": "Transformation event requires transformationId.",
+      "vi": "Transformation event bắt buộc transformationId."
+    },
+    "EVT_005": {
+      "en": "At least one EPC is required for event ingest.",
+      "vi": "Event ingest cần ít nhất một EPC."
+    },
+    "EVT_006": {
+      "en": "Referenced location was not found in this tenant.",
+      "vi": "Không tìm thấy location tham chiếu trong tenant này."
+    },
+    "EVT_007": {
+      "en": "Referenced EPC instance was not found in this tenant.",
+      "vi": "Không tìm thấy EPC instance tham chiếu trong tenant này."
+    },
+    "EVT_008": {
+      "en": "Invalid EPC list type.",
+      "vi": "Kiểu EPC list không hợp lệ."
+    },
+    "EVT_009": {
+      "en": "Referenced attribute definition was not found in this tenant.",
+      "vi": "Không tìm thấy định nghĩa thuộc tính tham chiếu trong tenant này."
+    },
+    "EVT_010": {
+      "en": "Event attribute payload is invalid for its declared data type.",
+      "vi": "Giá trị thuộc tính event không hợp lệ với kiểu dữ liệu đã khai báo."
+    },
+    "EVT_011": {
+      "en": "Extension data must be a valid JSON object.",
+      "vi": "Extension data phải là JSON object hợp lệ."
+    },
+    "EVT_012": {
+      "en": "Event was not found.",
+      "vi": "Không tìm thấy event."
+    },
+    "EVT_013": {
+      "en": "Timeline time range is invalid.",
+      "vi": "Khoảng thời gian timeline không hợp lệ."
+    },
+    "EVT_014": {
+      "en": "Batch was not found in this tenant.",
+      "vi": "Không tìm thấy batch trong tenant này."
+    },
+    "EVT_015": {
+      "en": "Event time is outside allowed ingest window.",
+      "vi": "Thời gian sự kiện nằm ngoài cửa sổ ingest cho phép."
+    },
+    "EVT_016": {
+      "en": "Timeline query requires at least one filter.",
+      "vi": "Truy vấn timeline cần ít nhất một điều kiện lọc."
+    },
+    "EVT_017": {
+      "en": "Timeline query time window is too large.",
+      "vi": "Khoảng thời gian truy vấn timeline quá lớn."
+    },
+    "EVT_018": {
+      "en": "Cannot share event with the owner tenant.",
+      "vi": "Không thể chia sẻ event cho chính tenant sở hữu."
+    },
+    "EVT_019": {
+      "en": "Target tenant for event sharing was not found.",
+      "vi": "Không tìm thấy tenant đích để chia sẻ event."
+    },
+    "EVT_020": {
+      "en": "Event visibility rule was not found.",
+      "vi": "Không tìm thấy quy tắc chia sẻ event."
+    },
+    "EVT_021": {
+      "en": "Only the owner tenant can manage event sharing.",
+      "vi": "Chỉ tenant sở hữu mới có thể quản lý chia sẻ event."
+    },
+    "ERR_UNKNOWN": {
+      "en": "An unexpected error occurred.",
+      "vi": "Đã xảy ra lỗi không mong muốn."
+    }
+  },
+  "common": {
+    "appName": {
+      "en": "Vetra",
+      "vi": "Vetra"
+    },
+    "loading": {
+      "en": "Loading…",
+      "vi": "Đang tải…"
+    },
+    "errorGeneric": {
+      "en": "Something went wrong.",
+      "vi": "Đã có lỗi xảy ra."
+    },
+    "retry": {
+      "en": "Retry",
+      "vi": "Thử lại"
+    },
+    "noDataTitle": {
+      "en": "No data available",
+      "vi": "Không có dữ liệu"
+    },
+    "noDataDescription": {
+      "en": "There are no records to display yet.",
+      "vi": "Chưa có bản ghi để hiển thị."
+    },
+    "noFilteredResultsTitle": {
+      "en": "No matching results",
+      "vi": "Không có kết quả phù hợp"
+    },
+    "noFilteredResultsDescription": {
+      "en": "Try changing your filters to see more records.",
+      "vi": "Hãy thử thay đổi bộ lọc để xem thêm dữ liệu."
+    },
+    "clearFilters": {
+      "en": "Clear filters",
+      "vi": "Xóa bộ lọc"
+    },
+    "changesSaved": {
+      "en": "Changes saved successfully.",
+      "vi": "Đã lưu thành công."
+    }
+  },
+  "nav": {
+    "dashboard": {
+      "en": "Dashboard",
+      "vi": "Bảng điều khiển"
+    },
+    "ecosystem": {
+      "en": "Ecosystem",
+      "vi": "Hệ sinh thái"
+    },
+    "production": {
+      "en": "Production",
+      "vi": "Sản xuất"
+    },
+    "admin": {
+      "en": "Admin",
+      "vi": "Quản trị"
+    },
+    "accountMenu": {
+      "en": "Account menu",
+      "vi": "Menu tài khoản"
+    },
+    "logout": {
+      "en": "Log out",
+      "vi": "Đăng xuất"
+    }
+  },
+  "tenant": {
+    "title": {
+      "en": "Tenants",
+      "vi": "Tenant"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No tenant records yet.",
+        "vi": "Chưa có dữ liệu tenant."
+      },
+      "noFilteredResults": {
+        "en": "No matching tenant results.",
+        "vi": "Không có kết quả tenant phù hợp."
+      }
+    },
+    "fields": {
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "gcp": {
+        "en": "GCP",
+        "vi": "GCP"
+      }
+    }
+  },
+  "party": {
+    "title": {
+      "en": "Parties",
+      "vi": "Đối tác"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "tenant": {
+        "en": "Tenant",
+        "vi": "Tenant"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No party records yet.",
+        "vi": "Chưa có dữ liệu đối tác."
+      },
+      "noFilteredResults": {
+        "en": "No matching party results.",
+        "vi": "Không có kết quả đối tác phù hợp."
+      }
+    },
+    "fields": {
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "gln": {
+        "en": "GLN",
+        "vi": "GLN"
+      }
+    }
+  },
+  "location": {
+    "title": {
+      "en": "Locations",
+      "vi": "Địa điểm"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "tenant": {
+        "en": "Tenant",
+        "vi": "Tenant"
+      },
+      "party": {
+        "en": "Party",
+        "vi": "Đối tác"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No location records yet.",
+        "vi": "Chưa có dữ liệu địa điểm."
+      },
+      "noFilteredResults": {
+        "en": "No matching location results.",
+        "vi": "Không có kết quả địa điểm phù hợp."
+      }
+    },
+    "fields": {
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "gln": {
+        "en": "GLN",
+        "vi": "GLN"
+      },
+      "extension": {
+        "en": "Extension",
+        "vi": "Extension"
+      },
+      "partyId": {
+        "en": "Party",
+        "vi": "Đối tác"
+      }
+    }
+  },
+  "product": {
+    "title": {
+      "en": "Products",
+      "vi": "Sản phẩm"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "tenant": {
+        "en": "Tenant",
+        "vi": "Tenant"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No product records yet.",
+        "vi": "Chưa có dữ liệu sản phẩm."
+      },
+      "noFilteredResults": {
+        "en": "No matching product results.",
+        "vi": "Không có kết quả sản phẩm phù hợp."
+      }
+    },
+    "fields": {
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "gtin": {
+        "en": "GTIN",
+        "vi": "GTIN"
+      },
+      "imageUrl": {
+        "en": "Image URL",
+        "vi": "URL ảnh"
+      },
+      "description": {
+        "en": "Description",
+        "vi": "Mô tả"
+      }
+    }
+  },
+  "productionOrder": {
+    "title": {
+      "en": "Production Orders",
+      "vi": "Lệnh sản xuất"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "transitionStatus": {
+        "en": "Transition status",
+        "vi": "Chuyển trạng thái"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      },
+      "viewBatches": {
+        "en": "View batches for this order",
+        "vi": "Xem batch của lệnh này"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No production order records yet.",
+        "vi": "Chưa có dữ liệu lệnh sản xuất."
+      },
+      "noFilteredResults": {
+        "en": "No matching production order results.",
+        "vi": "Không có kết quả lệnh sản xuất phù hợp."
+      }
+    },
+    "fields": {
+      "orderNumber": {
+        "en": "Order number",
+        "vi": "Mã lệnh"
+      },
+      "description": {
+        "en": "Description",
+        "vi": "Mô tả"
+      },
+      "productId": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "plannedQuantity": {
+        "en": "Planned quantity",
+        "vi": "Số lượng kế hoạch"
+      },
+      "actualQuantity": {
+        "en": "Actual quantity",
+        "vi": "Số lượng thực tế"
+      },
+      "plannedStartTime": {
+        "en": "Planned start time",
+        "vi": "Thời gian bắt đầu kế hoạch"
+      },
+      "plannedEndTime": {
+        "en": "Planned end time",
+        "vi": "Thời gian kết thúc kế hoạch"
+      },
+      "productionLocationId": {
+        "en": "Production location",
+        "vi": "Địa điểm sản xuất"
+      },
+      "status": {
+        "en": "Status",
+        "vi": "Trạng thái"
+      }
+    },
+    "status": {
+      "Draft": {
+        "en": "Draft",
+        "vi": "Nháp"
+      },
+      "Confirmed": {
+        "en": "Confirmed",
+        "vi": "Đã xác nhận"
+      },
+      "InProduction": {
+        "en": "In production",
+        "vi": "Đang sản xuất"
+      },
+      "Completed": {
+        "en": "Completed",
+        "vi": "Hoàn tất"
+      },
+      "Cancelled": {
+        "en": "Cancelled",
+        "vi": "Đã hủy"
+      }
+    }
+  },
+  "batch": {
+    "title": {
+      "en": "Batches",
+      "vi": "Lô sản xuất"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "transitionStatus": {
+        "en": "Transition status",
+        "vi": "Chuyển trạng thái"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      },
+      "viewInstances": {
+        "en": "View instances",
+        "vi": "Xem thể hiện"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No batch records yet.",
+        "vi": "Chưa có dữ liệu batch."
+      },
+      "noFilteredResults": {
+        "en": "No matching batch results.",
+        "vi": "Không có kết quả batch phù hợp."
+      }
+    },
+    "fields": {
+      "lotNumber": {
+        "en": "Lot number",
+        "vi": "Mã lô"
+      },
+      "productId": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "productionOrderId": {
+        "en": "Production order",
+        "vi": "Lệnh sản xuất"
+      },
+      "plannedQuantity": {
+        "en": "Planned quantity",
+        "vi": "Số lượng kế hoạch"
+      },
+      "releasedQuantity": {
+        "en": "Released quantity",
+        "vi": "Số lượng phát hành"
+      },
+      "productionDate": {
+        "en": "Production date",
+        "vi": "Ngày sản xuất"
+      },
+      "packDate": {
+        "en": "Pack date",
+        "vi": "Ngày đóng gói"
+      },
+      "bestBeforeDate": {
+        "en": "Best before date",
+        "vi": "Ngày nên dùng trước"
+      },
+      "expiryDate": {
+        "en": "Expiry date",
+        "vi": "Ngày hết hạn"
+      },
+      "status": {
+        "en": "Status",
+        "vi": "Trạng thái"
+      }
+    },
+    "status": {
+      "Planned": {
+        "en": "Planned",
+        "vi": "Kế hoạch"
+      },
+      "InProduction": {
+        "en": "In production",
+        "vi": "Đang sản xuất"
+      },
+      "Released": {
+        "en": "Released",
+        "vi": "Đã phát hành"
+      },
+      "Quarantined": {
+        "en": "Quarantined",
+        "vi": "Cách ly"
+      },
+      "Recalled": {
+        "en": "Recalled",
+        "vi": "Thu hồi"
+      },
+      "Destroyed": {
+        "en": "Destroyed",
+        "vi": "Tiêu hủy"
+      }
+    }
+  },
+  "publicScan": {
+    "tagline": {
+      "en": "Product traceability",
+      "vi": "Truy xuất nguồn gốc sản phẩm"
+    },
+    "logoAlt": {
+      "en": "Vetra",
+      "vi": "Vetra"
+    },
+    "active": {
+      "title": {
+        "en": "Verified product",
+        "vi": "Sản phẩm đã xác minh"
+      },
+      "authenticBadge": {
+        "en": "Verified authentic product",
+        "vi": "Sản phẩm chính hãng"
+      },
+      "productSection": {
+        "en": "Product information",
+        "vi": "Thông tin sản phẩm"
+      },
+      "batchSection": {
+        "en": "Batch information",
+        "vi": "Thông tin lô hàng"
+      },
+      "lotNumber": {
+        "en": "Lot number",
+        "vi": "Mã lô"
+      },
+      "manufactureDate": {
+        "en": "Manufacture date",
+        "vi": "Ngày sản xuất"
+      },
+      "expiryDate": {
+        "en": "Expiry date",
+        "vi": "Hạn sử dụng"
+      },
+      "productionOrderSection": {
+        "en": "Production order",
+        "vi": "Đơn sản xuất"
+      },
+      "productionOrderDateRange": {
+        "en": "Schedule",
+        "vi": "Thời gian"
+      },
+      "factorySection": {
+        "en": "Manufacturing site",
+        "vi": "Nhà máy sản xuất"
+      },
+      "certificatesSection": {
+        "en": "Quality certificates",
+        "vi": "Chứng nhận chất lượng"
+      },
+      "viewCertificate": {
+        "en": "View",
+        "vi": "Xem"
+      },
+      "gtinLabel": {
+        "en": "GTIN",
+        "vi": "GTIN"
+      }
+    },
+    "notice": {
+      "title": {
+        "en": "Important product notice",
+        "vi": "Thông báo quan trọng về sản phẩm"
+      },
+      "recalled": {
+        "en": "This batch has been recalled. Do not use or distribute this product. Contact the supplier or point of purchase for guidance.",
+        "vi": "Lô hàng này đã bị thu hồi. Không sử dụng hoặc lưu hành sản phẩm. Vui lòng liên hệ nhà cung cấp hoặc nơi mua hàng để được hướng dẫn."
+      },
+      "quarantined": {
+        "en": "This batch is quarantined and must not be used or sold until further notice. Contact the supplier for more information.",
+        "vi": "Lô hàng này đang bị cách ly và không được sử dụng hoặc bán cho đến khi có thông báo mới. Vui lòng liên hệ nhà cung cấp."
+      },
+      "destroyed": {
+        "en": "This batch has been destroyed and must not be in circulation. If you have this product, contact the supplier or retailer.",
+        "vi": "Lô hàng này đã được tiêu hủy và không được lưu hành. Nếu bạn đang sở hữu sản phẩm, vui lòng liên hệ nhà cung cấp hoặc nhà bán lẻ."
+      },
+      "contactSupport": {
+        "en": "If you need help, please contact customer support or the store where you purchased this product.",
+        "vi": "Nếu bạn cần hỗ trợ, vui lòng liên hệ bộ phận chăm sóc khách hàng hoặc cửa hàng nơi bạn mua sản phẩm."
+      },
+      "factoryLabel": {
+        "en": "Manufacturing site",
+        "vi": "Nhà máy"
+      }
+    },
+    "footer": {
+      "thanks": {
+        "en": "Thank you for using our product.",
+        "vi": "Cảm ơn bạn đã sử dụng sản phẩm của chúng tôi."
+      },
+      "scanHint": {
+        "en": "Scan the QR code to verify authenticity.",
+        "vi": "Quét mã QR để xác thực sản phẩm chính hãng."
+      }
+    },
+    "invalidRequest": {
+      "title": {
+        "en": "Link not valid",
+        "vi": "Liên kết không hợp lệ"
+      }
+    },
+    "client": {
+      "loading": {
+        "en": "Loading product information…",
+        "vi": "Đang tải thông tin sản phẩm…"
+      },
+      "loadError": {
+        "en": "We could not reach the server. Check your connection and try again.",
+        "vi": "Không kết nối được máy chủ. Kiểm tra mạng và thử lại."
+      },
+      "retry": {
+        "en": "Try again",
+        "vi": "Thử lại"
+      }
+    }
+  },
+  "production": {
+    "instance": {
+      "publicUrl": {
+        "en": "Public URL",
+        "vi": "URL công khai"
+      },
+      "copyLink": {
+        "en": "Copy link",
+        "vi": "Sao chép liên kết"
+      },
+      "openInNewTab": {
+        "en": "Open in new tab",
+        "vi": "Mở tab mới"
+      },
+      "notPublicYet": {
+        "en": "Not public yet. The production order must be active and the batch must be released without restrictions.",
+        "vi": "Chưa public. Lệnh sản xuất phải đang hiệu lực và batch phải Released, không thuộc trạng thái hạn chế."
+      },
+      "noticePageTooltip": {
+        "en": "Scanning this QR shows a public safety notice for this batch (quarantine, recall, or destroyed).",
+        "vi": "Quét QR này sẽ hiển thị trang cảnh báo công khai cho batch (cách ly, thu hồi hoặc tiêu hủy)."
+      },
+      "linkCopied": {
+        "en": "Link copied.",
+        "vi": "Đã sao chép liên kết."
+      }
+    },
+    "batchDialog": {
+      "publicScanReleasedHint": {
+        "en": "Releasing this batch publishes generated serials: public scan URLs under /01/{GTIN}/21/{serial} become available.",
+        "vi": "Khi phát hành batch, các serial đã sinh sẽ được công khai: URL quét công khai dạng /01/{GTIN}/21/{serial} sẽ hoạt động."
+      },
+      "publicScanRestrictedHint": {
+        "en": "This status makes the public scan page show a restricted safety notice for this batch immediately.",
+        "vi": "Trạng thái này khiến trang quét công khai chuyển sang dạng cảnh báo (ẩn bớt chi tiết) ngay lập tức."
+      }
+    }
+  },
+  "productInstance": {
+    "title": {
+      "en": "Product Instances",
+      "vi": "Thể hiện sản phẩm"
+    },
+    "selectBatchPrompt": {
+      "en": "Choose a batch to view and generate serialised instances.",
+      "vi": "Chọn một batch để xem và sinh thể hiện sản phẩm."
+    },
+    "generateDialog": {
+      "title": {
+        "en": "Generate instances",
+        "vi": "Sinh thể hiện"
+      }
+    },
+    "actions": {
+      "search": {
+        "en": "Search",
+        "vi": "Tìm kiếm"
+      },
+      "generate": {
+        "en": "Generate",
+        "vi": "Sinh mới"
+      },
+      "export": {
+        "en": "Export CSV",
+        "vi": "Xuất CSV"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "batchId": {
+        "en": "Batch",
+        "vi": "Batch"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No product instance records yet.",
+        "vi": "Chưa có dữ liệu product instance."
+      },
+      "noFilteredResults": {
+        "en": "No matching product instance results.",
+        "vi": "Không có kết quả product instance phù hợp."
+      }
+    },
+    "fields": {
+      "serialNumber": {
+        "en": "Serial number",
+        "vi": "Mã serial"
+      },
+      "epcUri": {
+        "en": "EPC URI",
+        "vi": "EPC URI"
+      },
+      "batchId": {
+        "en": "Batch",
+        "vi": "Batch"
+      },
+      "lotNumber": {
+        "en": "Lot number",
+        "vi": "Số lô"
+      },
+      "quantity": {
+        "en": "Quantity",
+        "vi": "Số lượng"
+      },
+      "serialPrefix": {
+        "en": "Serial prefix",
+        "vi": "Tiền tố serial"
+      }
+    }
+  }
+}
