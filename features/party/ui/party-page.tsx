@@ -14,8 +14,7 @@ import {
 import type { PartyDto } from "@/lib/api/types/party";
 import { deleteParty } from "@/lib/api/services/party.service";
 import { AppShellLayout } from "@/features/home";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { useMemo, useState } from "react";
@@ -26,8 +25,9 @@ import { PartyFilters } from "./party-filters";
 import { PartyFormDialog } from "./party-form-dialog";
 import { PartyTable } from "./party-table";
 
-export function PartyPage({ locale = defaultLocale }: { locale?: Locale }) {
-  const list = usePartyList(locale);
+export function PartyPage() {
+  const { locale } = useLocale();
+  const list = usePartyList();
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<PartyDto | null>(null);
 
@@ -92,11 +92,7 @@ export function PartyPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {list.hasSearched && list.error ? (
-          <ListErrorBanner
-            message={list.error}
-            locale={locale}
-            onRetry={() => list.reload()}
-          />
+          <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
         {list.hasSearched && list.initialLoad && list.loading ? (
@@ -104,11 +100,7 @@ export function PartyPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {showEmpty ? (
-          <PartyEmptyState
-            variant={emptyVariant}
-            locale={locale}
-            onClearFilters={() => list.setKeyword("")}
-          />
+          <PartyEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
@@ -134,13 +126,7 @@ export function PartyPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
       </div>
 
-      <PartyFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        editing={editing}
-        locale={locale}
-        onSaved={() => list.reload()}
-      />
+      <PartyFormDialog open={formOpen} onOpenChange={setFormOpen} editing={editing} onSaved={() => list.reload()} />
 
       <Dialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
         <DialogContent className="sm:max-w-md" aria-describedby={undefined}>

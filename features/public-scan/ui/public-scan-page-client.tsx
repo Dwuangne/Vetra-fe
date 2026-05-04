@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { getPublicScan } from "@/lib/api/services/public-scan.service";
 import { ApiHttpError } from "@/lib/api/errors";
 import messages from "@/lib/i18n/messages.json";
-import { pickLocalized } from "@/lib/i18n";
+import { pickLocalized, useLocale } from "@/lib/i18n";
 import { resolveApiErrorMessage } from "@/lib/i18n/resolve-api-error";
-import type { Locale } from "@/lib/i18n/types";
 import type { PublicScanResultDto } from "../model/public-scan.types";
 
 import { PublicScanActive } from "./public-scan-active";
@@ -26,10 +25,13 @@ type ViewState =
 type PublicScanPageClientProps = {
   gtin: string;
   serial: string;
-  locale: Locale;
 };
 
-export function PublicScanPageClient({ gtin, serial, locale }: PublicScanPageClientProps) {
+export function PublicScanPageClient({ gtin, serial }: PublicScanPageClientProps) {
+  const { locale } = useLocale();
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
+
   const [state, setState] = useState<ViewState>({ phase: "loading" });
   const [reloadToken, setReloadToken] = useState(0);
 
@@ -50,11 +52,11 @@ export function PublicScanPageClient({ gtin, serial, locale }: PublicScanPageCli
             return;
           }
           if (err.status === 400) {
-            setState({ phase: "invalid", message: resolveApiErrorMessage(err, locale) });
+            setState({ phase: "invalid", message: resolveApiErrorMessage(err, localeRef.current) });
             return;
           }
         }
-        const fallback = pickLocalized(messages.publicScan.client.loadError, locale);
+        const fallback = pickLocalized(messages.publicScan.client.loadError, localeRef.current);
         setState({
           phase: "error",
           message: err instanceof Error ? err.message || fallback : fallback,
@@ -65,7 +67,9 @@ export function PublicScanPageClient({ gtin, serial, locale }: PublicScanPageCli
     return () => {
       cancelled = true;
     };
-  }, [gtin, serial, locale, reloadToken]);
+    // Fixed-length deps only: do not list `locale` here so changing language does not refetch scan data.
+    // Use `localeRef` inside the effect for error copy at failure time.
+  }, [gtin, serial, reloadToken]);
 
   if (state.phase === "loading") {
     return (

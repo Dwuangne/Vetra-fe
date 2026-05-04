@@ -14,8 +14,7 @@ import {
 import type { ProductDto } from "@/lib/api/types/product";
 import { deleteProduct } from "@/lib/api/services/product.service";
 import { AppShellLayout } from "@/features/home";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { useMemo, useState } from "react";
@@ -26,8 +25,9 @@ import { ProductFilters } from "./product-filters";
 import { ProductFormDialog } from "./product-form-dialog";
 import { ProductTable } from "./product-table";
 
-export function ProductPage({ locale = defaultLocale }: { locale?: Locale }) {
-  const list = useProductList(locale);
+export function ProductPage() {
+  const { locale } = useLocale();
+  const list = useProductList();
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<ProductDto | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ProductDto | null>(null);
@@ -89,7 +89,7 @@ export function ProductPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {list.hasSearched && list.error ? (
-          <ListErrorBanner message={list.error} locale={locale} onRetry={() => list.reload()} />
+          <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
         {list.hasSearched && list.initialLoad && list.loading ? (
@@ -97,11 +97,7 @@ export function ProductPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {showEmpty ? (
-          <ProductEmptyState
-            variant={emptyVariant}
-            locale={locale}
-            onClearFilters={() => list.setKeyword("")}
-          />
+          <ProductEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
@@ -130,13 +126,7 @@ export function ProductPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
       </div>
 
-      <ProductFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        editing={editing}
-        locale={locale}
-        onSaved={() => list.reload()}
-      />
+      <ProductFormDialog open={formOpen} onOpenChange={setFormOpen} editing={editing} onSaved={() => list.reload()} />
 
       <Dialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
         <DialogContent className="sm:max-w-md" aria-describedby={undefined}>

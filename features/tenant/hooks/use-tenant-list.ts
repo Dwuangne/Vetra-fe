@@ -1,9 +1,10 @@
 "use client";
 
 import { listTenants } from "@/lib/api/services/tenant.service";
+import { useLocale } from "@/lib/i18n";
 import { useKeywordPagedList } from "@/lib/table/use-keyword-paged-list";
-import type { Locale } from "@/lib/i18n/types";
 
-export function useTenantList(locale: Locale) {
+export function useTenantList() {
+  const { locale } = useLocale();
   return useKeywordPagedList(listTenants, locale);
 }

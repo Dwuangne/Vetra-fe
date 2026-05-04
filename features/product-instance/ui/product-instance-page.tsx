@@ -13,8 +13,7 @@ import { getBatchById } from "@/lib/api/services/batch.service";
 import { getProductById } from "@/lib/api/services/product.service";
 import { downloadProductInstanceUrlsCsv } from "@/lib/api/services/product-instance.service";
 import { getProductionOrderById } from "@/lib/api/services/production-order.service";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { normalizeBatchStatus } from "@/lib/production/batch-status";
 import { toGtin14PathSegment } from "@/lib/production/gtin14";
 import { normalizeProductionOrderStatus } from "@/lib/production/production-order-status";
@@ -39,8 +38,9 @@ function parseBatchIdParam(raw: string | null): string | null {
   return GUID_RE.test(trimmed) ? trimmed : null;
 }
 
-function ProductInstanceBatchScope({ batchId, locale }: { batchId: string; locale: Locale }) {
-  const list = useProductInstanceList(locale, batchId);
+function ProductInstanceBatchScope({ batchId }: { batchId: string }) {
+  const { locale } = useLocale();
+  const list = useProductInstanceList(batchId);
   const [generateOpen, setGenerateOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [batchScope, setBatchScope] = useState<{
@@ -161,17 +161,13 @@ function ProductInstanceBatchScope({ batchId, locale }: { batchId: string; local
       </div>
 
       {list.hasSearched && list.error ? (
-        <ListErrorBanner message={list.error} locale={locale} onRetry={() => list.reload()} />
+        <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
       ) : null}
 
       {list.hasSearched && list.initialLoad && list.loading ? <ListLoadingSkeleton rows={8} columns={4} /> : null}
 
       {showEmpty ? (
-        <ProductInstanceEmptyState
-          variant={emptyVariant}
-          locale={locale}
-          onClearFilters={() => list.setKeyword("")}
-        />
+        <ProductInstanceEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
       ) : null}
 
       {list.hasSearched && !showEmpty && !list.error ? (
@@ -199,14 +195,14 @@ function ProductInstanceBatchScope({ batchId, locale }: { batchId: string; local
         open={generateOpen}
         onOpenChange={setGenerateOpen}
         batchId={batchId}
-        locale={locale}
         onGenerated={() => list.reload()}
       />
     </div>
   );
 }
 
-function ProductInstancePageBody({ locale }: { locale: Locale }) {
+function ProductInstancePageBody() {
+  const { locale } = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
   const batchId = parseBatchIdParam(searchParams.get("batchId"));
@@ -227,12 +223,12 @@ function ProductInstancePageBody({ locale }: { locale: Locale }) {
           />
         </div>
       ) : (
-        <ProductInstanceBatchScope key={batchId} batchId={batchId} locale={locale} />
+        <ProductInstanceBatchScope key={batchId} batchId={batchId} />
       )}
     </AppShellLayout>
   );
 }
 
-export function ProductInstancePage({ locale = defaultLocale }: { locale?: Locale }) {
-  return <ProductInstancePageBody locale={locale} />;
+export function ProductInstancePage() {
+  return <ProductInstancePageBody />;
 }

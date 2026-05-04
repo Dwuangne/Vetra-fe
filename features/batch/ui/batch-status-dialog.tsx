@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import type { BatchStatus } from "@/lib/api/types/batch";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type StatusDialogFormValues = {
@@ -23,7 +22,6 @@ type StatusDialogFormValues = {
 
 type BatchStatusDialogProps = {
   open: boolean;
-  locale: Locale;
   currentStatus: BatchStatus;
   nextStatus: BatchStatus | null;
   loading?: boolean;
@@ -33,13 +31,13 @@ type BatchStatusDialogProps = {
 
 export function BatchStatusDialog({
   open,
-  locale,
   currentStatus,
   nextStatus,
   loading,
   onOpenChange,
   onConfirm,
 }: BatchStatusDialogProps) {
+  const { locale } = useLocale();
   const needsReleasedQuantity = nextStatus === "Released";
   const { register, handleSubmit, reset, formState } = useForm<StatusDialogFormValues>({
     defaultValues: { releasedQuantity: 1 },

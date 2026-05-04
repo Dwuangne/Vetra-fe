@@ -1,15 +1,23 @@
 "use client";
 
-import { LogOut, UserRound } from "lucide-react";
+import { Languages, LogOut, UserRound } from "lucide-react";
 import type * as React from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useAuth } from "@/features/auth";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 import { HomeAppSidebar } from "./home-app-sidebar";
 
@@ -21,7 +29,7 @@ type AppShellLayoutProps = {
 export function AppShellLayout({ title, children }: AppShellLayoutProps) {
   const { logout, user } = useAuth();
   const tenantLabel = user?.tenantName?.trim();
-  const locale: Locale = defaultLocale;
+  const { locale, setLocale } = useLocale();
   const nav = messages.nav;
 
   return (
@@ -49,7 +57,25 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
                   </Avatar>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent side="bottom" align="center" sideOffset={8} className="w-44">
+              <DropdownMenuContent side="bottom" align="center" sideOffset={8} className="w-56">
+                <DropdownMenuLabel className="flex items-center gap-2 font-normal text-muted-foreground">
+                  <Languages className="h-4 w-4 shrink-0" aria-hidden />
+                  {pickLocalized(nav.language, locale)}
+                </DropdownMenuLabel>
+                <DropdownMenuRadioGroup
+                  value={locale}
+                  onValueChange={(v) => {
+                    if (v === "en" || v === "vi") setLocale(v);
+                  }}
+                >
+                  <DropdownMenuRadioItem value="en" className="cursor-pointer">
+                    {pickLocalized(nav.languageEnglish, locale)}
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="vi" className="cursor-pointer">
+                    {pickLocalized(nav.languageVietnamese, locale)}
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={logout}
                   className="cursor-pointer gap-2 text-destructive focus:bg-destructive/10 focus:text-destructive"

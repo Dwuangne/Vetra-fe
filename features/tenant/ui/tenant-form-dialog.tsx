@@ -15,9 +15,7 @@ import {
   applyApiValidationErrors,
   validationErrorsFromApiError,
 } from "@/lib/forms/api-error-to-form";
-import { defaultLocale } from "@/lib/i18n";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
@@ -30,16 +28,10 @@ type TenantFormDialogProps = {
   onOpenChange: (open: boolean) => void;
   editing: TenantDto | null;
   onSaved: () => void;
-  locale?: Locale;
 };
 
-export function TenantFormDialog({
-  open,
-  onOpenChange,
-  editing,
-  onSaved,
-  locale = defaultLocale,
-}: TenantFormDialogProps) {
+export function TenantFormDialog({ open, onOpenChange, editing, onSaved }: TenantFormDialogProps) {
+  const { locale } = useLocale();
   const form = useTenantForm();
   const {
     register,

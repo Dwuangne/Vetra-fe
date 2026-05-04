@@ -2,16 +2,15 @@
 
 import { ListEmptyState } from "@/components/list/list-empty-state";
 import type { ListEmptyVariant } from "@/components/list/list-empty-state";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 type ProductEmptyStateProps = {
   variant: ListEmptyVariant;
-  locale: Locale;
   onClearFilters?: () => void;
 };
 
-export function ProductEmptyState({ variant, locale, onClearFilters }: ProductEmptyStateProps) {
+export function ProductEmptyState({ variant, onClearFilters }: ProductEmptyStateProps) {
+  const { locale } = useLocale();
   const noData = pickLocalized(messages.product.empty.noData, locale);
   const filtered = pickLocalized(messages.product.empty.noFilteredResults, locale);
   const desc =
@@ -22,7 +21,6 @@ export function ProductEmptyState({ variant, locale, onClearFilters }: ProductEm
   return (
     <ListEmptyState
       variant={variant}
-      locale={locale}
       onClearFilters={variant === "filtered-empty" ? onClearFilters : undefined}
       localizedTitle={variant === "filtered-empty" ? filtered : noData}
       localizedDescription={desc}

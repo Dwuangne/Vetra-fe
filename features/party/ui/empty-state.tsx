@@ -1,17 +1,16 @@
 "use client";
 
 import { ListEmptyState } from "@/components/list/list-empty-state";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import type { ListEmptyVariant } from "@/components/list/list-empty-state";
 
 type PartyEmptyStateProps = {
   variant: ListEmptyVariant;
-  locale: Locale;
   onClearFilters?: () => void;
 };
 
-export function PartyEmptyState({ variant, locale, onClearFilters }: PartyEmptyStateProps) {
+export function PartyEmptyState({ variant, onClearFilters }: PartyEmptyStateProps) {
+  const { locale } = useLocale();
   const noData = pickLocalized(messages.party.empty.noData, locale);
   const filtered = pickLocalized(messages.party.empty.noFilteredResults, locale);
   const desc =
@@ -22,7 +21,6 @@ export function PartyEmptyState({ variant, locale, onClearFilters }: PartyEmptyS
   return (
     <ListEmptyState
       variant={variant}
-      locale={locale}
       onClearFilters={variant === "filtered-empty" ? onClearFilters : undefined}
       localizedTitle={variant === "filtered-empty" ? filtered : noData}
       localizedDescription={desc}

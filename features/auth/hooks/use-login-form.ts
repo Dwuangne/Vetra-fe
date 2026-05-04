@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ApiHttpError, login } from "@/lib/api";
+import { useLocale } from "@/lib/i18n";
 import { resolveApiErrorMessage } from "@/lib/i18n/resolve-api-error";
 import { getPostLoginRedirectPath } from "@/lib/auth/roles";
 import { useAuth } from "./use-auth";
@@ -10,6 +11,7 @@ import { useAuth } from "./use-auth";
 export type LoginFeedback = { type: "ok" | "err"; text: string } | null;
 
 export function useLoginForm() {
+  const { locale } = useLocale();
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +39,7 @@ export function useLoginForm() {
       if (err instanceof ApiHttpError) {
         setFeedback({
           type: "err",
-          text: resolveApiErrorMessage(err),
+          text: resolveApiErrorMessage(err, locale),
         });
       } else {
         setFeedback({ type: "err", text: err instanceof Error ? err.message : "Unknown error" });
@@ -45,7 +47,7 @@ export function useLoginForm() {
     } finally {
       setLoading(false);
     }
-  }, [loginSession, password, router, searchParams, username]);
+  }, [locale, loginSession, password, router, searchParams, username]);
 
   return {
     showPassword,

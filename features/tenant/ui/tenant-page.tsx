@@ -14,8 +14,7 @@ import {
 import type { TenantDto } from "@/lib/api/types/tenant";
 import { deleteTenant } from "@/lib/api/services/tenant.service";
 import { AppShellLayout } from "@/features/home";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { useMemo, useState } from "react";
@@ -26,8 +25,9 @@ import { TenantFilters } from "./tenant-filters";
 import { TenantFormDialog } from "./tenant-form-dialog";
 import { TenantTable } from "./tenant-table";
 
-export function TenantPage({ locale = defaultLocale }: { locale?: Locale }) {
-  const list = useTenantList(locale);
+export function TenantPage() {
+  const { locale } = useLocale();
+  const list = useTenantList();
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<TenantDto | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<TenantDto | null>(null);
@@ -89,7 +89,7 @@ export function TenantPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {list.hasSearched && list.error ? (
-          <ListErrorBanner message={list.error} locale={locale} onRetry={() => list.reload()} />
+          <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
         {list.hasSearched && list.initialLoad && list.loading ? (
@@ -97,11 +97,7 @@ export function TenantPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {showEmpty ? (
-          <TenantEmptyState
-            variant={emptyVariant}
-            locale={locale}
-            onClearFilters={() => list.setKeyword("")}
-          />
+          <TenantEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
@@ -130,13 +126,7 @@ export function TenantPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
       </div>
 
-      <TenantFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        editing={editing}
-        locale={locale}
-        onSaved={() => list.reload()}
-      />
+      <TenantFormDialog open={formOpen} onOpenChange={setFormOpen} editing={editing} onSaved={() => list.reload()} />
 
       <Dialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
         <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
