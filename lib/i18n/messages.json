@@ -213,8 +213,8 @@
       "vi": "Thiếu hoặc sai tiền tố công ty GS1 (GCP) của tenant so với GTIN sản phẩm; không tạo được URI SGTIN."
     },
     "PIN_008": {
-      "en": "Public web base URL is not configured (App:PublicWebBaseUrl / PUBLIC_WEB_BASE_URL).",
-      "vi": "Chưa cấu hình URL gốc web công khai (App:PublicWebBaseUrl / PUBLIC_WEB_BASE_URL)."
+      "en": "Public web base URL is not configured (set PUBLIC_WEB_BASE_URL in .env / Docker).",
+      "vi": "Chưa cấu hình URL gốc web công khai (đặt PUBLIC_WEB_BASE_URL trong .env / Docker)."
     },
     "PIN_009": {
       "en": "CSV export exceeds the maximum number of rows allowed for one file.",
