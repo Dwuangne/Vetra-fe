@@ -15,9 +15,7 @@ import {
   applyApiValidationErrors,
   validationErrorsFromApiError,
 } from "@/lib/forms/api-error-to-form";
-import { defaultLocale } from "@/lib/i18n";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
@@ -30,16 +28,10 @@ type PartyFormDialogProps = {
   onOpenChange: (open: boolean) => void;
   editing: PartyDto | null;
   onSaved: () => void;
-  locale?: Locale;
 };
 
-export function PartyFormDialog({
-  open,
-  onOpenChange,
-  editing,
-  onSaved,
-  locale = defaultLocale,
-}: PartyFormDialogProps) {
+export function PartyFormDialog({ open, onOpenChange, editing, onSaved }: PartyFormDialogProps) {
+  const { locale } = useLocale();
   const form = usePartyForm();
   const {
     register,

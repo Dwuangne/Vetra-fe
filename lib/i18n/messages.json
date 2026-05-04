@@ -427,6 +427,18 @@
     "logout": {
       "en": "Log out",
       "vi": "Đăng xuất"
+    },
+    "language": {
+      "en": "Language",
+      "vi": "Ngôn ngữ"
+    },
+    "languageEnglish": {
+      "en": "English",
+      "vi": "Tiếng Anh"
+    },
+    "languageVietnamese": {
+      "en": "Vietnamese",
+      "vi": "Tiếng Việt"
     }
   },
   "tenant": {

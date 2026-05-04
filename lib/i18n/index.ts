@@ -7,3 +7,4 @@ export {
   pickLocalized,
 } from "./translate";
 export { resolveApiErrorMessage } from "./resolve-api-error";
+export { LocaleProvider, useLocale } from "./locale-context";

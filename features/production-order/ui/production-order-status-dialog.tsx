@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import type { ProductionOrderStatus } from "@/lib/api/types/production-order";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type StatusDialogFormValues = {
@@ -23,7 +22,6 @@ type StatusDialogFormValues = {
 
 type ProductionOrderStatusDialogProps = {
   open: boolean;
-  locale: Locale;
   currentStatus: ProductionOrderStatus;
   nextStatus: ProductionOrderStatus | null;
   loading?: boolean;
@@ -33,13 +31,13 @@ type ProductionOrderStatusDialogProps = {
 
 export function ProductionOrderStatusDialog({
   open,
-  locale,
   currentStatus,
   nextStatus,
   loading,
   onOpenChange,
   onConfirm,
 }: ProductionOrderStatusDialogProps) {
+  const { locale } = useLocale();
   const needsActualQuantity = nextStatus === "Completed";
   const { register, handleSubmit, reset, formState } = useForm<StatusDialogFormValues>({
     defaultValues: { actualQuantity: 1 },

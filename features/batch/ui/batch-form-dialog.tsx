@@ -21,8 +21,7 @@ import {
   applyApiValidationErrors,
   validationErrorsFromApiError,
 } from "@/lib/forms/api-error-to-form";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
 
@@ -33,15 +32,10 @@ type BatchFormDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSaved: () => void;
-  locale?: Locale;
 };
 
-export function BatchFormDialog({
-  open,
-  onOpenChange,
-  onSaved,
-  locale = defaultLocale,
-}: BatchFormDialogProps) {
+export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialogProps) {
+  const { locale } = useLocale();
   const form = useBatchForm();
   const {
     register,

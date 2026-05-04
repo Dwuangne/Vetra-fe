@@ -3,15 +3,13 @@
 import { AlertCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { defaultLocale } from "@/lib/i18n";
+import { useLocale } from "@/lib/i18n";
 import { translateCommon } from "@/lib/i18n/translate";
-import type { Locale } from "@/lib/i18n/types";
 import { cn } from "@/lib/utils";
 
 type ListErrorBannerProps = {
   /** Already localized end-user description (e.g. from `resolveApiErrorMessage`) */
   message: string;
-  locale?: Locale;
   onRetry?: () => void | Promise<void>;
   title?: string;
   className?: string;
@@ -20,13 +18,8 @@ type ListErrorBannerProps = {
 /**
  * Recoverable API error on list load: destructive accent + retry.
  */
-export function ListErrorBanner({
-  message,
-  locale = defaultLocale,
-  onRetry,
-  title,
-  className,
-}: ListErrorBannerProps) {
+export function ListErrorBanner({ message, onRetry, title, className }: ListErrorBannerProps) {
+  const { locale } = useLocale();
   const heading = title ?? translateCommon("errorGeneric", locale);
 
   return (

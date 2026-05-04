@@ -12,8 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { generateProductInstances } from "@/lib/api/services/product-instance.service";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 
@@ -22,16 +21,10 @@ type GenerateInstancesDialogProps = {
   onOpenChange: (open: boolean) => void;
   batchId: string;
   onGenerated: () => void;
-  locale?: Locale;
 };
 
-export function GenerateInstancesDialog({
-  open,
-  onOpenChange,
-  batchId,
-  onGenerated,
-  locale = defaultLocale,
-}: GenerateInstancesDialogProps) {
+export function GenerateInstancesDialog({ open, onOpenChange, batchId, onGenerated }: GenerateInstancesDialogProps) {
+  const { locale } = useLocale();
   const [quantity, setQuantity] = useState("5");
   const [serialPrefix, setSerialPrefix] = useState("");
   const [submitting, setSubmitting] = useState(false);

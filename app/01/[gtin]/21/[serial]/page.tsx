@@ -20,8 +20,7 @@ async function resolveLocale(): Promise<Locale> {
 
 export default async function PublicGs1DigitalLinkPage({ params }: PageProps) {
   const { gtin, serial } = await params;
-  const locale = await resolveLocale();
-  return <PublicScanPageClient gtin={gtin} serial={serial} locale={locale} />;
+  return <PublicScanPageClient gtin={gtin} serial={serial} />;
 }
 
 export async function generateMetadata({ params }: PageProps) {

@@ -34,8 +34,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/features/auth";
 import { isAdminRole } from "@/lib/auth/roles";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 import { HomeSearchForm } from "./home-search-form";
 
@@ -51,7 +50,7 @@ const productionSubItems: { href: string; icon: typeof Home; label: { en: string
 export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const { user } = useAuth();
-  const locale: Locale = defaultLocale;
+  const { locale } = useLocale();
   const nav = messages.nav;
   const showTenants = isAdminRole(user?.roles ?? []);
 

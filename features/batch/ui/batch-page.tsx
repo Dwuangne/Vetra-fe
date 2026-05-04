@@ -11,8 +11,7 @@ import { listProducts } from "@/lib/api/services/product.service";
 import { listProductionOrders } from "@/lib/api/services/production-order.service";
 import { transitionBatchStatus } from "@/lib/api/services/batch.service";
 import type { BatchStatus } from "@/lib/api/types/batch";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { batchStatusToApiNumber, normalizeBatchStatus } from "@/lib/production/batch-status";
 import { getNextBatchStatuses } from "@/lib/production/status-transitions";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
@@ -26,8 +25,9 @@ import { BatchFormDialog } from "./batch-form-dialog";
 import { BatchStatusDialog } from "./batch-status-dialog";
 import { BatchTable } from "./batch-table";
 
-export function BatchPage({ locale = defaultLocale }: { locale?: Locale }) {
-  const list = useBatchList(locale);
+export function BatchPage() {
+  const { locale } = useLocale();
+  const list = useBatchList();
   const [formOpen, setFormOpen] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
@@ -124,17 +124,13 @@ export function BatchPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {list.hasSearched && list.error ? (
-          <ListErrorBanner message={list.error} locale={locale} onRetry={() => list.reload()} />
+          <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
         {list.hasSearched && list.initialLoad && list.loading ? <ListLoadingSkeleton rows={8} columns={8} /> : null}
 
         {showEmpty ? (
-          <BatchEmptyState
-            variant={emptyVariant}
-            locale={locale}
-            onClearFilters={() => list.setKeyword("")}
-          />
+          <BatchEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
@@ -162,11 +158,10 @@ export function BatchPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
       </div>
 
-      <BatchFormDialog open={formOpen} onOpenChange={setFormOpen} locale={locale} onSaved={() => list.reload()} />
+      <BatchFormDialog open={formOpen} onOpenChange={setFormOpen} onSaved={() => list.reload()} />
 
       <BatchStatusDialog
         open={statusDialogOpen}
-        locale={locale}
         currentStatus={normalizeBatchStatus(transitionTarget?.row.status)}
         nextStatus={transitionTarget?.nextStatus ?? null}
         loading={transitioning}

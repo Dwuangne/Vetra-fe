@@ -3,16 +3,14 @@
 import { Inbox } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { defaultLocale } from "@/lib/i18n";
+import { useLocale } from "@/lib/i18n";
 import { translateCommon } from "@/lib/i18n/translate";
-import type { Locale } from "@/lib/i18n/types";
 import { cn } from "@/lib/utils";
 
 export type ListEmptyVariant = "no-data" | "filtered-empty";
 
 type ListEmptyStateProps = {
   variant: ListEmptyVariant;
-  locale?: Locale;
   className?: string;
   /** Shown for `filtered-empty` when provided */
   onClearFilters?: () => void;
@@ -26,12 +24,12 @@ type ListEmptyStateProps = {
  */
 export function ListEmptyState({
   variant,
-  locale = defaultLocale,
   className,
   onClearFilters,
   localizedTitle,
   localizedDescription,
 }: ListEmptyStateProps) {
+  const { locale } = useLocale();
   const titleKey =
     variant === "filtered-empty" ? "noFilteredResultsTitle" : "noDataTitle";
   const descKey =

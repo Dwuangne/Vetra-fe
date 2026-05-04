@@ -2,16 +2,15 @@
 
 import { ListEmptyState } from "@/components/list/list-empty-state";
 import type { ListEmptyVariant } from "@/components/list/list-empty-state";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 type BatchEmptyStateProps = {
   variant: ListEmptyVariant;
-  locale: Locale;
   onClearFilters?: () => void;
 };
 
-export function BatchEmptyState({ variant, locale, onClearFilters }: BatchEmptyStateProps) {
+export function BatchEmptyState({ variant, onClearFilters }: BatchEmptyStateProps) {
+  const { locale } = useLocale();
   const noData = pickLocalized(messages.batch.empty.noData, locale);
   const filtered = pickLocalized(messages.batch.empty.noFilteredResults, locale);
   const desc =
@@ -22,7 +21,6 @@ export function BatchEmptyState({ variant, locale, onClearFilters }: BatchEmptyS
   return (
     <ListEmptyState
       variant={variant}
-      locale={locale}
       onClearFilters={variant === "filtered-empty" ? onClearFilters : undefined}
       localizedTitle={variant === "filtered-empty" ? filtered : noData}
       localizedDescription={desc}

@@ -16,8 +16,7 @@ import {
 import type { LocationDto } from "@/lib/api/types/location";
 import { deleteLocation } from "@/lib/api/services/location.service";
 import { AppShellLayout } from "@/features/home";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { useEffect, useMemo, useState } from "react";
@@ -28,10 +27,11 @@ import { LocationFilters } from "./location-filters";
 import { LocationFormDialog } from "./location-form-dialog";
 import { LocationTable } from "./location-table";
 
-export function LocationPage({ locale = defaultLocale }: { locale?: Locale }) {
+export function LocationPage() {
+  const { locale } = useLocale();
   const { user } = useAuth();
   const tenantId = user?.tenantId?.trim() || undefined;
-  const list = useLocationList(locale);
+  const list = useLocationList();
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<LocationDto | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<LocationDto | null>(null);
@@ -116,7 +116,7 @@ export function LocationPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {list.hasSearched && list.error ? (
-          <ListErrorBanner message={list.error} locale={locale} onRetry={() => list.reload()} />
+          <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
         {list.hasSearched && list.initialLoad && list.loading ? (
@@ -124,11 +124,7 @@ export function LocationPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
 
         {showEmpty ? (
-          <LocationEmptyState
-            variant={emptyVariant}
-            locale={locale}
-            onClearFilters={() => list.setKeyword("")}
-          />
+          <LocationEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
@@ -158,13 +154,7 @@ export function LocationPage({ locale = defaultLocale }: { locale?: Locale }) {
         ) : null}
       </div>
 
-      <LocationFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        editing={editing}
-        locale={locale}
-        onSaved={() => list.reload()}
-      />
+      <LocationFormDialog open={formOpen} onOpenChange={setFormOpen} editing={editing} onSaved={() => list.reload()} />
 
       <Dialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
         <DialogContent className="sm:max-w-md" aria-describedby={undefined}>

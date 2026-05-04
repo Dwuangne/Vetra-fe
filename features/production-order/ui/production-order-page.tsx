@@ -15,8 +15,7 @@ import {
   productionOrderStatusToApiNumber,
 } from "@/lib/production/production-order-status";
 import { getNextProductionOrderStatuses } from "@/lib/production/status-transitions";
-import { defaultLocale, messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 
@@ -28,8 +27,9 @@ import { ProductionOrderFormDialog } from "./production-order-form-dialog";
 import { ProductionOrderStatusDialog } from "./production-order-status-dialog";
 import { ProductionOrderTable } from "./production-order-table";
 
-export function ProductionOrderPage({ locale = defaultLocale }: { locale?: Locale }) {
-  const list = useProductionOrderList(locale);
+export function ProductionOrderPage() {
+  const { locale } = useLocale();
+  const list = useProductionOrderList();
   const [formOpen, setFormOpen] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
@@ -116,17 +116,13 @@ export function ProductionOrderPage({ locale = defaultLocale }: { locale?: Local
         ) : null}
 
         {list.hasSearched && list.error ? (
-          <ListErrorBanner message={list.error} locale={locale} onRetry={() => list.reload()} />
+          <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
         {list.hasSearched && list.initialLoad && list.loading ? <ListLoadingSkeleton rows={8} columns={8} /> : null}
 
         {showEmpty ? (
-          <ProductionOrderEmptyState
-            variant={emptyVariant}
-            locale={locale}
-            onClearFilters={() => list.setKeyword("")}
-          />
+          <ProductionOrderEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
@@ -153,16 +149,10 @@ export function ProductionOrderPage({ locale = defaultLocale }: { locale?: Local
         ) : null}
       </div>
 
-      <ProductionOrderFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        locale={locale}
-        onSaved={() => list.reload()}
-      />
+      <ProductionOrderFormDialog open={formOpen} onOpenChange={setFormOpen} onSaved={() => list.reload()} />
 
       <ProductionOrderStatusDialog
         open={statusDialogOpen}
-        locale={locale}
         currentStatus={normalizeProductionOrderStatus(transitionTarget?.row.status)}
         nextStatus={transitionTarget?.nextStatus ?? null}
         loading={transitioning}
