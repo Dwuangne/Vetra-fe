@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -58,9 +59,10 @@ export function BatchStatusDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{pickLocalized(messages.batch.actions.transitionStatus, locale)}</DialogTitle>
+          <DialogTitle>{pickLocalized(messages.batch.statusTransitionDialog.title, locale)}</DialogTitle>
+          <DialogDescription>{pickLocalized(messages.batch.statusTransitionDialog.description, locale)}</DialogDescription>
         </DialogHeader>
 
         {nextStatus ? (
@@ -111,7 +113,7 @@ export function BatchStatusDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={loading || !nextStatus}>
-              {pickLocalized(messages.batch.actions.transitionStatus, locale)}
+              {pickLocalized(messages.batch.statusTransitionDialog.confirmButton, locale)}
             </Button>
           </DialogFooter>
         </form>

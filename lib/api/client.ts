@@ -101,7 +101,7 @@ export async function apiRequest<T>(
 
 export function apiPost<T>(
   path: string,
-  body: object,
+  body?: object,
   init?: Omit<JsonRequestInit, "body" | "method">
 ) {
   return apiRequest<T>(path, { ...init, method: "POST", body });

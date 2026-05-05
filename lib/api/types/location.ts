@@ -7,6 +7,7 @@ export type LocationDto = {
   extension: string;
   partyId: string | null;
   name: string;
+  address: string | null;
 };
 
 export type LocationListQuery = PagedListQuery & {
@@ -19,6 +20,7 @@ export type CreateLocationRequest = {
   extension?: string | null;
   partyId?: string | null;
   name: string;
+  address?: string | null;
 };
 
 export type UpdateLocationRequest = {
@@ -26,4 +28,5 @@ export type UpdateLocationRequest = {
   extension?: string | null;
   partyId?: string | null;
   name: string;
+  address?: string | null;
 };

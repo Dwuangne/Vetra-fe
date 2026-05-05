@@ -25,6 +25,11 @@ export function PublicScanNotice({ data, locale }: PublicScanNoticeProps) {
   const { product, batch, factory } = data;
   const body = pickLocalized(noticeRow(data.noticeReason), locale);
   const factoryName = factory?.name?.trim();
+  const factoryAddress = factory?.address?.trim();
+  const partyLine =
+    factory?.party != null
+      ? `${factory.party.name} (${factory.party.gln})`
+      : null;
 
   return (
     <PublicScanShell
@@ -54,6 +59,16 @@ export function PublicScanNotice({ data, locale }: PublicScanNoticeProps) {
           {factoryName ? (
             <p className="mt-2 text-sm text-zinc-600">
               {pickLocalized(messages.publicScan.notice.factoryLabel, locale)}: {factoryName}
+            </p>
+          ) : null}
+          {factoryAddress ? (
+            <p className="mt-2 text-sm text-zinc-600">
+              {pickLocalized(messages.publicScan.active.factoryAddressLabel, locale)}: {factoryAddress}
+            </p>
+          ) : null}
+          {partyLine ? (
+            <p className="mt-2 text-sm text-zinc-600">
+              {pickLocalized(messages.publicScan.active.partyLabel, locale)}: {partyLine}
             </p>
           ) : null}
         </section>

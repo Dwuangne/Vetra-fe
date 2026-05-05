@@ -10,11 +10,9 @@ export type ProductInstanceDto = {
   epcUri: string;
 };
 
+/** POST body for `/generate/{batchId}` — count and serials are determined on the server. */
+export type GenerateProductInstancesRequest = Record<string, never>;
+
 export type ProductInstanceListQuery = PagedListQuery & {
   batchId?: string;
-};
-
-export type GenerateProductInstancesRequest = {
-  quantity: number;
-  serialPrefix?: string | null;
 };

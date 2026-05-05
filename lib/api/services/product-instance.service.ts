@@ -8,6 +8,8 @@ import type {
   ProductInstanceListQuery,
 } from "../types/product-instance";
 
+const generateProductInstancesBody = {} satisfies GenerateProductInstancesRequest;
+
 function toSearchParams(query?: ProductInstanceListQuery): string {
   if (!query) return "";
 
@@ -28,11 +30,11 @@ export function listProductInstances(
   );
 }
 
-export function generateProductInstances(
-  batchId: string,
-  body: GenerateProductInstancesRequest
-): Promise<ApiResponse<ProductInstanceDto[]>> {
-  return apiPost<ProductInstanceDto[]>(`${API_ENDPOINTS.productInstances}/generate/${batchId}`, body);
+export function generateProductInstances(batchId: string): Promise<ApiResponse<ProductInstanceDto[]>> {
+  return apiPost<ProductInstanceDto[]>(
+    `${API_ENDPOINTS.productInstances}/generate/${batchId}`,
+    generateProductInstancesBody
+  );
 }
 
 export function downloadProductInstanceUrlsCsv(batchId: string) {

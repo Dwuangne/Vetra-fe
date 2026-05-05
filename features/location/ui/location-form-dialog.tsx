@@ -60,8 +60,9 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
             extension: editing.extension ?? "",
             partyId: editing.partyId ?? "",
             name: editing.name,
+            address: editing.address ?? "",
           }
-        : { gln: "", extension: "", partyId: "", name: "" }
+        : { gln: "", extension: "", partyId: "", name: "", address: "" }
     );
     clearErrors();
 
@@ -98,11 +99,13 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
         ? values.partyId.trim()
         : null;
     const extRaw = values.extension?.trim();
+    const addrRaw = values.address?.trim();
     const payload = {
       gln: values.gln,
       extension: extRaw?.length ? extRaw : null,
       partyId,
       name: values.name,
+      address: addrRaw?.length ? addrRaw : null,
     };
 
     try {
@@ -163,6 +166,24 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
             />
             {errors.name?.message ? (
               <p className="text-sm text-destructive">{String(errors.name.message)}</p>
+            ) : null}
+          </div>
+          <div className="grid gap-2">
+            <label htmlFor="location-address" className="text-sm font-medium">
+              {pickLocalized(f.address, locale)}
+            </label>
+            <textarea
+              id="location-address"
+              {...register("address")}
+              rows={3}
+              className={cn(
+                "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                errors.address && "border-destructive"
+              )}
+              autoComplete="street-address"
+            />
+            {errors.address?.message ? (
+              <p className="text-sm text-destructive">{String(errors.address.message)}</p>
             ) : null}
           </div>
           <div className="grid gap-2">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +10,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { generateProductInstances } from "@/lib/api/services/product-instance.service";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
@@ -25,30 +24,14 @@ type GenerateInstancesDialogProps = {
 
 export function GenerateInstancesDialog({ open, onOpenChange, batchId, onGenerated }: GenerateInstancesDialogProps) {
   const { locale } = useLocale();
-  const [quantity, setQuantity] = useState("5");
-  const [serialPrefix, setSerialPrefix] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (!open) return;
-    setQuantity("5");
-    setSerialPrefix("");
-  }, [open]);
-
-  const f = messages.productInstance.fields;
   const title = pickLocalized(messages.productInstance.generateDialog.title, locale);
 
   const submit = async () => {
-    const n = Number.parseInt(quantity, 10);
-    if (!Number.isFinite(n) || n < 1 || n > 10_000) {
-      return;
-    }
     setSubmitting(true);
     try {
-      await generateProductInstances(batchId, {
-        quantity: n,
-        serialPrefix: serialPrefix.trim() ? serialPrefix.trim() : null,
-      });
+      await generateProductInstances(batchId);
       toastMutationSuccess(locale);
       onOpenChange(false);
       onGenerated();
@@ -66,33 +49,9 @@ export function GenerateInstancesDialog({ open, onOpenChange, batchId, onGenerat
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-2">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="gen-qty" className="text-sm font-medium leading-none">
-              {pickLocalized(f.quantity, locale)}
-            </label>
-            <Input
-              id="gen-qty"
-              type="number"
-              min={1}
-              max={10_000}
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              disabled={submitting}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="gen-prefix" className="text-sm font-medium leading-none">
-              {pickLocalized(f.serialPrefix, locale)}
-            </label>
-            <Input
-              id="gen-prefix"
-              value={serialPrefix}
-              onChange={(e) => setSerialPrefix(e.target.value)}
-              disabled={submitting}
-              placeholder="—"
-              autoComplete="off"
-            />
-          </div>
+          <p className="text-sm text-muted-foreground">
+            {pickLocalized(messages.productInstance.generateDialog.batchScopeHint, locale)}
+          </p>
         </div>
         <DialogFooter>
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
