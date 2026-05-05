@@ -22,7 +22,7 @@ function noticeRow(reason: PublicScanResultDto["noticeReason"]) {
 }
 
 export function PublicScanNotice({ data, locale }: PublicScanNoticeProps) {
-  const { product, batch, factory } = data;
+  const { product, batch, factory, certificates } = data;
   const body = pickLocalized(noticeRow(data.noticeReason), locale);
   const factoryName = factory?.name?.trim();
   const factoryAddress = factory?.address?.trim();
@@ -72,6 +72,34 @@ export function PublicScanNotice({ data, locale }: PublicScanNoticeProps) {
             </p>
           ) : null}
         </section>
+
+        {certificates.length > 0 ? (
+          <section className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
+            <h2 className="text-lg font-semibold text-zinc-900">
+              {pickLocalized(messages.publicScan.active.certificatesSection, locale)}
+            </h2>
+            <div className="mt-3 space-y-2">
+              {certificates.map((certificate) => (
+                <div
+                  key={`${certificate.name}-${certificate.url ?? ""}`}
+                  className="flex items-center justify-between rounded-lg border border-amber-200 bg-amber-50 px-3 py-2"
+                >
+                  <p className="text-sm font-semibold text-amber-900">{certificate.name}</p>
+                  {certificate.url ? (
+                    <a
+                      href={certificate.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-amber-800 underline"
+                    >
+                      {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
+                    </a>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {product.images[0] ? (
           <section className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-md">

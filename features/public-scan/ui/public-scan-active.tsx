@@ -138,12 +138,12 @@ export function PublicScanActive({ data, locale }: PublicScanActiveProps) {
               <p className="font-medium text-emerald-700">{formatDateOnly(batch.manufactureDate, locale)}</p>
             </div>
             <div>
-              <p className="text-zinc-500">{pickLocalized(messages.publicScan.active.expiryDate, locale)}</p>
-              <p className="font-medium text-rose-700">{formatDateOnly(batch.expiryDate, locale)}</p>
-            </div>
-            <div>
               <p className="text-zinc-500">{pickLocalized(messages.batch.fields.status, locale)}</p>
               <p className="font-medium">{batchStatusLabel(batchStatus, locale)}</p>
+            </div>
+            <div>
+              <p className="text-zinc-500">{pickLocalized(messages.publicScan.active.expiryDate, locale)}</p>
+              <p className="font-medium text-rose-700">{formatDateOnly(batch.expiryDate, locale)}</p>
             </div>
           </div>
           {productionOrder ? (

@@ -80,6 +80,26 @@
       "en": "Party was not found in this tenant.",
       "vi": "Không tìm thấy đối tác trong tenant này."
     },
+    "CER_001": {
+      "en": "Certificate was not found.",
+      "vi": "Không tìm thấy chứng nhận."
+    },
+    "CER_002": {
+      "en": "A certificate with this name already exists for this product in this tenant.",
+      "vi": "Đã tồn tại chứng nhận với tên này cho sản phẩm trong tenant."
+    },
+    "CER_003": {
+      "en": "Product was not found in this tenant.",
+      "vi": "Không tìm thấy sản phẩm trong tenant này."
+    },
+    "CER_004": {
+      "en": "Location was not found in this tenant.",
+      "vi": "Không tìm thấy địa điểm trong tenant này."
+    },
+    "CER_005": {
+      "en": "At least one scope is required: product or location.",
+      "vi": "Cần chọn ít nhất một phạm vi: sản phẩm hoặc địa điểm."
+    },
     "PRD_001": {
       "en": "Product was not found.",
       "vi": "Không tìm thấy sản phẩm."
@@ -632,6 +652,76 @@
       "address": {
         "en": "Address",
         "vi": "Địa chỉ"
+      }
+    }
+  },
+  "certificate": {
+    "title": {
+      "en": "Certificates",
+      "vi": "Chứng nhận"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      },
+      "retry": {
+        "en": "Retry",
+        "vi": "Thử lại"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "productId": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "locationId": {
+        "en": "Location",
+        "vi": "Địa điểm"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No certificate records yet.",
+        "vi": "Chưa có dữ liệu chứng nhận."
+      },
+      "noFilteredResults": {
+        "en": "No matching certificate results.",
+        "vi": "Không có kết quả chứng nhận phù hợp."
+      }
+    },
+    "fields": {
+      "productId": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "locationId": {
+        "en": "Location",
+        "vi": "Địa điểm"
+      },
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "url": {
+        "en": "URL",
+        "vi": "URL"
       }
     }
   },
