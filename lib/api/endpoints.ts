@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   parties: "/api/parties",
   locations: "/api/locations",
   products: "/api/products",
+  certificates: "/api/certificates",
   productionOrders: "/api/production-orders",
   batches: "/api/batches",
   productInstances: "/api/product-instances",

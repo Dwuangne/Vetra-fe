@@ -4,6 +4,7 @@ import type * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  Award,
   Building2,
   ChevronRight,
   ClipboardList,
@@ -43,7 +44,6 @@ const orgItems: { href: string; icon: typeof Home }[] = [{ href: "/tenants", ico
 const productionSubItems: { href: string; icon: typeof Home; label: { en: string; vi: string } }[] = [
   { href: "/production-orders", icon: ClipboardList, label: messages.productionOrder.title },
   { href: "/batches", icon: Package, label: messages.batch.title },
-  { href: "/products", icon: Tag, label: messages.product.title },
   { href: "/product-instances", icon: Layers, label: messages.productInstance.title },
 ];
 
@@ -54,18 +54,21 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
   const nav = messages.nav;
   const showTenants = isAdminRole(user?.roles ?? []);
 
-  const isEcosystemActive = pathname.startsWith("/parties") || pathname.startsWith("/locations");
-  const isProductionActive =
-    pathname.startsWith("/production") ||
-    pathname.startsWith("/batch") ||
-    pathname.startsWith("/batches") ||
-    pathname.startsWith("/product") ||
+  const isEcosystemActive =
+    pathname.startsWith("/parties") ||
+    pathname.startsWith("/locations") ||
     pathname.startsWith("/products") ||
+    pathname.startsWith("/certificates");
+  const isProductionActive =
+    pathname.startsWith("/production-orders") ||
+    pathname.startsWith("/batches") ||
     pathname.startsWith("/product-instances");
 
   const ecosystemSubItems: { href: string; icon: typeof Home; label: string }[] = [
     { href: "/parties", icon: Users, label: pickLocalized(messages.party.title, locale) },
     { href: "/locations", icon: MapPin, label: pickLocalized(messages.location.title, locale) },
+    { href: "/products", icon: Tag, label: pickLocalized(messages.product.title, locale) },
+    { href: "/certificates", icon: Award, label: pickLocalized(messages.certificate.title, locale) },
   ];
 
   return (

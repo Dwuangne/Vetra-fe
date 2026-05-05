@@ -34,6 +34,12 @@ export type {
   CreateProductRequest,
   UpdateProductRequest,
 } from "./types/product";
+export type {
+  CertificateDto,
+  CertificateListQuery,
+  CreateCertificateRequest,
+  UpdateCertificateRequest,
+} from "./types/certificate";
 export { login, type LoginResult } from "./services/auth.service";
 export {
   listTenants,
@@ -63,3 +69,10 @@ export {
   updateProduct,
   deleteProduct,
 } from "./services/product.service";
+export {
+  listCertificates,
+  getCertificateById,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
+} from "./services/certificate.service";
