@@ -26,9 +26,15 @@ export type PublicScanProductionOrderDto = {
   endDate: string | null;
 };
 
+export type PublicScanPartyDto = {
+  name: string;
+  gln: string;
+};
+
 export type PublicScanFactoryDto = {
   name: string;
   address: string | null;
+  party: PublicScanPartyDto | null;
 };
 
 export type PublicScanCertificateDto = {

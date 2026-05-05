@@ -29,6 +29,7 @@ export function LocationTable({
   const name = pickLocalized(f.name, locale);
   const gln = pickLocalized(f.gln, locale);
   const extension = pickLocalized(f.extension, locale);
+  const address = pickLocalized(f.address, locale);
   const party = pickLocalized(f.partyId, locale);
   const actions = messages.location.actions;
 
@@ -40,6 +41,7 @@ export function LocationTable({
             <th className="p-3 text-left font-medium">{gln}</th>
             <th className="p-3 text-left font-medium">{extension}</th>
             <th className="p-3 text-left font-medium">{name}</th>
+            <th className="p-3 text-left font-medium">{address}</th>
             <th className="p-3 text-left font-medium">{party}</th>
             <th className="w-36 p-3 text-right font-medium">
               <span className="sr-only">{pickLocalized(actions.update, locale)}</span>
@@ -52,6 +54,9 @@ export function LocationTable({
               <td className="max-w-[10rem] truncate p-3 font-mono text-xs">{row.gln}</td>
               <td className="max-w-[6rem] truncate p-3 font-mono text-xs">{row.extension}</td>
               <td className="max-w-[12rem] truncate p-3">{row.name}</td>
+              <td className="max-w-[14rem] truncate p-3 text-muted-foreground" title={row.address ?? undefined}>
+                {row.address?.trim() ? row.address : "—"}
+              </td>
               <td className="max-w-[10rem] truncate p-3 text-muted-foreground">
                 {row.partyId ? (partyNameById?.[row.partyId] ?? row.partyId) : "—"}
               </td>

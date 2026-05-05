@@ -168,7 +168,25 @@ export function PublicScanActive({ data, locale }: PublicScanActiveProps) {
             </h2>
             <div className="mt-3 text-sm">
               <p className="font-semibold">{factory.name}</p>
-              {factory.address ? <p className="text-zinc-600">{factory.address}</p> : null}
+              {factory.address ? (
+                <div className="mt-2">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    {pickLocalized(messages.publicScan.active.factoryAddressLabel, locale)}
+                  </p>
+                  <p className="text-zinc-700">{factory.address}</p>
+                </div>
+              ) : null}
+              {factory.party ? (
+                <div className="mt-4 border-t border-zinc-100 pt-3">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    {pickLocalized(messages.publicScan.active.partyLabel, locale)}
+                  </p>
+                  <p className="mt-1 font-medium text-zinc-800">{factory.party.name}</p>
+                  <p className="mt-0.5 font-mono text-xs text-zinc-600">
+                    {pickLocalized(messages.publicScan.active.partyGlnLabel, locale)}: {factory.party.gln}
+                  </p>
+                </div>
+              ) : null}
             </div>
           </section>
         ) : null}

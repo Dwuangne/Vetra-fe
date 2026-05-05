@@ -4,6 +4,7 @@ export type {
   PublicScanCertificateDto,
   PublicScanFactoryDto,
   PublicScanNoticeReason,
+  PublicScanPartyDto,
   PublicScanProductDto,
   PublicScanProductionOrderDto,
   PublicScanResultDto,

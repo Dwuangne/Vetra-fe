@@ -193,8 +193,8 @@
       "vi": "Chỉ có thể sinh product instance cho batch đã phát hành."
     },
     "PIN_003": {
-      "en": "Requested generation quantity must be at least 1.",
-      "vi": "Số lượng cần sinh phải lớn hơn hoặc bằng 1."
+      "en": "Released or planned quantity is invalid for generating instances.",
+      "vi": "Số lượng phát hành hoặc kế hoạch không hợp lệ để sinh instance."
     },
     "PIN_004": {
       "en": "Product not found for this batch.",
@@ -213,12 +213,20 @@
       "vi": "Thiếu hoặc sai tiền tố công ty GS1 (GCP) của tenant so với GTIN sản phẩm; không tạo được URI SGTIN."
     },
     "PIN_008": {
-      "en": "Public web base URL is not configured (set PUBLIC_WEB_BASE_URL in .env / Docker).",
-      "vi": "Chưa cấu hình URL gốc web công khai (đặt PUBLIC_WEB_BASE_URL trong .env / Docker)."
+      "en": "Public web base URL is not configured.",
+      "vi": "Chưa cấu hình URL gốc web công khai."
     },
     "PIN_009": {
       "en": "CSV export exceeds the maximum number of rows allowed for one file.",
       "vi": "Xuất CSV vượt quá số dòng tối đa cho một file."
+    },
+    "PIN_010": {
+      "en": "This batch already has product instances; generation can only run once per batch.",
+      "vi": "Batch này đã có product instance; chỉ được sinh một lần cho mỗi batch."
+    },
+    "PIN_011": {
+      "en": "Product instance generation exceeds the maximum allowed per batch (1,000,000).",
+      "vi": "Số instance sinh trong một batch vượt quá giới hạn tối đa (1.000.000)."
     },
     "PUB_001": {
       "en": "This QR is not available or has not been published.",
@@ -620,6 +628,10 @@
       "partyId": {
         "en": "Party",
         "vi": "Đối tác"
+      },
+      "address": {
+        "en": "Address",
+        "vi": "Địa chỉ"
       }
     }
   },
@@ -714,6 +726,20 @@
       "viewBatches": {
         "en": "View batches for this order",
         "vi": "Xem batch của lệnh này"
+      }
+    },
+    "statusTransitionDialog": {
+      "title": {
+        "en": "Confirm production order status",
+        "vi": "Xác nhận đổi trạng thái lệnh sản xuất"
+      },
+      "description": {
+        "en": "Review the transition below. The API is called only after you click Confirm—you can cancel before that.",
+        "vi": "Xem lại chuyển trạng thái bên dưới. API chỉ được gọi khi bạn nhấn Xác nhận; trước đó có thể hủy."
+      },
+      "confirmButton": {
+        "en": "Confirm",
+        "vi": "Xác nhận"
       }
     },
     "filters": {
@@ -818,6 +844,20 @@
       "viewInstances": {
         "en": "View instances",
         "vi": "Xem thể hiện"
+      }
+    },
+    "statusTransitionDialog": {
+      "title": {
+        "en": "Confirm batch status",
+        "vi": "Xác nhận đổi trạng thái batch"
+      },
+      "description": {
+        "en": "Review the transition below. The API is called only after you click Confirm—you can cancel before that.",
+        "vi": "Xem lại chuyển trạng thái bên dưới. API chỉ được gọi khi bạn nhấn Xác nhận; trước đó có thể hủy."
+      },
+      "confirmButton": {
+        "en": "Confirm",
+        "vi": "Xác nhận"
       }
     },
     "filters": {
@@ -955,6 +995,18 @@
         "en": "Manufacturing site",
         "vi": "Nhà máy sản xuất"
       },
+      "factoryAddressLabel": {
+        "en": "Address",
+        "vi": "Địa chỉ"
+      },
+      "partyLabel": {
+        "en": "Party",
+        "vi": "Đối tác"
+      },
+      "partyGlnLabel": {
+        "en": "GLN",
+        "vi": "GLN"
+      },
       "certificatesSection": {
         "en": "Quality certificates",
         "vi": "Chứng nhận chất lượng"
@@ -1074,8 +1126,12 @@
     },
     "generateDialog": {
       "title": {
-        "en": "Generate instances",
-        "vi": "Sinh thể hiện"
+        "en": "Generate instances (once per batch)",
+        "vi": "Sinh thể hiện (một lần cho mỗi batch)"
+      },
+      "batchScopeHint": {
+        "en": "You can generate only once per batch. The server creates one instance per unit of released quantity, or planned quantity if released quantity is not set. Serial numbers are assigned automatically—you cannot enter quantity or a serial prefix.",
+        "vi": "Mỗi batch chỉ được sinh một lần. Máy chủ tạo đủ số thể hiện theo số lượng đã phát hành (released), hoặc theo số kế hoạch (planned) nếu chưa có released. Serial được gán tự động; không thể nhập số lượng hay tiền tố serial."
       }
     },
     "actions": {

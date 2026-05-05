@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -58,9 +59,12 @@ export function ProductionOrderStatusDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{pickLocalized(messages.productionOrder.actions.transitionStatus, locale)}</DialogTitle>
+          <DialogTitle>{pickLocalized(messages.productionOrder.statusTransitionDialog.title, locale)}</DialogTitle>
+          <DialogDescription>
+            {pickLocalized(messages.productionOrder.statusTransitionDialog.description, locale)}
+          </DialogDescription>
         </DialogHeader>
 
         {nextStatus ? (
@@ -101,7 +105,7 @@ export function ProductionOrderStatusDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={loading || !nextStatus}>
-              {pickLocalized(messages.productionOrder.actions.transitionStatus, locale)}
+              {pickLocalized(messages.productionOrder.statusTransitionDialog.confirmButton, locale)}
             </Button>
           </DialogFooter>
         </form>

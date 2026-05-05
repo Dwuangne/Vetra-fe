@@ -9,6 +9,7 @@ const locationFieldsSchema = z.object({
   extension: z.string().optional(),
   partyId: z.string().optional(),
   name: z.string().min(1, "Name is required"),
+  address: z.string().max(500).optional(),
 });
 
 export type LocationFormValues = z.infer<typeof locationFieldsSchema>;
@@ -21,6 +22,7 @@ export function useLocationForm(defaults?: Partial<LocationFormValues>) {
       extension: defaults?.extension ?? "",
       partyId: defaults?.partyId ?? "",
       name: defaults?.name ?? "",
+      address: defaults?.address ?? "",
     },
     mode: "onSubmit",
     reValidateMode: "onChange",
