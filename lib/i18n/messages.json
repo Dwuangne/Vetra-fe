@@ -16,6 +16,10 @@
       "en": "This account has been locked.",
       "vi": "Tài khoản này đã bị khóa."
     },
+    "AUTH_005": {
+      "en": "You do not have permission to perform this action.",
+      "vi": "Bạn không có quyền thực hiện thao tác này."
+    },
     "USER_001": {
       "en": "User was not found.",
       "vi": "Không tìm thấy người dùng."
@@ -467,6 +471,18 @@
     "languageVietnamese": {
       "en": "Vietnamese",
       "vi": "Tiếng Việt"
+    }
+  },
+  "auth": {
+    "forbidden": {
+      "title": {
+        "en": "Access denied",
+        "vi": "Không có quyền truy cập"
+      },
+      "message": {
+        "en": "Your account does not have permission to perform this action.",
+        "vi": "Tài khoản của bạn không có quyền thực hiện thao tác này."
+      }
     }
   },
   "tenant": {

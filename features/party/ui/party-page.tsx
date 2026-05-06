@@ -14,6 +14,7 @@ import {
 import type { PartyDto } from "@/lib/api/types/party";
 import { deleteParty } from "@/lib/api/services/party.service";
 import { AppShellLayout } from "@/features/home";
+import { useAuth } from "@/features/auth";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
@@ -24,9 +25,11 @@ import { PartyEmptyState } from "./empty-state";
 import { PartyFilters } from "./party-filters";
 import { PartyFormDialog } from "./party-form-dialog";
 import { PartyTable } from "./party-table";
+import { canApproveProduction } from "@/lib/auth/roles";
 
 export function PartyPage() {
   const { locale } = useLocale();
+  const { user } = useAuth();
   const list = usePartyList();
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<PartyDto | null>(null);
@@ -43,6 +46,7 @@ export function PartyPage() {
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
+  const canMutate = canApproveProduction(user?.roles);
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -80,9 +84,11 @@ export function PartyPage() {
             disabled={filterDisabled}
             locale={locale}
           />
-          <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={openCreate} disabled={filterDisabled}>
-            {pickLocalized(messages.party.actions.create, locale)}
-          </Button>
+          {canMutate ? (
+            <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={openCreate} disabled={filterDisabled}>
+              {pickLocalized(messages.party.actions.create, locale)}
+            </Button>
+          ) : null}
         </div>
 
         {!list.hasSearched ? (
@@ -109,8 +115,8 @@ export function PartyPage() {
             locale={locale}
             loading={list.loading}
             disabled={list.loading}
-            onEdit={openEdit}
-            onDelete={(row) => setDeleteTarget(row)}
+            onEdit={canMutate ? openEdit : undefined}
+            onDelete={canMutate ? (row) => setDeleteTarget(row) : undefined}
           />
         ) : null}
 

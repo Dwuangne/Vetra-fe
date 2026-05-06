@@ -7,6 +7,8 @@ import { ListLoadingSkeleton } from "@/components/list/list-loading-skeleton";
 import { ListPagination } from "@/components/list/list-pagination";
 import { Button } from "@/components/ui/button";
 import { AppShellLayout } from "@/features/home";
+import { useAuth } from "@/features/auth";
+import { canApproveProduction } from "@/lib/auth/roles";
 import { listProducts } from "@/lib/api/services/product.service";
 import { transitionProductionOrderStatus } from "@/lib/api/services/production-order.service";
 import type { ProductionOrderStatus } from "@/lib/api/types/production-order";
@@ -29,6 +31,7 @@ import { ProductionOrderTable } from "./production-order-table";
 
 export function ProductionOrderPage() {
   const { locale } = useLocale();
+  const { user } = useAuth();
   const list = useProductionOrderList();
   const [formOpen, setFormOpen] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
@@ -47,6 +50,7 @@ export function ProductionOrderPage() {
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
+  const canTransition = canApproveProduction(user?.roles);
 
   useEffect(() => {
     let cancelled = false;
@@ -99,14 +103,16 @@ export function ProductionOrderPage() {
             disabled={filterDisabled}
             locale={locale}
           />
-          <Button
-            type="button"
-            className={BRAND_PRIMARY_BUTTON_CLASS}
-            onClick={() => setFormOpen(true)}
-            disabled={filterDisabled}
-          >
-            {pickLocalized(messages.productionOrder.actions.create, locale)}
-          </Button>
+          {canTransition ? (
+            <Button
+              type="button"
+              className={BRAND_PRIMARY_BUTTON_CLASS}
+              onClick={() => setFormOpen(true)}
+              disabled={filterDisabled}
+            >
+              {pickLocalized(messages.productionOrder.actions.create, locale)}
+            </Button>
+          ) : null}
         </div>
 
         {!list.hasSearched ? (
@@ -133,7 +139,7 @@ export function ProductionOrderPage() {
             loading={list.loading}
             disabled={list.loading}
             resolveNextStatuses={getNextProductionOrderStatuses}
-            onTransition={onTransitionSelected}
+            onTransition={canTransition ? onTransitionSelected : undefined}
           />
         ) : null}
 
@@ -151,17 +157,19 @@ export function ProductionOrderPage() {
 
       <ProductionOrderFormDialog open={formOpen} onOpenChange={setFormOpen} onSaved={() => list.reload()} />
 
-      <ProductionOrderStatusDialog
-        open={statusDialogOpen}
-        currentStatus={normalizeProductionOrderStatus(transitionTarget?.row.status)}
-        nextStatus={transitionTarget?.nextStatus ?? null}
-        loading={transitioning}
-        onOpenChange={(open) => {
-          setStatusDialogOpen(open);
-          if (!open) setTransitionTarget(null);
-        }}
-        onConfirm={confirmTransition}
-      />
+      {canTransition ? (
+        <ProductionOrderStatusDialog
+          open={statusDialogOpen}
+          currentStatus={normalizeProductionOrderStatus(transitionTarget?.row.status)}
+          nextStatus={transitionTarget?.nextStatus ?? null}
+          loading={transitioning}
+          onOpenChange={(open) => {
+            setStatusDialogOpen(open);
+            if (!open) setTransitionTarget(null);
+          }}
+          onConfirm={confirmTransition}
+        />
+      ) : null}
     </AppShellLayout>
   );
 }

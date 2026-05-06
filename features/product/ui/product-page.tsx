@@ -14,6 +14,8 @@ import {
 import type { ProductDto } from "@/lib/api/types/product";
 import { deleteProduct } from "@/lib/api/services/product.service";
 import { AppShellLayout } from "@/features/home";
+import { useAuth } from "@/features/auth";
+import { canApproveProduction } from "@/lib/auth/roles";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
@@ -27,6 +29,7 @@ import { ProductTable } from "./product-table";
 
 export function ProductPage() {
   const { locale } = useLocale();
+  const { user } = useAuth();
   const list = useProductList();
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<ProductDto | null>(null);
@@ -42,6 +45,7 @@ export function ProductPage() {
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
+  const canMutate = canApproveProduction(user?.roles);
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -69,17 +73,19 @@ export function ProductPage() {
             disabled={filterDisabled}
             locale={locale}
           />
-          <Button
-            type="button"
-            className={BRAND_PRIMARY_BUTTON_CLASS}
-            onClick={() => {
-              setEditing(null);
-              setFormOpen(true);
-            }}
-            disabled={filterDisabled}
-          >
-            {pickLocalized(messages.product.actions.create, locale)}
-          </Button>
+          {canMutate ? (
+            <Button
+              type="button"
+              className={BRAND_PRIMARY_BUTTON_CLASS}
+              onClick={() => {
+                setEditing(null);
+                setFormOpen(true);
+              }}
+              disabled={filterDisabled}
+            >
+              {pickLocalized(messages.product.actions.create, locale)}
+            </Button>
+          ) : null}
         </div>
 
         {!list.hasSearched ? (
@@ -106,11 +112,15 @@ export function ProductPage() {
             locale={locale}
             loading={list.loading}
             disabled={list.loading}
-            onEdit={(row) => {
-              setEditing(row);
-              setFormOpen(true);
-            }}
-            onDelete={(row) => setDeleteTarget(row)}
+            onEdit={
+              canMutate
+                ? (row) => {
+                    setEditing(row);
+                    setFormOpen(true);
+                  }
+                : undefined
+            }
+            onDelete={canMutate ? (row) => setDeleteTarget(row) : undefined}
           />
         ) : null}
 

@@ -5,5 +5,6 @@ export { LoginFormPanel } from "./ui/login-form-panel";
 export { useLoginForm, type LoginFeedback } from "./hooks/use-login-form";
 export { AuthProvider, useAuth } from "./hooks/use-auth";
 export { RequireAuth } from "./ui/require-auth";
+export { RequireRole } from "./ui/require-role";
 export { RequireAdmin } from "./ui/require-admin";
 export { RedirectIfAdminFromHome } from "./ui/redirect-if-admin-from-home";
