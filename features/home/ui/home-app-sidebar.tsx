@@ -34,7 +34,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/features/auth";
-import { isAdminRole } from "@/lib/auth/roles";
+import { hasTenantRole, isAdminRole } from "@/lib/auth/roles";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 import { HomeSearchForm } from "./home-search-form";
@@ -52,7 +52,9 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
   const { user } = useAuth();
   const { locale } = useLocale();
   const nav = messages.nav;
-  const showTenants = isAdminRole(user?.roles ?? []);
+  const roles = user?.roles ?? [];
+  const showTenants = isAdminRole(roles);
+  const showTenantNavigation = hasTenantRole(roles);
 
   const isEcosystemActive =
     pathname.startsWith("/parties") ||
@@ -102,68 +104,72 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-              <Collapsible
-                className="group/collapsible w-full"
-                defaultOpen={isEcosystemActive}
-              >
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton isActive={isEcosystemActive}>
-                    <Network className="h-4 w-4" />
-                    <span>{pickLocalized(nav.ecosystem, locale)}</span>
-                    <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {ecosystemSubItems.map((subItem) => {
-                      const isSubActive = pathname === subItem.href || pathname.startsWith(subItem.href);
-                      return (
-                        <SidebarMenuSubItem key={subItem.href}>
-                          <SidebarMenuSubButton asChild isActive={isSubActive}>
-                            <Link href={subItem.href}>
-                              <subItem.icon className="h-4 w-4" />
-                              <span>{subItem.label}</span>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      );
-                    })}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </Collapsible>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <Collapsible
-                className="group/collapsible w-full"
-                defaultOpen={isProductionActive}
-              >
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton isActive={isProductionActive}>
-                    <Factory className="h-4 w-4" />
-                    <span>{pickLocalized(nav.production, locale)}</span>
-                    <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {productionSubItems.map((subItem) => {
-                      const isSubActive = pathname === subItem.href || pathname.startsWith(subItem.href);
-                      return (
-                        <SidebarMenuSubItem key={subItem.href}>
-                          <SidebarMenuSubButton asChild isActive={isSubActive}>
-                            <Link href={subItem.href}>
-                              <subItem.icon className="h-4 w-4" />
-                              <span>{pickLocalized(subItem.label, locale)}</span>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      );
-                    })}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </Collapsible>
-            </SidebarMenuItem>
+            {showTenantNavigation ? (
+              <SidebarMenuItem>
+                <Collapsible
+                  className="group/collapsible w-full"
+                  defaultOpen={isEcosystemActive}
+                >
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton isActive={isEcosystemActive}>
+                      <Network className="h-4 w-4" />
+                      <span>{pickLocalized(nav.ecosystem, locale)}</span>
+                      <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {ecosystemSubItems.map((subItem) => {
+                        const isSubActive = pathname === subItem.href || pathname.startsWith(subItem.href);
+                        return (
+                          <SidebarMenuSubItem key={subItem.href}>
+                            <SidebarMenuSubButton asChild isActive={isSubActive}>
+                              <Link href={subItem.href}>
+                                <subItem.icon className="h-4 w-4" />
+                                <span>{subItem.label}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        );
+                      })}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarMenuItem>
+            ) : null}
+            {showTenantNavigation ? (
+              <SidebarMenuItem>
+                <Collapsible
+                  className="group/collapsible w-full"
+                  defaultOpen={isProductionActive}
+                >
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton isActive={isProductionActive}>
+                      <Factory className="h-4 w-4" />
+                      <span>{pickLocalized(nav.production, locale)}</span>
+                      <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {productionSubItems.map((subItem) => {
+                        const isSubActive = pathname === subItem.href || pathname.startsWith(subItem.href);
+                        return (
+                          <SidebarMenuSubItem key={subItem.href}>
+                            <SidebarMenuSubButton asChild isActive={isSubActive}>
+                              <Link href={subItem.href}>
+                                <subItem.icon className="h-4 w-4" />
+                                <span>{pickLocalized(subItem.label, locale)}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        );
+                      })}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarMenuItem>
+            ) : null}
             {showTenants
               ? orgItems.map((item) => {
                   const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));

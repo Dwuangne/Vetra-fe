@@ -20,7 +20,7 @@ type BatchTableProps = {
   loading?: boolean;
   disabled?: boolean;
   resolveNextStatuses: (status: BatchStatus) => BatchStatus[];
-  onTransition: (row: BatchListRowVm, nextStatus: BatchStatus) => void;
+  onTransition?: (row: BatchListRowVm, nextStatus: BatchStatus) => void;
 };
 
 function formatNumber(value: number | null): string {
@@ -96,14 +96,16 @@ export function BatchTable({
                         {pickLocalized(actions.viewInstances, locale)}
                       </Link>
                     </Button>
-                    <StatusTransitionMenu
-                      currentStatus={currentStatus}
-                      nextStatuses={nextStatuses}
-                      onTransition={(nextStatus) => onTransition(row, nextStatus)}
-                      disabled={disabled}
-                      labelResolver={statusLabel}
-                      triggerText={pickLocalized(actions.transitionStatus, locale)}
-                    />
+                    {onTransition ? (
+                      <StatusTransitionMenu
+                        currentStatus={currentStatus}
+                        nextStatuses={nextStatuses}
+                        onTransition={(nextStatus) => onTransition(row, nextStatus)}
+                        disabled={disabled}
+                        labelResolver={statusLabel}
+                        triggerText={pickLocalized(actions.transitionStatus, locale)}
+                      />
+                    ) : null}
                   </div>
                 </td>
               </tr>

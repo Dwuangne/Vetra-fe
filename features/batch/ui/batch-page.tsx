@@ -7,6 +7,8 @@ import { ListLoadingSkeleton } from "@/components/list/list-loading-skeleton";
 import { ListPagination } from "@/components/list/list-pagination";
 import { Button } from "@/components/ui/button";
 import { AppShellLayout } from "@/features/home";
+import { useAuth } from "@/features/auth";
+import { canApproveProduction } from "@/lib/auth/roles";
 import { listProducts } from "@/lib/api/services/product.service";
 import { listProductionOrders } from "@/lib/api/services/production-order.service";
 import { transitionBatchStatus } from "@/lib/api/services/batch.service";
@@ -27,6 +29,7 @@ import { BatchTable } from "./batch-table";
 
 export function BatchPage() {
   const { locale } = useLocale();
+  const { user } = useAuth();
   const list = useBatchList();
   const [formOpen, setFormOpen] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
@@ -46,6 +49,7 @@ export function BatchPage() {
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
+  const canTransition = canApproveProduction(user?.roles);
 
   useEffect(() => {
     let cancelled = false;
@@ -107,14 +111,16 @@ export function BatchPage() {
             disabled={filterDisabled}
             locale={locale}
           />
-          <Button
-            type="button"
-            className={BRAND_PRIMARY_BUTTON_CLASS}
-            onClick={() => setFormOpen(true)}
-            disabled={filterDisabled}
-          >
-            {pickLocalized(messages.batch.actions.create, locale)}
-          </Button>
+          {canTransition ? (
+            <Button
+              type="button"
+              className={BRAND_PRIMARY_BUTTON_CLASS}
+              onClick={() => setFormOpen(true)}
+              disabled={filterDisabled}
+            >
+              {pickLocalized(messages.batch.actions.create, locale)}
+            </Button>
+          ) : null}
         </div>
 
         {!list.hasSearched ? (
@@ -142,7 +148,7 @@ export function BatchPage() {
             loading={list.loading}
             disabled={list.loading}
             resolveNextStatuses={getNextBatchStatuses}
-            onTransition={onTransitionSelected}
+            onTransition={canTransition ? onTransitionSelected : undefined}
           />
         ) : null}
 
@@ -160,17 +166,19 @@ export function BatchPage() {
 
       <BatchFormDialog open={formOpen} onOpenChange={setFormOpen} onSaved={() => list.reload()} />
 
-      <BatchStatusDialog
-        open={statusDialogOpen}
-        currentStatus={normalizeBatchStatus(transitionTarget?.row.status)}
-        nextStatus={transitionTarget?.nextStatus ?? null}
-        loading={transitioning}
-        onOpenChange={(open) => {
-          setStatusDialogOpen(open);
-          if (!open) setTransitionTarget(null);
-        }}
-        onConfirm={confirmTransition}
-      />
+      {canTransition ? (
+        <BatchStatusDialog
+          open={statusDialogOpen}
+          currentStatus={normalizeBatchStatus(transitionTarget?.row.status)}
+          nextStatus={transitionTarget?.nextStatus ?? null}
+          loading={transitioning}
+          onOpenChange={(open) => {
+            setStatusDialogOpen(open);
+            if (!open) setTransitionTarget(null);
+          }}
+          onConfirm={confirmTransition}
+        />
+      ) : null}
     </AppShellLayout>
   );
 }

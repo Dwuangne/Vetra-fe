@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useAuth } from "@/features/auth";
+import { canApproveProduction } from "@/lib/auth/roles";
 import { AppShellLayout } from "@/features/home";
 import { deleteCertificate } from "@/lib/api/services/certificate.service";
 import { listLocations } from "@/lib/api/services/location.service";
@@ -53,6 +54,7 @@ export function CertificatePage() {
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
+  const canMutate = canApproveProduction(user?.roles);
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -115,17 +117,19 @@ export function CertificatePage() {
             locale={locale}
             className="w-full md:max-w-4xl"
           />
-          <Button
-            type="button"
-            className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
-            onClick={() => {
-              setEditing(null);
-              setFormOpen(true);
-            }}
-            disabled={filterDisabled}
-          >
-            {pickLocalized(messages.certificate.actions.create, locale)}
-          </Button>
+          {canMutate ? (
+            <Button
+              type="button"
+              className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
+              onClick={() => {
+                setEditing(null);
+                setFormOpen(true);
+              }}
+              disabled={filterDisabled}
+            >
+              {pickLocalized(messages.certificate.actions.create, locale)}
+            </Button>
+          ) : null}
         </div>
 
         {!list.hasSearched ? (
@@ -161,11 +165,15 @@ export function CertificatePage() {
             locationNameById={locationNameById}
             loading={list.loading}
             disabled={list.loading}
-            onEdit={(row) => {
-              setEditing(row);
-              setFormOpen(true);
-            }}
-            onDelete={(row) => setDeleteTarget(row)}
+            onEdit={
+              canMutate
+                ? (row) => {
+                    setEditing(row);
+                    setFormOpen(true);
+                  }
+                : undefined
+            }
+            onDelete={canMutate ? (row) => setDeleteTarget(row) : undefined}
           />
         ) : null}
 

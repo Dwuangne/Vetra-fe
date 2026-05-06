@@ -34,7 +34,7 @@ export function PublicScanLocaleToggle() {
           aria-label={pickLocalized(nav.language, locale)}
         >
           <Languages className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
-          <span>{pickLocalized(nav.language, locale)}</span>
+          {/* <span>{pickLocalized(nav.language, locale)}</span> */}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44">

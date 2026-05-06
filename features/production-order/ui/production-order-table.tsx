@@ -20,7 +20,7 @@ type ProductionOrderTableProps = {
   loading?: boolean;
   disabled?: boolean;
   resolveNextStatuses: (status: ProductionOrderStatus) => ProductionOrderStatus[];
-  onTransition: (row: ProductionOrderListRowVm, nextStatus: ProductionOrderStatus) => void;
+  onTransition?: (row: ProductionOrderListRowVm, nextStatus: ProductionOrderStatus) => void;
 };
 
 function formatNumber(value: number | null): string {
@@ -100,14 +100,16 @@ export function ProductionOrderTable({
                   </div>
                 </td>
                 <td className="p-3 text-right">
-                  <StatusTransitionMenu
-                    currentStatus={currentStatus}
-                    nextStatuses={nextStatuses}
-                    onTransition={(nextStatus) => onTransition(row, nextStatus)}
-                    disabled={disabled}
-                    labelResolver={statusLabel}
-                    triggerText={pickLocalized(actions.transitionStatus, locale)}
-                  />
+                  {onTransition ? (
+                    <StatusTransitionMenu
+                      currentStatus={currentStatus}
+                      nextStatuses={nextStatuses}
+                      onTransition={(nextStatus) => onTransition(row, nextStatus)}
+                      disabled={disabled}
+                      labelResolver={statusLabel}
+                      triggerText={pickLocalized(actions.transitionStatus, locale)}
+                    />
+                  ) : null}
                 </td>
               </tr>
             );
