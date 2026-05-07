@@ -16,6 +16,7 @@ import {
   Network,
   Package,
   Tag,
+  UserCog,
   Users,
 } from "lucide-react";
 import { VetraLogo } from "@/components/vetra-logo";
@@ -34,7 +35,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/features/auth";
-import { hasTenantRole, isAdminRole } from "@/lib/auth/roles";
+import { canManageConfig, hasTenantRole, isAdminRole } from "@/lib/auth/roles";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 import { HomeSearchForm } from "./home-search-form";
@@ -55,6 +56,7 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
   const roles = user?.roles ?? [];
   const showTenants = isAdminRole(roles);
   const showTenantNavigation = hasTenantRole(roles);
+  const showTeamAccountsNav = showTenantNavigation && canManageConfig(roles);
 
   const isEcosystemActive =
     pathname.startsWith("/parties") ||
@@ -168,6 +170,16 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </Collapsible>
+              </SidebarMenuItem>
+            ) : null}
+            {showTeamAccountsNav ? (
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname.startsWith("/tenant-users")}>
+                  <Link href="/tenant-users">
+                    <UserCog className="h-4 w-4" />
+                    <span>{pickLocalized(nav.teamAccounts, locale)}</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             ) : null}
             {showTenants

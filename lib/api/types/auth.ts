@@ -50,3 +50,12 @@ export type AuthenticationResultDto = {
 
 };
 
+/** Mirrors Vetra_be.API.Requests.ChangeOwnPasswordRequest */
+
+export type ChangeOwnPasswordRequestBody = {
+
+  currentPassword: string;
+
+  newPassword: string;
+
+};

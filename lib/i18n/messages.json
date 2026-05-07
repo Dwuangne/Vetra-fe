@@ -32,6 +32,14 @@
       "en": "Invalid user data.",
       "vi": "Dữ liệu người dùng không hợp lệ."
     },
+    "USER_004": {
+      "en": "Username already exists.",
+      "vi": "Tên đăng nhập đã tồn tại."
+    },
+    "USER_005": {
+      "en": "Invalid role assignment request.",
+      "vi": "Yêu cầu gán vai trò không hợp lệ."
+    },
     "SYS_001": {
       "en": "A database error occurred.",
       "vi": "Đã xảy ra lỗi cơ sở dữ liệu."
@@ -51,6 +59,10 @@
     "TEN_003": {
       "en": "Tenant context is missing from the token.",
       "vi": "Thiếu thông tin tenant trong token."
+    },
+    "TEN_004": {
+      "en": "Tenant name already exists.",
+      "vi": "Tên tenant đã tồn tại."
     },
     "PTY_001": {
       "en": "Party was not found.",
@@ -433,6 +445,10 @@
     "changesSaved": {
       "en": "Changes saved successfully.",
       "vi": "Đã lưu thành công."
+    },
+    "cancel": {
+      "en": "Cancel",
+      "vi": "Hủy"
     }
   },
   "nav": {
@@ -471,6 +487,160 @@
     "languageVietnamese": {
       "en": "Vietnamese",
       "vi": "Tiếng Việt"
+    },
+    "changePassword": {
+      "en": "Change password",
+      "vi": "Đổi mật khẩu"
+    },
+    "teamAccounts": {
+      "en": "Team accounts",
+      "vi": "Tài khoản nhóm"
+    }
+  },
+  "tenantDashboard": {
+    "sectionKpis": {
+      "en": "Overview",
+      "vi": "Tổng quan"
+    },
+    "sectionCharts": {
+      "en": "Trends & distribution",
+      "vi": "Xu hướng & phân bổ"
+    },
+    "chartBatchesByStatus": {
+      "en": "Batches by status",
+      "vi": "Batch theo trạng thái"
+    },
+    "chartOrdersByStatus": {
+      "en": "Production orders by status",
+      "vi": "Lệnh sản xuất theo trạng thái"
+    },
+    "chartEventsByDay": {
+      "en": "Events by day (UTC)",
+      "vi": "Sự kiện theo ngày (UTC)"
+    },
+    "eventsUtcNote": {
+      "en": "Bucketed by UTC calendar day from event time (last {days} days).",
+      "vi": "Gom theo ngày lịch UTC từ thời điểm sự kiện ({days} ngày gần nhất)."
+    },
+    "eventRangeLabel": {
+      "en": "Event chart period",
+      "vi": "Khoảng biểu đồ sự kiện"
+    },
+    "countAxis": {
+      "en": "Count",
+      "vi": "Số lượng"
+    },
+    "dateAxis": {
+      "en": "Day (UTC)",
+      "vi": "Ngày (UTC)"
+    },
+    "kpi": {
+      "parties": {
+        "en": "Parties",
+        "vi": "Đối tác"
+      },
+      "locations": {
+        "en": "Locations",
+        "vi": "Địa điểm"
+      },
+      "products": {
+        "en": "Products",
+        "vi": "Sản phẩm"
+      },
+      "certificates": {
+        "en": "Certificates",
+        "vi": "Chứng nhận"
+      },
+      "productInstances": {
+        "en": "Product instances",
+        "vi": "Thể hiện sản phẩm"
+      },
+      "activeProductionOrders": {
+        "en": "Active production orders",
+        "vi": "Lệnh sản xuất đang hoạt động"
+      },
+      "batches": {
+        "en": "Batches",
+        "vi": "Batch"
+      }
+    },
+    "batchStatus": {
+      "Planned": {
+        "en": "Planned",
+        "vi": "Kế hoạch"
+      },
+      "InProduction": {
+        "en": "In production",
+        "vi": "Đang sản xuất"
+      },
+      "Released": {
+        "en": "Released",
+        "vi": "Đã phát hành"
+      },
+      "Quarantined": {
+        "en": "Quarantined",
+        "vi": "Cách ly"
+      },
+      "Recalled": {
+        "en": "Recalled",
+        "vi": "Thu hồi"
+      },
+      "Destroyed": {
+        "en": "Destroyed",
+        "vi": "Đã hủy"
+      }
+    },
+    "productionOrderStatus": {
+      "Draft": {
+        "en": "Draft",
+        "vi": "Nháp"
+      },
+      "Confirmed": {
+        "en": "Confirmed",
+        "vi": "Đã xác nhận"
+      },
+      "InProduction": {
+        "en": "In production",
+        "vi": "Đang sản xuất"
+      },
+      "Completed": {
+        "en": "Completed",
+        "vi": "Hoàn tất"
+      },
+      "Cancelled": {
+        "en": "Cancelled",
+        "vi": "Đã hủy"
+      }
+    }
+  },
+  "account": {
+    "changePassword": {
+      "title": {
+        "en": "Change your password",
+        "vi": "Đổi mật khẩu"
+      },
+      "currentPassword": {
+        "en": "Current password",
+        "vi": "Mật khẩu hiện tại"
+      },
+      "save": {
+        "en": "Save",
+        "vi": "Lưu"
+      },
+      "cancel": {
+        "en": "Cancel",
+        "vi": "Hủy"
+      },
+      "successHint": {
+        "en": "You can keep using the app. Sign in again on your next session if you prefer.",
+        "vi": "Bạn vẫn có thể tiếp tục dùng ứng dụng. Lần sau bạn có thể đăng nhập lại nếu muốn."
+      },
+      "validation": {
+        "currentRequired": {
+          "en": "Enter your current password.",
+          "vi": "Vui lòng nhập mật khẩu hiện tại."
+        }
+      }
     }
   },
   "auth": {
@@ -536,6 +706,136 @@
       "gcp": {
         "en": "GCP",
         "vi": "GCP"
+      }
+    }
+  },
+  "tenantUser": {
+    "title": {
+      "en": "Team accounts",
+      "vi": "Tài khoản nhóm"
+    },
+    "subtitle": {
+      "en": "Manage Supervisor and Operator accounts for your tenant.",
+      "vi": "Quản lý tài khoản Giám sát và Vận hành trong tenant của bạn."
+    },
+    "actions": {
+      "create": {
+        "en": "Create user",
+        "vi": "Tạo người dùng"
+      },
+      "disable": {
+        "en": "Lock",
+        "vi": "Khóa"
+      },
+      "enable": {
+        "en": "Unlock",
+        "vi": "Mở khóa"
+      },
+      "resetPassword": {
+        "en": "Reset password",
+        "vi": "Đặt lại mật khẩu"
+      },
+      "rowActionsLabel": {
+        "en": "Actions",
+        "vi": "Thao tác"
+      }
+    },
+    "fields": {
+      "username": {
+        "en": "Username",
+        "vi": "Tên đăng nhập"
+      },
+      "password": {
+        "en": "Password",
+        "vi": "Mật khẩu"
+      },
+      "confirmPassword": {
+        "en": "Confirm password",
+        "vi": "Xác nhận mật khẩu"
+      },
+      "newPassword": {
+        "en": "New password",
+        "vi": "Mật khẩu mới"
+      },
+      "role": {
+        "en": "Role",
+        "vi": "Vai trò"
+      },
+      "status": {
+        "en": "Status",
+        "vi": "Trạng thái"
+      }
+    },
+    "status": {
+      "active": {
+        "en": "Active",
+        "vi": "Hoạt động"
+      },
+      "locked": {
+        "en": "Locked",
+        "vi": "Đã khóa"
+      }
+    },
+    "roles": {
+      "Supervisor": {
+        "en": "Supervisor",
+        "vi": "Giám sát"
+      },
+      "Operator": {
+        "en": "Operator",
+        "vi": "Vận hành"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No team users yet. Use Create user to add a Supervisor or Operator.",
+        "vi": "Chưa có tài khoản nhóm. Dùng Tạo người dùng để thêm Giám sát hoặc Vận hành."
+      }
+    },
+    "dialogs": {
+      "disableTitle": {
+        "en": "Lock account",
+        "vi": "Khóa tài khoản"
+      },
+      "disableBody": {
+        "en": "This user will not be able to sign in until the account is unlocked.",
+        "vi": "Người này sẽ không thể đăng nhập cho đến khi tài khoản được mở khóa."
+      },
+      "resetPasswordTitle": {
+        "en": "Reset password",
+        "vi": "Đặt lại mật khẩu"
+      },
+      "createTitle": {
+        "en": "Create user",
+        "vi": "Tạo người dùng"
+      }
+    },
+    "a11y": {
+      "showPassword": {
+        "en": "Show password",
+        "vi": "Hiện mật khẩu"
+      },
+      "hidePassword": {
+        "en": "Hide password",
+        "vi": "Ẩn mật khẩu"
+      }
+    },
+    "validation": {
+      "usernameRequired": {
+        "en": "Username is required.",
+        "vi": "Vui lòng nhập tên đăng nhập."
+      },
+      "passwordMin": {
+        "en": "Password must be at least 6 characters.",
+        "vi": "Mật khẩu phải có ít nhất 6 ký tự."
+      },
+      "passwordMismatch": {
+        "en": "Passwords do not match.",
+        "vi": "Hai lần nhập mật khẩu không khớp."
+      },
+      "roleRequired": {
+        "en": "Role is required.",
+        "vi": "Vui lòng chọn vai trò."
       }
     }
   },
