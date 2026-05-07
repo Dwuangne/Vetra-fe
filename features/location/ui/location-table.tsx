@@ -34,8 +34,8 @@ export function LocationTable({
   const actions = messages.location.actions;
 
   return (
-    <div className="overflow-hidden rounded-md border">
-      <table className="w-full border-collapse text-sm">
+    <div className="overflow-x-auto rounded-md border">
+      <table className="w-max min-w-full border-collapse text-sm whitespace-nowrap">
         <thead>
           <tr className="border-b bg-muted/40">
             <th className="p-3 text-left font-medium">{gln}</th>
