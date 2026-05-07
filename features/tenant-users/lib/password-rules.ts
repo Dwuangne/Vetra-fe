@@ -1,0 +1,1 @@
+export const TENANT_USER_PASSWORD_MIN_LENGTH = 6;

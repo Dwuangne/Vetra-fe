@@ -1,7 +1,12 @@
 import { apiPost } from "../client";
 import { API_ENDPOINTS } from "../endpoints";
 import { ApiHttpError } from "../errors";
-import type { AuthenticationResultDto, LoginRequestBody } from "../types/auth";
+import type { ApiResponse } from "../types/api-response";
+import type {
+  AuthenticationResultDto,
+  ChangeOwnPasswordRequestBody,
+  LoginRequestBody,
+} from "../types/auth";
 
 export type LoginResult = {
   message: string;
@@ -22,4 +27,13 @@ export async function login(credentials: LoginRequestBody): Promise<LoginResult>
   }
 
   return { message: envelope.message, data: envelope.data };
+}
+
+/**
+ * POST /api/auths/change-password — authenticated; requires correct current password.
+ */
+export function changeOwnPassword(
+  body: ChangeOwnPasswordRequestBody
+): Promise<ApiResponse<null>> {
+  return apiPost<null>(API_ENDPOINTS.auth.changePassword, body);
 }

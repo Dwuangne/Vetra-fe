@@ -8,7 +8,14 @@ export type {
   AuthenticatedUserDto,
   TokenPairDto,
   AuthenticationResultDto,
+  ChangeOwnPasswordRequestBody,
 } from "./types/auth";
+export type {
+  TenantUserSummaryDto,
+  TenantUserResultDto,
+  CreateTenantUserRequestBody,
+  ResetTenantUserPasswordRequestBody,
+} from "./types/tenant-user";
 export type { PagedListQuery, PaginatedResult } from "./types/common";
 export type {
   TenantDto,
@@ -40,7 +47,18 @@ export type {
   CreateCertificateRequest,
   UpdateCertificateRequest,
 } from "./types/certificate";
-export { login, type LoginResult } from "./services/auth.service";
+export {
+  login,
+  changeOwnPassword,
+  type LoginResult,
+} from "./services/auth.service";
+export {
+  listTenantUsers,
+  createTenantUser,
+  disableTenantUser,
+  enableTenantUser,
+  resetTenantUserPassword,
+} from "./services/tenant-user.service";
 export {
   listTenants,
   getTenantById,

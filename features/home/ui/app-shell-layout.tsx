@@ -1,7 +1,8 @@
 "use client";
 
-import { Languages, LogOut, UserRound } from "lucide-react";
+import { KeyRound, Languages, LogOut, UserRound } from "lucide-react";
 import type * as React from "react";
+import { useState } from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -19,6 +20,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { useAuth } from "@/features/auth";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
+import { ChangePasswordDialog } from "./change-password-dialog";
 import { HomeAppSidebar } from "./home-app-sidebar";
 
 type AppShellLayoutProps = {
@@ -31,6 +33,7 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
   const tenantLabel = user?.tenantName?.trim();
   const { locale, setLocale } = useLocale();
   const nav = messages.nav;
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   return (
     <SidebarProvider>
@@ -75,6 +78,13 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
                     {pickLocalized(nav.languageVietnamese, locale)}
                   </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
+                <DropdownMenuItem
+                  className="cursor-pointer gap-2"
+                  onSelect={() => setChangePasswordOpen(true)}
+                >
+                  <KeyRound className="h-4 w-4 shrink-0" />
+                  {pickLocalized(nav.changePassword, locale)}
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={logout}
@@ -85,6 +95,7 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <ChangePasswordDialog open={changePasswordOpen} onOpenChange={setChangePasswordOpen} />
             {tenantLabel ? (
               <span
                 className="min-w-0 max-w-[min(52vw,16rem)] truncate text-left text-sm text-muted-foreground sm:max-w-xs"
