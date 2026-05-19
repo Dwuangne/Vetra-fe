@@ -7,6 +7,8 @@ import type { Locale } from "@/lib/i18n/types";
 import type { PublicScanResultDto } from "../model/public-scan.types";
 import { parsePublicScanBatchStatus } from "../lib/batch-status";
 import type { BatchStatus } from "@/lib/api/types/batch";
+import { SafeImage } from "@/components/ui/safe-image";
+
 import { PublicScanShell } from "./public-scan-shell";
 
 type PublicScanActiveProps = {
@@ -46,8 +48,9 @@ export function PublicScanActive({ data, locale }: PublicScanActiveProps) {
   const { product, batch, productionOrder, factory, certificates } = data;
   const batchStatus = parsePublicScanBatchStatus(batch.status);
   const [imageIndex, setImageIndex] = useState(0);
-  const images = product.images.length > 0 ? product.images : [];
-  const hasMultipleImages = images.length > 1;
+  const images =
+    product.images.length > 0 ? product.images : [null];
+  const hasMultipleImages = product.images.length > 1;
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const goToNextImage = () => {
@@ -69,26 +72,20 @@ export function PublicScanActive({ data, locale }: PublicScanActiveProps) {
     >
       <div className="space-y-4">
         <section className="overflow-hidden rounded-2xl border border-rose-100 bg-white shadow-md">
-          {images[imageIndex] ? (
-            <img
-              src={images[imageIndex]}
-              alt={product.name}
-              className="max-h-80 w-full object-cover"
-              onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
-              onTouchEnd={(event) => {
-                if (!hasMultipleImages || touchStartX === null) return;
-                const delta = event.changedTouches[0].clientX - touchStartX;
-                if (Math.abs(delta) < 40) return;
-                if (delta < 0) goToNextImage();
-                if (delta > 0) goToPrevImage();
-                setTouchStartX(null);
-              }}
-            />
-          ) : (
-            <div className="flex h-56 items-center justify-center bg-rose-100 text-rose-600">
-              {product.name || "—"}
-            </div>
-          )}
+          <SafeImage
+            src={images[imageIndex]}
+            alt={product.name}
+            className="max-h-80 w-full object-cover"
+            onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
+            onTouchEnd={(event) => {
+              if (!hasMultipleImages || touchStartX === null) return;
+              const delta = event.changedTouches[0].clientX - touchStartX;
+              if (Math.abs(delta) < 40) return;
+              if (delta < 0) goToNextImage();
+              if (delta > 0) goToPrevImage();
+              setTouchStartX(null);
+            }}
+          />
           {hasMultipleImages ? (
             <div className="flex items-center justify-center gap-2 border-t border-rose-100 px-3 py-3">
               {images.map((_, index) => (

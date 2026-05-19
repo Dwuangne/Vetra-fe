@@ -7,6 +7,7 @@ import {
   Award,
   Building2,
   ChevronRight,
+  ClipboardCheck,
   ClipboardList,
   Factory,
   Home,
@@ -46,6 +47,7 @@ const productionSubItems: { href: string; icon: typeof Home; label: { en: string
   { href: "/production-orders", icon: ClipboardList, label: messages.productionOrder.title },
   { href: "/batches", icon: Package, label: messages.batch.title },
   { href: "/product-instances", icon: Layers, label: messages.productInstance.title },
+  { href: "/verification-sessions", icon: ClipboardCheck, label: messages.verificationSession.title },
 ];
 
 export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -66,7 +68,8 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
   const isProductionActive =
     pathname.startsWith("/production-orders") ||
     pathname.startsWith("/batches") ||
-    pathname.startsWith("/product-instances");
+    pathname.startsWith("/product-instances") ||
+    pathname.startsWith("/verification-sessions");
 
   const ecosystemSubItems: { href: string; icon: typeof Home; label: string }[] = [
     { href: "/parties", icon: Users, label: pickLocalized(messages.party.title, locale) },

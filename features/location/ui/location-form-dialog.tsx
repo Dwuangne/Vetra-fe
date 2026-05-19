@@ -1,5 +1,8 @@
 "use client";
 
+import { Controller } from "react-hook-form";
+import { useMemo } from "react";
+import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import type { LocationDto } from "@/lib/api/types/location";
 import { listParties } from "@/lib/api/services/party.service";
 import { createLocation, updateLocation } from "@/lib/api/services/location.service";
-import type { PartyDto } from "@/lib/api/types/party";
 import { useAuth } from "@/features/auth";
 import {
   applyApiValidationErrors,
@@ -21,7 +23,7 @@ import {
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import type { LocationFormValues } from "../hooks/use-location-form";
 import { useLocationForm } from "../hooks/use-location-form";
@@ -40,15 +42,14 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
   const form = useLocationForm();
   const {
     register,
+    control,
     handleSubmit,
     reset,
     clearErrors,
+    setValue,
     setError,
     formState: { errors, isSubmitting },
   } = form;
-
-  const [parties, setParties] = useState<PartyDto[]>([]);
-  const [partiesError, setPartiesError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -65,27 +66,18 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
         : { gln: "", extension: "", partyId: "", name: "", address: "" }
     );
     clearErrors();
+  }, [open, editing, reset, clearErrors]);
 
-    let cancelled = false;
-    void (async () => {
-      try {
-        const res = await listParties({ page: 1, size: 200, tenantId });
-        if (!cancelled) {
-          setParties(res.data?.items ?? []);
-          setPartiesError(null);
-        }
-      } catch (e) {
-        if (!cancelled) {
-          setParties([]);
-          setPartiesError(e instanceof Error ? e.message : "Failed to load parties");
-        }
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [open, editing, reset, clearErrors, tenantId]);
+  const loadPartyOptions = useMemo(
+    () => async (query: string) => {
+      const res = await listParties({ keyword: query || undefined, page: 1, size: 50, tenantId });
+      return (res.data?.items ?? []).map((item) => ({
+        value: item.partyId,
+        label: `${item.name} (${item.gln})`,
+      }));
+    },
+    [tenantId]
+  );
 
   const title = editing
     ? pickLocalized(messages.location.actions.update, locale)
@@ -190,22 +182,21 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
             <label htmlFor="location-party" className="text-sm font-medium">
               {partyPlaceholder}
             </label>
-            <select
-              id="location-party"
-              {...register("partyId")}
-              className={cn(
-                "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                errors.partyId && "border-destructive"
+            <Controller
+              control={control}
+              name="partyId"
+              render={({ field }) => (
+                <EntitySelect
+                  value={field.value?.trim() ? field.value : null}
+                  onValueChange={(value) => setValue("partyId", value ?? "", { shouldValidate: true })}
+                  loadOptions={loadPartyOptions}
+                  placeholder={`${partyPlaceholder} (optional)`}
+                  searchPlaceholder={partyPlaceholder}
+                  disabled={isSubmitting}
+                  className={cn(errors.partyId && "rounded-md border border-destructive")}
+                />
               )}
-            >
-              <option value="">{`${partyPlaceholder} (optional)`}</option>
-              {parties.map((p) => (
-                <option key={p.partyId} value={p.partyId}>
-                  {p.name} ({p.gln})
-                </option>
-              ))}
-            </select>
-            {partiesError ? <p className="text-xs text-destructive">{partiesError}</p> : null}
+            />
             {errors.partyId?.message ? (
               <p className="text-sm text-destructive">{String(errors.partyId.message)}</p>
             ) : null}

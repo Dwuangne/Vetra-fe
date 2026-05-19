@@ -264,6 +264,30 @@
       "en": "Product instance generation exceeds the maximum allowed per batch (1,000,000).",
       "vi": "Số instance sinh trong một batch vượt quá giới hạn tối đa (1.000.000)."
     },
+    "PIN_012": {
+      "en": "CSV export requires exactly one of batchId or productId.",
+      "vi": "Xuất CSV cần đúng một trong batchId hoặc productId."
+    },
+    "PIN_014": {
+      "en": "No product instances are available to export for the selected criteria.",
+      "vi": "Không có product instance nào đủ điều kiện xuất CSV cho tiêu chí đã chọn."
+    },
+    "VRF_001": {
+      "en": "Verification session was not found or the session token is invalid.",
+      "vi": "Không tìm thấy ca xác minh hoặc token ca không hợp lệ."
+    },
+    "VRF_002": {
+      "en": "Verification session is not open.",
+      "vi": "Ca xác minh không ở trạng thái mở."
+    },
+    "VRF_003": {
+      "en": "Verification session token is required.",
+      "vi": "Thiếu token ca xác minh."
+    },
+    "VRF_006": {
+      "en": "Unverified items cannot be attached; only Verified or Duplicate status is accepted.",
+      "vi": "Không thể gắn mục Unverified; chỉ chấp nhận trạng thái Verified hoặc Duplicate."
+    },
     "PUB_001": {
       "en": "This QR is not available or has not been published.",
       "vi": "QR không khả dụng hoặc chưa được công bố."
@@ -1282,6 +1306,12 @@
         "vi": "Không có kết quả batch phù hợp."
       }
     },
+    "createForm": {
+      "productFromOrderHint": {
+        "en": "Product is set from the selected production order.",
+        "vi": "Sản phẩm được điền từ lệnh sản xuất đã chọn."
+      }
+    },
     "fields": {
       "lotNumber": {
         "en": "Lot number",
@@ -1530,6 +1560,102 @@
       "en": "Choose a batch to view and generate serialised instances.",
       "vi": "Chọn một batch để xem và sinh thể hiện sản phẩm."
     },
+    "selectPoolPrompt": {
+      "en": "Or choose a product to view the pre-generation pool (print-verify flow).",
+      "vi": "Hoặc chọn sản phẩm để xem pool pre-generate (luồng in–xác minh)."
+    },
+    "changeScope": {
+      "en": "Change batch or product",
+      "vi": "Đổi batch hoặc sản phẩm"
+    },
+    "changeProduct": {
+      "en": "Change product",
+      "vi": "Đổi sản phẩm"
+    },
+    "changeBatch": {
+      "en": "Change batch",
+      "vi": "Đổi batch"
+    },
+    "pool": {
+      "scopeProduct": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "activeGeneration": {
+        "en": "Generation",
+        "vi": "Đợt"
+      },
+      "filters": {
+        "productId": {
+          "en": "Product",
+          "vi": "Sản phẩm"
+        }
+      },
+      "fields": {
+        "instanceStatus": {
+          "en": "Status",
+          "vi": "Trạng thái"
+        },
+        "generationId": {
+          "en": "Generation",
+          "vi": "Đợt"
+        },
+        "exportedAt": {
+          "en": "Exported",
+          "vi": "Đã xuất CSV"
+        }
+      },
+      "instanceStatus": {
+        "pending": {
+          "en": "Pending",
+          "vi": "Chờ gắn lô"
+        },
+        "committed": {
+          "en": "Committed",
+          "vi": "Đã gắn lô"
+        },
+        "rejected": {
+          "en": "Rejected",
+          "vi": "Từ chối"
+        }
+      },
+      "actions": {
+        "preGenerate": {
+          "en": "Pre-generate",
+          "vi": "Pre-generate"
+        },
+        "exportGeneration": {
+          "en": "Export this generation",
+          "vi": "Xuất đợt này"
+        },
+        "clearGenerationFilter": {
+          "en": "All generations",
+          "vi": "Tất cả đợt"
+        },
+        "selectGenerationHint": {
+          "en": "Export downloads all unexported pool serials for this product. Click a generation ID to filter the table.",
+          "vi": "Export tải mọi serial pool chưa xuất của sản phẩm. Bấm cột Đợt để lọc bảng."
+        },
+        "exportRequiresRole": {
+          "en": "Export CSV requires Manager or Supervisor role.",
+          "vi": "Xuất CSV cần quyền Manager hoặc Supervisor."
+        },
+        "selectGenerationRow": {
+          "en": "Select generation",
+          "vi": "Chọn đợt"
+        }
+      },
+      "preGenerateDialog": {
+        "title": {
+          "en": "Pre-generate pool instances",
+          "vi": "Pre-generate pool"
+        },
+        "hint": {
+          "en": "Creates a new generation of serials for this product (not yet assigned to a batch). Each run adds to the pool; export is per generation and only once.",
+          "vi": "Tạo đợt serial mới cho sản phẩm (chưa gắn lô). Mỗi lần pre-gen cộng vào pool; xuất CSV theo đợt và chỉ một lần."
+        }
+      }
+    },
     "generateDialog": {
       "title": {
         "en": "Generate instances (once per batch)",
@@ -1606,6 +1732,226 @@
       "serialPrefix": {
         "en": "Serial prefix",
         "vi": "Tiền tố serial"
+      }
+    }
+  },
+  "verificationSession": {
+    "title": {
+      "en": "Verification sessions",
+      "vi": "Ca xác minh"
+    },
+    "hint": {
+      "en": "Open a session after exporting the print-verify pool. Copy the session token for the external bridge; attach results appear in the log below.",
+      "vi": "Mở ca sau khi xuất pool in–xác minh. Sao chép token ca cho bridge ngoài; kết quả attach hiển thị trong nhật ký."
+    },
+    "filters": {
+      "batch": {
+        "en": "Batch",
+        "vi": "Lô"
+      },
+      "product": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "allBatches": {
+        "en": "All batches",
+        "vi": "Tất cả lô"
+      },
+      "allProducts": {
+        "en": "All products",
+        "vi": "Tất cả sản phẩm"
+      }
+    },
+    "fields": {
+      "sessionId": {
+        "en": "Session",
+        "vi": "Ca"
+      },
+      "status": {
+        "en": "Status",
+        "vi": "Trạng thái"
+      },
+      "openedAt": {
+        "en": "Opened",
+        "vi": "Mở lúc"
+      },
+      "batch": {
+        "en": "Batch",
+        "vi": "Lô"
+      },
+      "product": {
+        "en": "Product",
+        "vi": "Sản phẩm"
+      },
+      "token": {
+        "en": "Session token",
+        "vi": "Token ca"
+      },
+      "code": {
+        "en": "Code",
+        "vi": "Mã"
+      },
+      "clientStatus": {
+        "en": "Client status",
+        "vi": "Trạng thái client"
+      },
+      "outcome": {
+        "en": "Outcome",
+        "vi": "Kết quả"
+      },
+      "attachTime": {
+        "en": "Attached at",
+        "vi": "Gắn lúc"
+      },
+      "totalAttachLines": {
+        "en": "Attach lines",
+        "vi": "Dòng attach"
+      }
+    },
+    "attachLogFilters": {
+      "outcome": {
+        "en": "Outcome",
+        "vi": "Kết quả"
+      },
+      "allOutcomes": {
+        "en": "All outcomes",
+        "vi": "Mọi kết quả"
+      },
+      "clientStatus": {
+        "en": "Client status",
+        "vi": "Trạng thái client"
+      },
+      "clientStatusPlaceholder": {
+        "en": "e.g. Verified",
+        "vi": "vd. Verified"
+      },
+      "codeKeyword": {
+        "en": "Code contains",
+        "vi": "Mã chứa"
+      },
+      "codeKeywordPlaceholder": {
+        "en": "Filter by URL or path",
+        "vi": "Lọc theo URL hoặc path"
+      }
+    },
+    "status": {
+      "open": {
+        "en": "Open",
+        "vi": "Đang mở"
+      },
+      "cancelled": {
+        "en": "Cancelled",
+        "vi": "Đã hủy"
+      },
+      "completed": {
+        "en": "Completed",
+        "vi": "Hoàn tất"
+      }
+    },
+    "outcome": {
+      "committed": {
+        "en": "Committed",
+        "vi": "Đã gắn lô"
+      },
+      "rejected": {
+        "en": "Rejected",
+        "vi": "Từ chối"
+      },
+      "skipped": {
+        "en": "Skipped",
+        "vi": "Bỏ qua"
+      },
+      "invalidClientStatus": {
+        "en": "Invalid status",
+        "vi": "Trạng thái không hợp lệ"
+      },
+      "instanceNotFound": {
+        "en": "Not found",
+        "vi": "Không tìm thấy"
+      },
+      "alreadyCommitted": {
+        "en": "Already committed",
+        "vi": "Đã gắn lô trước đó"
+      }
+    },
+    "actions": {
+      "openSession": {
+        "en": "Open session",
+        "vi": "Mở ca"
+      },
+      "viewLog": {
+        "en": "Attach log",
+        "vi": "Nhật ký attach"
+      },
+      "copyToken": {
+        "en": "Copy token",
+        "vi": "Sao chép token"
+      },
+      "cancelSession": {
+        "en": "Cancel session",
+        "vi": "Hủy ca"
+      },
+      "refreshLog": {
+        "en": "Refresh",
+        "vi": "Làm mới"
+      },
+      "clearFilters": {
+        "en": "Clear filters",
+        "vi": "Xóa bộ lọc"
+      },
+      "done": {
+        "en": "Done",
+        "vi": "Xong"
+      }
+    },
+    "openDialog": {
+      "title": {
+        "en": "Open verification session",
+        "vi": "Mở ca xác minh"
+      },
+      "hint": {
+        "en": "Select the batch to attach verified or duplicate codes from the external print-scan system. The session token is shown once—copy it for the bridge.",
+        "vi": "Chọn lô để gắn mã Verified/Duplicate từ hệ thống in–quét ngoài. Token ca chỉ hiển thị một lần—hãy sao chép cho bridge."
+      },
+      "tokenWarning": {
+        "en": "Copy this token now. It will not be shown again.",
+        "vi": "Sao chép token ngay. Token sẽ không hiển thị lại."
+      }
+    },
+    "detailDialog": {
+      "title": {
+        "en": "Session attach log",
+        "vi": "Nhật ký attach ca"
+      },
+      "emptyLog": {
+        "en": "No attach lines yet.",
+        "vi": "Chưa có dòng attach."
+      },
+      "emptyLogFiltered": {
+        "en": "No attach lines match the filters.",
+        "vi": "Không có dòng attach khớp bộ lọc."
+      },
+      "totalLines": {
+        "en": "{count} line(s) total",
+        "vi": "{count} dòng tổng"
+      },
+      "cancelConfirm": {
+        "en": "Cancel this open session? The bridge token will stop working.",
+        "vi": "Hủy ca đang mở? Token bridge sẽ không còn hiệu lực."
+      }
+    },
+    "tokenCopied": {
+      "en": "Session token copied.",
+      "vi": "Đã sao chép token ca."
+    },
+    "empty": {
+      "noData": {
+        "en": "No verification sessions yet. Managers and supervisors can open a session for a batch.",
+        "vi": "Chưa có ca xác minh. Quản lý/giám sát có thể mở ca cho một lô."
+      },
+      "filtered": {
+        "en": "No sessions match the selected filters.",
+        "vi": "Không có ca nào khớp bộ lọc."
       }
     }
   }

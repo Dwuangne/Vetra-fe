@@ -16,7 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { createBatch } from "@/lib/api/services/batch.service";
 import { listProducts } from "@/lib/api/services/product.service";
-import { listProductionOrders } from "@/lib/api/services/production-order.service";
+import {
+  getProductionOrderById,
+  listProductionOrders,
+} from "@/lib/api/services/production-order.service";
 import {
   applyApiValidationErrors,
   validationErrorsFromApiError,
@@ -45,8 +48,12 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
     clearErrors,
     setValue,
     setError,
+    watch,
     formState: { errors, isSubmitting },
   } = form;
+
+  const productionOrderId = watch("productionOrderId");
+  const productLockedByOrder = Boolean(productionOrderId?.trim());
 
   useEffect(() => {
     if (!open) return;
@@ -81,6 +88,24 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
     },
     []
   );
+
+  const onProductionOrderChange = async (value: string | null) => {
+    const nextId = value ?? "";
+    setValue("productionOrderId", nextId, { shouldValidate: true });
+    if (!nextId) return;
+
+    try {
+      const res = await getProductionOrderById(nextId);
+      const order = res.data;
+      if (!order) return;
+      setValue("productId", order.productId, { shouldValidate: true });
+      if (order.plannedQuantity >= 1) {
+        setValue("plannedQuantity", order.plannedQuantity, { shouldValidate: true });
+      }
+    } catch (e: unknown) {
+      toastApiError(e, locale);
+    }
+  };
 
   const onSubmit = handleSubmit(async (values: BatchFormValues) => {
     clearErrors();
@@ -130,6 +155,26 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
           </div>
 
           <div className="grid gap-2">
+            <label className="text-sm font-medium">{pickLocalized(f.productionOrderId, locale)}</label>
+            <Controller
+              control={control}
+              name="productionOrderId"
+              render={({ field }) => (
+                <EntitySelect
+                  value={field.value || null}
+                  onValueChange={(value) => void onProductionOrderChange(value)}
+                  loadOptions={loadProductionOrderOptions}
+                  placeholder={pickLocalized(f.productionOrderId, locale)}
+                  disabled={isSubmitting}
+                />
+              )}
+            />
+            {errors.productionOrderId?.message ? (
+              <p className="text-sm text-destructive">{String(errors.productionOrderId.message)}</p>
+            ) : null}
+          </div>
+
+          <div className="grid gap-2">
             <label className="text-sm font-medium">{pickLocalized(f.productId, locale)}</label>
             <Controller
               control={control}
@@ -140,32 +185,17 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadProductOptions}
                   placeholder={pickLocalized(f.productId, locale)}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || productLockedByOrder}
                 />
               )}
             />
+            {productLockedByOrder ? (
+              <p className="text-xs text-muted-foreground">
+                {pickLocalized(messages.batch.createForm.productFromOrderHint, locale)}
+              </p>
+            ) : null}
             {errors.productId?.message ? (
               <p className="text-sm text-destructive">{String(errors.productId.message)}</p>
-            ) : null}
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">{pickLocalized(f.productionOrderId, locale)}</label>
-            <Controller
-              control={control}
-              name="productionOrderId"
-              render={({ field }) => (
-                <EntitySelect
-                  value={field.value || null}
-                  onValueChange={(value) => setValue("productionOrderId", value ?? "", { shouldValidate: true })}
-                  loadOptions={loadProductionOrderOptions}
-                  placeholder={pickLocalized(f.productionOrderId, locale)}
-                  disabled={isSubmitting}
-                />
-              )}
-            />
-            {errors.productionOrderId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.productionOrderId.message)}</p>
             ) : null}
           </div>
 
