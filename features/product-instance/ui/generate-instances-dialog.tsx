@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -47,12 +48,10 @@ export function GenerateInstancesDialog({ open, onOpenChange, batchId, onGenerat
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-        </DialogHeader>
-        <div className="flex flex-col gap-4 py-2">
-          <p className="text-sm text-muted-foreground">
+          <DialogDescription>
             {pickLocalized(messages.productInstance.generateDialog.batchScopeHint, locale)}
-          </p>
-        </div>
+          </DialogDescription>
+        </DialogHeader>
         <DialogFooter>
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
             Cancel

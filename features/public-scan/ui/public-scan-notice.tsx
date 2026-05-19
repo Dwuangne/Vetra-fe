@@ -2,6 +2,8 @@ import messages from "@/lib/i18n/messages.json";
 import { pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import type { PublicScanResultDto } from "../model/public-scan.types";
+import { SafeImage } from "@/components/ui/safe-image";
+
 import { PublicScanShell } from "./public-scan-shell";
 
 type PublicScanNoticeProps = {
@@ -101,11 +103,9 @@ export function PublicScanNotice({ data, locale }: PublicScanNoticeProps) {
           </section>
         ) : null}
 
-        {product.images[0] ? (
-          <section className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-md">
-            <img src={product.images[0]} alt={product.name} className="max-h-72 w-full object-cover" />
-          </section>
-        ) : null}
+        <section className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-md">
+          <SafeImage src={product.images[0]} alt={product.name} className="max-h-72 w-full object-cover" />
+        </section>
       </div>
     </PublicScanShell>
   );

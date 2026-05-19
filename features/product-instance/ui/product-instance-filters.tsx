@@ -6,6 +6,7 @@ import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { listBatches } from "@/lib/api/services/batch.service";
+import { listProducts } from "@/lib/api/services/product.service";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
@@ -19,8 +20,9 @@ type ProductInstanceFiltersProps = {
   locale: Locale;
   className?: string;
   /** Pick a batch (no URL `batchId` yet); keyword row is hidden. */
-  variant?: "pick-batch" | "filter-instances";
+  variant?: "pick-batch" | "pick-product" | "filter-instances";
   onBatchSelected?: (batchId: string) => void;
+  onProductSelected?: (productId: string) => void;
 };
 
 export function ProductInstanceFilters({
@@ -32,9 +34,11 @@ export function ProductInstanceFilters({
   className,
   variant = "filter-instances",
   onBatchSelected,
+  onProductSelected,
 }: ProductInstanceFiltersProps) {
   const kwLabel = pickLocalized(messages.productInstance.filters.keyword, locale);
   const batchLabel = pickLocalized(messages.productInstance.filters.batchId, locale);
+  const productLabel = pickLocalized(messages.productInstance.pool.filters.productId, locale);
   const searchLabel = pickLocalized(messages.productInstance.actions.search, locale);
 
   const loadBatchOptions = useMemo(
@@ -43,6 +47,17 @@ export function ProductInstanceFilters({
       return (res.data?.items ?? []).map((b) => ({
         value: b.batchId,
         label: b.lotNumber,
+      }));
+    },
+    []
+  );
+
+  const loadProductOptions = useMemo(
+    () => async (query: string) => {
+      const res = await listProducts({ keyword: query || undefined, page: 1, size: 50 });
+      return (res.data?.items ?? []).map((p) => ({
+        value: p.productId,
+        label: p.name || p.gtin || p.productId,
       }));
     },
     []
@@ -60,6 +75,21 @@ export function ProductInstanceFilters({
             }}
             loadOptions={loadBatchOptions}
             placeholder={batchLabel}
+            disabled={disabled}
+          />
+        </div>
+      ) : null}
+
+      {variant === "pick-product" ? (
+        <div className="flex min-w-[200px] max-w-md flex-col gap-2">
+          <label className="text-sm font-medium leading-none">{productLabel}</label>
+          <EntitySelect
+            value={null}
+            onValueChange={(id) => {
+              if (id) onProductSelected?.(id);
+            }}
+            loadOptions={loadProductOptions}
+            placeholder={productLabel}
             disabled={disabled}
           />
         </div>

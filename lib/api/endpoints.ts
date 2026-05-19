@@ -13,5 +13,6 @@ export const API_ENDPOINTS = {
   productionOrders: "/api/production-orders",
   batches: "/api/batches",
   productInstances: "/api/product-instances",
+  verificationSessions: "/api/verification-sessions",
   tenantDashboard: "/api/tenant-dashboard",
 } as const;
