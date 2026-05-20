@@ -5,7 +5,6 @@ import { useEffect, useMemo } from "react";
 
 import { DateInput } from "@/components/forms/date-input";
 import { FormField } from "@/components/forms/form-field";
-import { optionalFieldPlaceholder } from "@/components/forms/form-field-label";
 import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import {
@@ -119,7 +118,7 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
         lotNumber: values.lotNumber.trim(),
         productId: values.productId,
         plannedQuantity: values.plannedQuantity,
-        productionOrderId: values.productionOrderId?.trim() ? values.productionOrderId : null,
+        productionOrderId: values.productionOrderId.trim(),
         productionDate: values.productionDate?.trim() || null,
         packDate: values.packDate?.trim() || null,
         bestBeforeDate: values.bestBeforeDate?.trim() || null,
@@ -159,17 +158,22 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
             />
           </FormField>
 
-          <FormField label={productionOrderLabel} optional error={errors.productionOrderId?.message}>
+          <FormField
+            label={productionOrderLabel}
+            required
+            error={errors.productionOrderId?.message}
+          >
             <Controller
               control={control}
               name="productionOrderId"
               render={({ field }) => (
                 <EntitySelect
-                  value={field.value || null}
+                  value={field.value?.trim() ? field.value : null}
                   onValueChange={(value) => void onProductionOrderChange(value)}
                   loadOptions={loadProductionOrderOptions}
-                  placeholder={optionalFieldPlaceholder(productionOrderLabel, locale)}
+                  searchPlaceholder={productionOrderLabel}
                   disabled={isSubmitting}
+                  className={cn(errors.productionOrderId && "rounded-md border border-destructive")}
                 />
               )}
             />

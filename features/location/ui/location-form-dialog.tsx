@@ -28,8 +28,7 @@ import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
 
 import type { LocationFormValues } from "../hooks/use-location-form";
-import { useLocationForm } from "../hooks/use-location-form";
-
+import { locationFormValuesToRequest, useLocationForm } from "../hooks/use-location-form";
 type LocationFormDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -59,7 +58,7 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
     reset(
       editing
         ? {
-            gln: editing.gln,
+            gln: editing.gln ?? "",
             extension: editing.extension ?? "",
             partyId: editing.partyId ?? "",
             name: editing.name,
@@ -75,7 +74,11 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
       const res = await listParties({ keyword: query || undefined, page: 1, size: 50, tenantId });
       return (res.data?.items ?? []).map((item) => ({
         value: item.partyId,
-        label: `${item.name} (${item.gln})`,
+        label: item.gln?.trim()
+          ? `${item.name} (${item.gln})`
+          : item.taxCode?.trim()
+            ? `${item.name} (${item.taxCode})`
+            : item.name,
       }));
     },
     [tenantId]
@@ -90,19 +93,7 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
 
   const onSubmit = handleSubmit(async (values: LocationFormValues) => {
     clearErrors();
-    const partyId =
-      typeof values.partyId === "string" && values.partyId.trim().length > 0
-        ? values.partyId.trim()
-        : null;
-    const extRaw = values.extension?.trim();
-    const addrRaw = values.address?.trim();
-    const payload = {
-      gln: values.gln,
-      extension: extRaw?.length ? extRaw : null,
-      partyId,
-      name: values.name,
-      address: addrRaw?.length ? addrRaw : null,
-    };
+    const payload = locationFormValuesToRequest(values);
 
     try {
       if (editing) {
@@ -131,13 +122,12 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
           <FormField
             id="location-gln"
             label={pickLocalized(f.gln, locale)}
-            required
+            hint={pickLocalized(f.glnHint, locale)}
             error={errors.gln?.message}
           >
             <Input
               id="location-gln"
               {...register("gln")}
-              aria-required
               className={cn(errors.gln && "border-destructive")}
               autoComplete="off"
             />

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth";
+import { formatLocationOptionLabel } from "@/features/location/lib/format-location-label";
 import { listLocations } from "@/lib/api/services/location.service";
 import { listProducts } from "@/lib/api/services/product.service";
 import { createCertificate, updateCertificate } from "@/lib/api/services/certificate.service";
@@ -90,7 +91,7 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
       const res = await listLocations({ keyword: query || undefined, page: 1, size: 50, tenantId });
       return (res.data?.items ?? []).map((item) => ({
         value: item.locationId,
-        label: `${item.name} (${item.gln}.${item.extension})`,
+        label: formatLocationOptionLabel(item.name, item.gln, item.extension),
       }));
     },
     [tenantId]

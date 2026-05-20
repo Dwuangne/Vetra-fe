@@ -20,7 +20,7 @@ export type BatchDto = {
   status: BatchStatus;
   plannedQuantity: number;
   releasedQuantity: number | null;
-  productionOrderId: string | null;
+  productionOrderId: string;
 };
 
 export type BatchListQuery = PagedListQuery;
@@ -29,7 +29,7 @@ export type CreateBatchRequest = {
   productId: string;
   lotNumber: string;
   plannedQuantity: number;
-  productionOrderId?: string | null;
+  productionOrderId: string;
   productionDate?: string | null;
   packDate?: string | null;
   bestBeforeDate?: string | null;
