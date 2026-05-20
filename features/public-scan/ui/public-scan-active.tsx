@@ -19,11 +19,11 @@ export function PublicScanActive({ data, locale }: PublicScanActiveProps) {
   return (
     <PublicScanShell
       locale={locale}
-      accent="rose"
+      accent="green"
       headerTitle={data.product.name || "—"}
       headerBadge={authentic}
     >
-      <PublicScanContent data={data} locale={locale} imageAccent="rose" />
+      <PublicScanContent data={data} locale={locale} imageAccent="green" />
     </PublicScanShell>
   );
 }

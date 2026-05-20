@@ -12,7 +12,7 @@ export function PublicScanInvalid({ locale, message }: PublicScanInvalidProps) {
   return (
     <PublicScanShell
       locale={locale}
-      accent="rose"
+      accent="green"
       headerTitle={pickLocalized(messages.publicScan.invalidRequest.title, locale)}
     >
       <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-4 text-sm text-amber-950">

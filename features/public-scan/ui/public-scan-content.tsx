@@ -18,10 +18,10 @@ type PublicScanContentProps = {
   data: PublicScanResultDto;
   locale: Locale;
   /** Border/tint for the image card (active vs notice). */
-  imageAccent?: "rose" | "red";
+  imageAccent?: "green" | "red";
 };
 
-export function PublicScanContent({ data, locale, imageAccent = "rose" }: PublicScanContentProps) {
+export function PublicScanContent({ data, locale, imageAccent = "green" }: PublicScanContentProps) {
   const { product, batch, productionOrder, factory, certificates } = data;
   const batchStatus = parsePublicScanBatchStatus(batch.status);
   const [imageIndex, setImageIndex] = useState(0);
@@ -29,10 +29,10 @@ export function PublicScanContent({ data, locale, imageAccent = "rose" }: Public
   const hasMultipleImages = images.length > 1;
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const imageBorder = imageAccent === "red" ? "border-red-100" : "border-rose-100";
-  const imageDotActive = imageAccent === "red" ? "bg-red-500" : "bg-rose-500";
+  const imageBorder = imageAccent === "red" ? "border-red-100" : "border-emerald-100";
+  const imageDotActive = imageAccent === "red" ? "bg-red-500" : "bg-emerald-500";
   const imageDotIdle =
-    imageAccent === "red" ? "bg-red-200 hover:bg-red-300" : "bg-rose-200 hover:bg-rose-300";
+    imageAccent === "red" ? "bg-red-200 hover:bg-red-300" : "bg-emerald-200 hover:bg-emerald-300";
 
   const goToNextImage = () => setImageIndex((prev) => (prev + 1) % images.length);
   const goToPrevImage = () => setImageIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -112,7 +112,7 @@ export function PublicScanContent({ data, locale, imageAccent = "rose" }: Public
           </div>
           <div>
             <p className="text-zinc-500">{pickLocalized(messages.publicScan.active.expiryDate, locale)}</p>
-            <p className="font-medium text-rose-700">
+            <p className="font-medium text-red-700">
               {formatPublicScanDateOnly(batch.expiryDate, locale)}
             </p>
           </div>
