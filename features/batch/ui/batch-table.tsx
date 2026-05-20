@@ -81,7 +81,7 @@ export function BatchTable({
                   {productNameById?.[row.productId] ?? row.productId}
                 </td>
                 <td className="max-w-[12rem] truncate p-3 text-muted-foreground">
-                  {row.productionOrderId ? (orderNumberById?.[row.productionOrderId] ?? row.productionOrderId) : "—"}
+                  {orderNumberById?.[row.productionOrderId] ?? row.productionOrderId}
                 </td>
                 <td className="p-3">{formatNumber(row.plannedQuantity)}</td>
                 <td className="p-3">{formatNumber(row.releasedQuantity)}</td>

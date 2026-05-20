@@ -3,7 +3,7 @@ import type { PagedListQuery } from "./common";
 export type LocationDto = {
   locationId: string;
   tenantId: string;
-  gln: string;
+  gln: string | null;
   extension: string;
   partyId: string | null;
   name: string;
@@ -16,7 +16,7 @@ export type LocationListQuery = PagedListQuery & {
 };
 
 export type CreateLocationRequest = {
-  gln: string;
+  gln: string | null;
   extension?: string | null;
   partyId?: string | null;
   name: string;
@@ -24,7 +24,7 @@ export type CreateLocationRequest = {
 };
 
 export type UpdateLocationRequest = {
-  gln: string;
+  gln: string | null;
   extension?: string | null;
   partyId?: string | null;
   name: string;

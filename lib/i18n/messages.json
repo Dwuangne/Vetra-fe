@@ -104,6 +104,10 @@
       "en": "Party was not found in this tenant.",
       "vi": "Không tìm thấy đối tác trong tenant này."
     },
+    "LOC_005": {
+      "en": "Invalid GLN format.",
+      "vi": "Định dạng GLN không hợp lệ."
+    },
     "CER_001": {
       "en": "Certificate was not found.",
       "vi": "Không tìm thấy chứng nhận."
@@ -227,6 +231,10 @@
     "BAT_011": {
       "en": "Batch dates must follow ProductionDate <= PackDate <= BestBeforeDate <= ExpiryDate.",
       "vi": "Ngày của batch phải theo thứ tự ProductionDate <= PackDate <= BestBeforeDate <= ExpiryDate."
+    },
+    "BAT_012": {
+      "en": "Production order is required for every batch.",
+      "vi": "Mỗi lô sản xuất phải gắn với một lệnh sản xuất."
     },
     "PIN_001": {
       "en": "Batch was not found in this tenant.",
@@ -1032,6 +1040,10 @@
       "gln": {
         "en": "GLN",
         "vi": "GLN"
+      },
+      "glnHint": {
+        "en": "Optional — 13-digit Global Location Number",
+        "vi": "Tùy chọn — mã GLN 13 chữ số"
       },
       "extension": {
         "en": "Extension",

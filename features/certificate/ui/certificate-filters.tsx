@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { EntitySelect } from "@/components/forms/entity-select";
 import { Input } from "@/components/ui/input";
+import { formatLocationOptionLabel } from "@/features/location/lib/format-location-label";
 import { listLocations } from "@/lib/api/services/location.service";
 import { listProducts } from "@/lib/api/services/product.service";
 import { messages, pickLocalized } from "@/lib/i18n";
@@ -63,7 +64,10 @@ export function CertificateFilters({
         size: 50,
         tenantId,
       });
-      return (res.data?.items ?? []).map((l) => ({ value: l.locationId, label: `${l.name} (${l.gln}.${l.extension})` }));
+      return (res.data?.items ?? []).map((l) => ({
+        value: l.locationId,
+        label: formatLocationOptionLabel(l.name, l.gln, l.extension),
+      }));
     },
     [tenantId]
   );

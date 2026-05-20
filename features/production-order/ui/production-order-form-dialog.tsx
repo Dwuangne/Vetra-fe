@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { formatLocationOptionLabel } from "@/features/location/lib/format-location-label";
 import { listLocations } from "@/lib/api/services/location.service";
 import { listProducts } from "@/lib/api/services/product.service";
 import { createProductionOrder } from "@/lib/api/services/production-order.service";
@@ -81,7 +82,10 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
   const loadLocationOptions = useMemo(
     () => async (query: string) => {
       const res = await listLocations({ keyword: query || undefined, page: 1, size: 50 });
-      return (res.data?.items ?? []).map((item) => ({ value: item.locationId, label: `${item.name} (${item.gln})` }));
+      return (res.data?.items ?? []).map((item) => ({
+        value: item.locationId,
+        label: formatLocationOptionLabel(item.name, item.gln, item.extension),
+      }));
     },
     []
   );

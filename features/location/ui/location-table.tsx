@@ -51,7 +51,9 @@ export function LocationTable({
         <tbody className={(loading ?? false) ? "opacity-60" : undefined}>
           {rows.map((row) => (
             <tr key={row.locationId} className="border-b last:border-b-0">
-              <td className="max-w-[10rem] truncate p-3 font-mono text-xs">{row.gln}</td>
+              <td className="max-w-[10rem] truncate p-3 font-mono text-xs">
+                {row.gln?.trim() ? row.gln : "—"}
+              </td>
               <td className="max-w-[6rem] truncate p-3 font-mono text-xs">{row.extension}</td>
               <td className="max-w-[12rem] truncate p-3">{row.name}</td>
               <td className="max-w-[14rem] truncate p-3 text-muted-foreground" title={row.address ?? undefined}>

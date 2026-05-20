@@ -170,7 +170,11 @@ export function LocationPage() {
             <DialogTitle>{pickLocalized(messages.location.actions.delete, locale)}</DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground">
-            {deleteTarget ? `${deleteTarget.name} (${deleteTarget.gln})` : null}
+            {deleteTarget
+              ? deleteTarget.gln?.trim()
+                ? `${deleteTarget.name} (${deleteTarget.gln})`
+                : deleteTarget.name
+              : null}
           </p>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setDeleteTarget(null)}>

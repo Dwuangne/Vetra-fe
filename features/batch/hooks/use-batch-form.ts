@@ -8,7 +8,7 @@ const batchFormSchema = z
   .object({
     lotNumber: z.string().min(1, "Lot number is required"),
     productId: z.string().min(1, "Product is required"),
-    productionOrderId: z.string().optional(),
+    productionOrderId: z.string().min(1, "Production order is required"),
     plannedQuantity: z.number().int().min(1, "Planned quantity must be at least 1"),
     productionDate: z.string().optional(),
     packDate: z.string().optional(),
