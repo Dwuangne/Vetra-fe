@@ -10,7 +10,7 @@ export type PublicScanFooterVariant = "default" | "notice";
 
 type PublicScanShellProps = {
   locale: Locale;
-  accent: "rose" | "red";
+  accent: "green" | "red";
   headerTitle: string;
   headerSubtitle?: string;
   headerBadge?: string;
@@ -19,12 +19,12 @@ type PublicScanShellProps = {
 };
 
 const headerBg = {
-  rose: "bg-rose-600",
+  green: "bg-emerald-600",
   red: "bg-red-700",
 } as const;
 
 const subtitleClass = {
-  rose: "text-rose-100",
+  green: "text-emerald-100",
   red: "text-red-100",
 } as const;
 

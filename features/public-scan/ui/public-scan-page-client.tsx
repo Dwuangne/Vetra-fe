@@ -75,12 +75,12 @@ export function PublicScanPageClient({ gtin, serial }: PublicScanPageClientProps
     return (
       <PublicScanShell
         locale={locale}
-        accent="rose"
+        accent="green"
         headerTitle={pickLocalized(messages.publicScan.client.loading, locale)}
       >
         <div className="flex justify-center py-12">
           <div
-            className="h-10 w-10 animate-spin rounded-full border-2 border-rose-200 border-t-rose-600"
+            className="h-10 w-10 animate-spin rounded-full border-2 border-emerald-200 border-t-emerald-600"
             aria-hidden
           />
         </div>
@@ -104,7 +104,7 @@ export function PublicScanPageClient({ gtin, serial }: PublicScanPageClientProps
     return (
       <PublicScanShell
         locale={locale}
-        accent="rose"
+        accent="green"
         headerTitle={pickLocalized(messages.publicScan.invalidRequest.title, locale)}
       >
         <div className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-4 text-sm text-zinc-800">{msg}</div>
@@ -115,7 +115,7 @@ export function PublicScanPageClient({ gtin, serial }: PublicScanPageClientProps
   return (
     <PublicScanShell
       locale={locale}
-      accent="rose"
+      accent="green"
       headerTitle={pickLocalized(messages.publicScan.invalidRequest.title, locale)}
     >
       <div className="space-y-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-950">

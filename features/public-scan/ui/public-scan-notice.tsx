@@ -21,7 +21,7 @@ export function PublicScanNotice({ data, locale }: PublicScanNoticeProps) {
       locale={locale}
       accent="red"
       footerVariant="notice"
-      headerTitle={pickLocalized(messages.publicScan.notice.title, locale)}
+      headerTitle={data.product.name?.trim() || "—"}
       headerBadge={headerBadge}
     >
       <div className="space-y-4">
