@@ -1,5 +1,6 @@
 "use client";
 
+import { FormFieldLabel } from "@/components/forms/form-field-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IconEye, IconEyeOff } from "@/features/auth/ui/login-icons";
@@ -15,6 +16,7 @@ type TenantUserPasswordFieldProps = {
   disabled?: boolean;
   autoComplete?: string;
   invalid?: boolean;
+  required?: boolean;
 };
 
 export function TenantUserPasswordField({
@@ -25,6 +27,7 @@ export function TenantUserPasswordField({
   disabled,
   autoComplete = "new-password",
   invalid,
+  required = false,
 }: TenantUserPasswordFieldProps) {
   const { locale } = useLocale();
   const a11y = messages.tenantUser.a11y;
@@ -32,9 +35,9 @@ export function TenantUserPasswordField({
 
   return (
     <div className="grid gap-2">
-      <label htmlFor={id} className="text-sm font-medium">
+      <FormFieldLabel htmlFor={id} required={required}>
         {label}
-      </label>
+      </FormFieldLabel>
       <div className="relative">
         <Input
           id={id}
@@ -43,6 +46,7 @@ export function TenantUserPasswordField({
           onChange={(e) => onChange(e.target.value)}
           disabled={disabled}
           autoComplete={autoComplete}
+          aria-required={required || undefined}
           className={cn("pr-10", invalid && "border-destructive")}
         />
         <Button

@@ -1,7 +1,10 @@
 "use client";
 
 import { Controller } from "react-hook-form";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+
+import { FormField } from "@/components/forms/form-field";
+import { optionalFieldPlaceholder } from "@/components/forms/form-field-label";
 import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +26,6 @@ import {
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 
 import type { LocationFormValues } from "../hooks/use-location-form";
 import { useLocationForm } from "../hooks/use-location-form";
@@ -83,6 +85,8 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
     ? pickLocalized(messages.location.actions.update, locale)
     : pickLocalized(messages.location.actions.create, locale);
   const f = messages.location.fields;
+  const cancelLabel = pickLocalized(messages.common.cancel, locale);
+  const partyLabel = pickLocalized(f.partyId, locale);
 
   const onSubmit = handleSubmit(async (values: LocationFormValues) => {
     clearErrors();
@@ -117,8 +121,6 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
     }
   });
 
-  const partyPlaceholder = pickLocalized(f.partyId, locale);
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg" aria-describedby={undefined}>
@@ -126,44 +128,38 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label htmlFor="location-gln" className="text-sm font-medium">
-              {pickLocalized(f.gln, locale)}
-            </label>
+          <FormField
+            id="location-gln"
+            label={pickLocalized(f.gln, locale)}
+            required
+            error={errors.gln?.message}
+          >
             <Input
               id="location-gln"
               {...register("gln")}
+              aria-required
               className={cn(errors.gln && "border-destructive")}
               autoComplete="off"
             />
-            {errors.gln?.message ? (
-              <p className="text-sm text-destructive">{String(errors.gln.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="location-extension" className="text-sm font-medium">
-              {pickLocalized(f.extension, locale)}
-            </label>
+          </FormField>
+          <FormField id="location-extension" label={pickLocalized(f.extension, locale)} optional>
             <Input id="location-extension" {...register("extension")} autoComplete="off" />
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="location-name" className="text-sm font-medium">
-              {pickLocalized(f.name, locale)}
-            </label>
+          </FormField>
+          <FormField
+            id="location-name"
+            label={pickLocalized(f.name, locale)}
+            required
+            error={errors.name?.message}
+          >
             <Input
               id="location-name"
               {...register("name")}
+              aria-required
               className={cn(errors.name && "border-destructive")}
               autoComplete="off"
             />
-            {errors.name?.message ? (
-              <p className="text-sm text-destructive">{String(errors.name.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="location-address" className="text-sm font-medium">
-              {pickLocalized(f.address, locale)}
-            </label>
+          </FormField>
+          <FormField id="location-address" label={pickLocalized(f.address, locale)} optional error={errors.address?.message}>
             <textarea
               id="location-address"
               {...register("address")}
@@ -174,14 +170,8 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
               )}
               autoComplete="street-address"
             />
-            {errors.address?.message ? (
-              <p className="text-sm text-destructive">{String(errors.address.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="location-party" className="text-sm font-medium">
-              {partyPlaceholder}
-            </label>
+          </FormField>
+          <FormField id="location-party" label={partyLabel} optional error={errors.partyId?.message}>
             <Controller
               control={control}
               name="partyId"
@@ -190,20 +180,17 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
                   value={field.value?.trim() ? field.value : null}
                   onValueChange={(value) => setValue("partyId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadPartyOptions}
-                  placeholder={`${partyPlaceholder} (optional)`}
-                  searchPlaceholder={partyPlaceholder}
+                  placeholder={optionalFieldPlaceholder(partyLabel, locale)}
+                  searchPlaceholder={partyLabel}
                   disabled={isSubmitting}
                   className={cn(errors.partyId && "rounded-md border border-destructive")}
                 />
               )}
             />
-            {errors.partyId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.partyId.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {title}

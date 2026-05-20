@@ -1,5 +1,6 @@
 "use client";
 
+import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -64,6 +65,7 @@ export function ProductFormDialog({ open, onOpenChange, editing, onSaved }: Prod
     : pickLocalized(messages.product.actions.create, locale);
   const f = messages.product.fields;
   const imageUrlLabel = f.imageUrl ? pickLocalized(f.imageUrl, locale) : "Image URL";
+  const cancelLabel = pickLocalized(messages.common.cancel, locale);
 
   const onSubmit = handleSubmit(async (values: ProductFormValues) => {
     clearErrors();
@@ -104,53 +106,50 @@ export function ProductFormDialog({ open, onOpenChange, editing, onSaved }: Prod
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label htmlFor="product-gtin" className="text-sm font-medium">
-              {pickLocalized(f.gtin, locale)}
-            </label>
+          <FormField
+            id="product-gtin"
+            label={pickLocalized(f.gtin, locale)}
+            required
+            error={errors.gtin?.message}
+          >
             <Input
               id="product-gtin"
               {...register("gtin")}
+              aria-required
               className={cn(errors.gtin && "border-destructive")}
               autoComplete="off"
             />
-            {errors.gtin?.message ? (
-              <p className="text-sm text-destructive">{String(errors.gtin.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="product-name" className="text-sm font-medium">
-              {pickLocalized(f.name, locale)}
-            </label>
+          </FormField>
+          <FormField
+            id="product-name"
+            label={pickLocalized(f.name, locale)}
+            required
+            error={errors.name?.message}
+          >
             <Input
               id="product-name"
               {...register("name")}
+              aria-required
               className={cn(errors.name && "border-destructive")}
               autoComplete="off"
             />
-            {errors.name?.message ? (
-              <p className="text-sm text-destructive">{String(errors.name.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="product-image-url" className="text-sm font-medium">
-              {imageUrlLabel}
-            </label>
+          </FormField>
+          <FormField id="product-image-url" label={imageUrlLabel} required error={errors.imageUrl?.message}>
             <Input
               id="product-image-url"
               {...register("imageUrl")}
+              aria-required
               className={cn(errors.imageUrl && "border-destructive")}
               autoComplete="off"
               placeholder="Fill image URL"
             />
-            {errors.imageUrl?.message ? (
-              <p className="text-sm text-destructive">{String(errors.imageUrl.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="product-description" className="text-sm font-medium">
-              {pickLocalized(f.description, locale)}
-            </label>
+          </FormField>
+          <FormField
+            id="product-description"
+            label={pickLocalized(f.description, locale)}
+            optional
+            error={errors.description?.message}
+          >
             <Controller
               control={form.control}
               name="description"
@@ -163,13 +162,10 @@ export function ProductFormDialog({ open, onOpenChange, editing, onSaved }: Prod
                 />
               )}
             />
-            {errors.description?.message ? (
-              <p className="text-sm text-destructive">{String(errors.description.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {title}

@@ -1,9 +1,12 @@
 "use client";
 
 import { Controller } from "react-hook-form";
-import { useMemo } from "react";
-import { Button } from "@/components/ui/button";
+import { useMemo, useEffect } from "react";
+
+import { FormField } from "@/components/forms/form-field";
+import { optionalFieldPlaceholder } from "@/components/forms/form-field-label";
 import { EntitySelect } from "@/components/forms/entity-select";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +27,6 @@ import {
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 
 import type { CertificateFormValues } from "../hooks/use-certificate-form";
 import { useCertificateForm } from "../hooks/use-certificate-form";
@@ -71,6 +73,9 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
     ? pickLocalized(messages.certificate.actions.update, locale)
     : pickLocalized(messages.certificate.actions.create, locale);
   const f = messages.certificate.fields;
+  const cancelLabel = pickLocalized(messages.common.cancel, locale);
+  const productLabel = pickLocalized(f.productId, locale);
+  const locationLabel = pickLocalized(f.locationId, locale);
 
   const loadProductOptions = useMemo(
     () => async (query: string) => {
@@ -83,7 +88,10 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
   const loadLocationOptions = useMemo(
     () => async (query: string) => {
       const res = await listLocations({ keyword: query || undefined, page: 1, size: 50, tenantId });
-      return (res.data?.items ?? []).map((item) => ({ value: item.locationId, label: `${item.name} (${item.gln}.${item.extension})` }));
+      return (res.data?.items ?? []).map((item) => ({
+        value: item.locationId,
+        label: `${item.name} (${item.gln}.${item.extension})`,
+      }));
     },
     [tenantId]
   );
@@ -121,10 +129,7 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">
-              {pickLocalized(f.productId, locale)}
-            </label>
+          <FormField label={productLabel} optional error={errors.productId?.message}>
             <Controller
               control={control}
               name="productId"
@@ -133,21 +138,15 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
                   value={field.value?.trim() ? field.value : null}
                   onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadProductOptions}
-                  placeholder={`${pickLocalized(f.productId, locale)} (optional)`}
-                  searchPlaceholder={pickLocalized(f.productId, locale)}
+                  placeholder={optionalFieldPlaceholder(productLabel, locale)}
+                  searchPlaceholder={productLabel}
                   disabled={isSubmitting}
                   className={cn(errors.productId && "rounded-md border border-destructive")}
                 />
               )}
             />
-            {errors.productId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.productId.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">
-              {pickLocalized(f.locationId, locale)}
-            </label>
+          </FormField>
+          <FormField label={locationLabel} optional error={errors.locationId?.message}>
             <Controller
               control={control}
               name="locationId"
@@ -156,48 +155,39 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
                   value={field.value?.trim() ? field.value : null}
                   onValueChange={(value) => setValue("locationId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadLocationOptions}
-                  placeholder={`${pickLocalized(f.locationId, locale)} (optional)`}
-                  searchPlaceholder={pickLocalized(f.locationId, locale)}
+                  placeholder={optionalFieldPlaceholder(locationLabel, locale)}
+                  searchPlaceholder={locationLabel}
                   disabled={isSubmitting}
                   className={cn(errors.locationId && "rounded-md border border-destructive")}
                 />
               )}
             />
-            {errors.locationId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.locationId.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="certificate-name" className="text-sm font-medium">
-              {pickLocalized(f.name, locale)}
-            </label>
+          </FormField>
+          <FormField
+            id="certificate-name"
+            label={pickLocalized(f.name, locale)}
+            required
+            error={errors.name?.message}
+          >
             <Input
               id="certificate-name"
               {...register("name")}
+              aria-required
               className={cn(errors.name && "border-destructive")}
               autoComplete="off"
             />
-            {errors.name?.message ? (
-              <p className="text-sm text-destructive">{String(errors.name.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="certificate-url" className="text-sm font-medium">
-              {pickLocalized(f.url, locale)}
-            </label>
+          </FormField>
+          <FormField id="certificate-url" label={pickLocalized(f.url, locale)} optional error={errors.url?.message}>
             <Input
               id="certificate-url"
               {...register("url")}
               className={cn(errors.url && "border-destructive")}
               autoComplete="url"
             />
-            {errors.url?.message ? (
-              <p className="text-sm text-destructive">{String(errors.url.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {title}

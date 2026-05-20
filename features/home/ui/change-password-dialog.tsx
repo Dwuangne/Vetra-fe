@@ -103,6 +103,7 @@ export function ChangePasswordDialog({ open, onOpenChange }: ChangePasswordDialo
             disabled={submitting}
             autoComplete="current-password"
             invalid={!!fieldErrors.currentPassword}
+            required
           />
           {fieldErrors.currentPassword ? (
             <p className="-mt-2 text-sm text-destructive">{fieldErrors.currentPassword}</p>
@@ -116,6 +117,7 @@ export function ChangePasswordDialog({ open, onOpenChange }: ChangePasswordDialo
             disabled={submitting}
             autoComplete="new-password"
             invalid={!!fieldErrors.newPassword}
+            required
           />
           {fieldErrors.newPassword ? (
             <p className="-mt-2 text-sm text-destructive">{fieldErrors.newPassword}</p>
@@ -129,6 +131,7 @@ export function ChangePasswordDialog({ open, onOpenChange }: ChangePasswordDialo
             disabled={submitting}
             autoComplete="new-password"
             invalid={!!fieldErrors.confirmPassword}
+            required
           />
           {fieldErrors.confirmPassword ? (
             <p className="-mt-2 text-sm text-destructive">{fieldErrors.confirmPassword}</p>

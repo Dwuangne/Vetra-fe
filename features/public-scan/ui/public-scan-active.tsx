@@ -9,6 +9,8 @@ import { parsePublicScanBatchStatus } from "../lib/batch-status";
 import type { BatchStatus } from "@/lib/api/types/batch";
 import { SafeImage } from "@/components/ui/safe-image";
 
+import { formatPublicScanPartyLine } from "../lib/format-public-scan-party";
+
 import { PublicScanShell } from "./public-scan-shell";
 
 type PublicScanActiveProps = {
@@ -178,10 +180,7 @@ export function PublicScanActive({ data, locale }: PublicScanActiveProps) {
                   <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
                     {pickLocalized(messages.publicScan.active.partyLabel, locale)}
                   </p>
-                  <p className="mt-1 font-medium text-zinc-800">{factory.party.name}</p>
-                  <p className="mt-0.5 font-mono text-xs text-zinc-600">
-                    {pickLocalized(messages.publicScan.active.partyGlnLabel, locale)}: {factory.party.gln}
-                  </p>
+                  <p className="mt-1 text-sm text-zinc-700">{formatPublicScanPartyLine(factory.party, locale)}</p>
                 </div>
               ) : null}
             </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -56,6 +57,7 @@ export function TenantFormDialog({ open, onOpenChange, editing, onSaved }: Tenan
     ? pickLocalized(messages.tenant.actions.update, locale)
     : pickLocalized(messages.tenant.actions.create, locale);
   const f = messages.tenant.fields;
+  const cancelLabel = pickLocalized(messages.common.cancel, locale);
 
   const onSubmit = handleSubmit(async (values: TenantFormValues) => {
     clearErrors();
@@ -84,29 +86,26 @@ export function TenantFormDialog({ open, onOpenChange, editing, onSaved }: Tenan
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label htmlFor="tenant-name" className="text-sm font-medium">
-              {pickLocalized(f.name, locale)}
-            </label>
+          <FormField
+            id="tenant-name"
+            label={pickLocalized(f.name, locale)}
+            required
+            error={errors.name?.message}
+          >
             <Input
               id="tenant-name"
               {...register("name")}
+              aria-required
               className={cn(errors.name && "border-destructive")}
               autoComplete="off"
             />
-            {errors.name?.message ? (
-              <p className="text-sm text-destructive">{String(errors.name.message)}</p>
-            ) : null}
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="tenant-gcp" className="text-sm font-medium">
-              {pickLocalized(f.gcp, locale)}
-            </label>
+          </FormField>
+          <FormField id="tenant-gcp" label={pickLocalized(f.gcp, locale)} optional>
             <Input id="tenant-gcp" {...register("gcp")} autoComplete="off" />
-          </div>
+          </FormField>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {title}

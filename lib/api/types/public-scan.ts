@@ -28,7 +28,8 @@ export type PublicScanProductionOrderDto = {
 
 export type PublicScanPartyDto = {
   name: string;
-  gln: string;
+  gln: string | null;
+  taxCode: string | null;
 };
 
 export type PublicScanFactoryDto = {

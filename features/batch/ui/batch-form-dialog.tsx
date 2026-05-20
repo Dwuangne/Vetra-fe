@@ -4,6 +4,8 @@ import { Controller } from "react-hook-form";
 import { useEffect, useMemo } from "react";
 
 import { DateInput } from "@/components/forms/date-input";
+import { FormField } from "@/components/forms/form-field";
+import { optionalFieldPlaceholder } from "@/components/forms/form-field-label";
 import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import {
@@ -72,6 +74,9 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
 
   const f = messages.batch.fields;
   const title = pickLocalized(messages.batch.actions.create, locale);
+  const cancelLabel = pickLocalized(messages.common.cancel, locale);
+  const productionOrderLabel = pickLocalized(f.productionOrderId, locale);
+  const productLabel = pickLocalized(f.productId, locale);
 
   const loadProductOptions = useMemo(
     () => async (query: string) => {
@@ -139,23 +144,22 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label htmlFor="batch-lot-number" className="text-sm font-medium">
-              {pickLocalized(f.lotNumber, locale)}
-            </label>
+          <FormField
+            id="batch-lot-number"
+            label={pickLocalized(f.lotNumber, locale)}
+            required
+            error={errors.lotNumber?.message}
+          >
             <Input
               id="batch-lot-number"
               {...register("lotNumber")}
+              aria-required
               className={cn(errors.lotNumber && "border-destructive")}
               autoComplete="off"
             />
-            {errors.lotNumber?.message ? (
-              <p className="text-sm text-destructive">{String(errors.lotNumber.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">{pickLocalized(f.productionOrderId, locale)}</label>
+          <FormField label={productionOrderLabel} optional error={errors.productionOrderId?.message}>
             <Controller
               control={control}
               name="productionOrderId"
@@ -164,18 +168,23 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   value={field.value || null}
                   onValueChange={(value) => void onProductionOrderChange(value)}
                   loadOptions={loadProductionOrderOptions}
-                  placeholder={pickLocalized(f.productionOrderId, locale)}
+                  placeholder={optionalFieldPlaceholder(productionOrderLabel, locale)}
                   disabled={isSubmitting}
                 />
               )}
             />
-            {errors.productionOrderId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.productionOrderId.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">{pickLocalized(f.productId, locale)}</label>
+          <FormField
+            label={productLabel}
+            required
+            hint={
+              productLockedByOrder
+                ? pickLocalized(messages.batch.createForm.productFromOrderHint, locale)
+                : undefined
+            }
+            error={errors.productId?.message}
+          >
             <Controller
               control={control}
               name="productId"
@@ -184,40 +193,31 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   value={field.value || null}
                   onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadProductOptions}
-                  placeholder={pickLocalized(f.productId, locale)}
+                  placeholder={productLabel}
                   disabled={isSubmitting || productLockedByOrder}
                 />
               )}
             />
-            {productLockedByOrder ? (
-              <p className="text-xs text-muted-foreground">
-                {pickLocalized(messages.batch.createForm.productFromOrderHint, locale)}
-              </p>
-            ) : null}
-            {errors.productId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.productId.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
-          <div className="grid gap-2">
-            <label htmlFor="batch-planned-quantity" className="text-sm font-medium">
-              {pickLocalized(f.plannedQuantity, locale)}
-            </label>
+          <FormField
+            id="batch-planned-quantity"
+            label={pickLocalized(f.plannedQuantity, locale)}
+            required
+            error={errors.plannedQuantity?.message}
+          >
             <Input
               id="batch-planned-quantity"
               type="number"
               min={1}
               {...register("plannedQuantity", { valueAsNumber: true })}
+              aria-required
               className={cn(errors.plannedQuantity && "border-destructive")}
             />
-            {errors.plannedQuantity?.message ? (
-              <p className="text-sm text-destructive">{String(errors.plannedQuantity.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.productionDate, locale)}</label>
+            <FormField label={pickLocalized(f.productionDate, locale)} optional error={errors.productionDate?.message}>
               <Controller
                 control={control}
                 name="productionDate"
@@ -229,12 +229,8 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   />
                 )}
               />
-              {errors.productionDate?.message ? (
-                <p className="text-sm text-destructive">{String(errors.productionDate.message)}</p>
-              ) : null}
-            </div>
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.packDate, locale)}</label>
+            </FormField>
+            <FormField label={pickLocalized(f.packDate, locale)} optional error={errors.packDate?.message}>
               <Controller
                 control={control}
                 name="packDate"
@@ -246,15 +242,11 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   />
                 )}
               />
-              {errors.packDate?.message ? (
-                <p className="text-sm text-destructive">{String(errors.packDate.message)}</p>
-              ) : null}
-            </div>
+            </FormField>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.bestBeforeDate, locale)}</label>
+            <FormField label={pickLocalized(f.bestBeforeDate, locale)} optional error={errors.bestBeforeDate?.message}>
               <Controller
                 control={control}
                 name="bestBeforeDate"
@@ -266,12 +258,8 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   />
                 )}
               />
-              {errors.bestBeforeDate?.message ? (
-                <p className="text-sm text-destructive">{String(errors.bestBeforeDate.message)}</p>
-              ) : null}
-            </div>
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.expiryDate, locale)}</label>
+            </FormField>
+            <FormField label={pickLocalized(f.expiryDate, locale)} optional error={errors.expiryDate?.message}>
               <Controller
                 control={control}
                 name="expiryDate"
@@ -283,15 +271,12 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   />
                 )}
               />
-              {errors.expiryDate?.message ? (
-                <p className="text-sm text-destructive">{String(errors.expiryDate.message)}</p>
-              ) : null}
-            </div>
+            </FormField>
           </div>
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {title}

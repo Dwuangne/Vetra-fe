@@ -88,10 +88,10 @@ export function ProductInstanceTable({
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <span
-                              className="inline-flex shrink-0 rounded border border-amber-300 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium uppercase text-amber-900"
+                              className="inline-flex shrink-0 rounded border border-red-200 bg-red-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-red-800"
                               tabIndex={0}
                             >
-                              !
+                              {pickLocalized(pub.noticePageLabel, locale)}
                             </span>
                           </TooltipTrigger>
                           <TooltipContent className="max-w-xs">
@@ -100,7 +100,7 @@ export function ProductInstanceTable({
                         </Tooltip>
                         <Link
                           href={path}
-                          className="max-w-[10rem] truncate font-mono text-xs text-primary underline-offset-2 hover:underline"
+                          className="max-w-[10rem] truncate font-mono text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -110,14 +110,25 @@ export function ProductInstanceTable({
                           type="button"
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 shrink-0"
+                          className="h-8 w-8 shrink-0 text-muted-foreground"
                           aria-label={pickLocalized(pub.copyLink, locale)}
                           onClick={() => void copyUrl(absolute)}
                         >
                           <Copy className="h-4 w-4" />
                         </Button>
-                        <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0" asChild>
-                          <a href={path} target="_blank" rel="noopener noreferrer" aria-label={pickLocalized(pub.openInNewTab, locale)}>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 shrink-0 text-muted-foreground"
+                          asChild
+                        >
+                          <a
+                            href={path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={pickLocalized(pub.openInNewTab, locale)}
+                          >
                             <ExternalLink className="h-4 w-4" />
                           </a>
                         </Button>
