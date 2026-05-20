@@ -104,6 +104,7 @@ export function TenantUserResetPasswordDialog({
             onChange={setNewPassword}
             disabled={submitting}
             invalid={!!passwordError}
+            required
           />
           {passwordError ? <p className="text-sm text-destructive">{passwordError}</p> : null}
 
@@ -114,6 +115,7 @@ export function TenantUserResetPasswordDialog({
             onChange={setConfirm}
             disabled={submitting}
             invalid={!!confirmError}
+            required
           />
           {confirmError ? <p className="text-sm text-destructive">{confirmError}</p> : null}
         </div>

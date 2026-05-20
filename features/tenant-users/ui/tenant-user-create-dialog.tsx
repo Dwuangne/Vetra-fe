@@ -1,5 +1,6 @@
 "use client";
 
+import { FormFieldLabel } from "@/components/forms/form-field-label";
 import { ApiHttpError } from "@/lib/api/errors";
 import { createTenantUser } from "@/lib/api/services/tenant-user.service";
 import { Button } from "@/components/ui/button";
@@ -118,27 +119,29 @@ export function TenantUserCreateDialog({ open, onOpenChange, onCreated }: Tenant
         </DialogHeader>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <label htmlFor="tu-create-username" className="text-sm font-medium">
+            <FormFieldLabel htmlFor="tu-create-username" required>
               {pickLocalized(f.username, locale)}
-            </label>
+            </FormFieldLabel>
             <Input
               id="tu-create-username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="off"
+              aria-required
               className={cn(fieldErrors.username && "border-destructive")}
             />
             {fieldErrors.username ? <p className="text-sm text-destructive">{fieldErrors.username}</p> : null}
           </div>
 
           <div className="grid gap-2">
-            <label htmlFor="tu-create-role" className="text-sm font-medium">
+            <FormFieldLabel htmlFor="tu-create-role" required>
               {pickLocalized(f.role, locale)}
-            </label>
+            </FormFieldLabel>
             <select
               id="tu-create-role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
+              aria-required
               className={cn(selectClass, fieldErrors.role && "border-destructive")}
             >
               {CREATE_ROLES.map((r) => (
@@ -157,13 +160,14 @@ export function TenantUserCreateDialog({ open, onOpenChange, onCreated }: Tenant
             onChange={setPassword}
             disabled={submitting}
             invalid={!!fieldErrors.password}
+            required
           />
           {fieldErrors.password ? <p className="text-sm text-destructive">{fieldErrors.password}</p> : null}
 
           <div className="grid gap-2">
-            <label htmlFor="tu-create-confirm" className="text-sm font-medium">
+            <FormFieldLabel htmlFor="tu-create-confirm" required>
               {pickLocalized(f.confirmPassword, locale)}
-            </label>
+            </FormFieldLabel>
             <Input
               id="tu-create-confirm"
               type="password"
@@ -171,6 +175,7 @@ export function TenantUserCreateDialog({ open, onOpenChange, onCreated }: Tenant
               onChange={(e) => setConfirm(e.target.value)}
               disabled={submitting}
               autoComplete="new-password"
+              aria-required
               className={cn(fieldErrors.confirmPassword && "border-destructive")}
             />
             {fieldErrors.confirmPassword ? (

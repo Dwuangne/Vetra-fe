@@ -6,12 +6,15 @@ import type { Locale } from "@/lib/i18n/types";
 
 import { PublicScanLocaleToggle } from "./public-scan-locale-toggle";
 
+export type PublicScanFooterVariant = "default" | "notice";
+
 type PublicScanShellProps = {
   locale: Locale;
   accent: "rose" | "red";
   headerTitle: string;
   headerSubtitle?: string;
   headerBadge?: string;
+  footerVariant?: PublicScanFooterVariant;
   children: ReactNode;
 };
 
@@ -31,10 +34,14 @@ export function PublicScanShell({
   headerTitle,
   headerSubtitle,
   headerBadge,
+  footerVariant = "default",
   children,
 }: PublicScanShellProps) {
-  const logoAlt = pickLocalized(messages.publicScan.logoAlt, locale);
   const tagline = headerSubtitle ?? pickLocalized(messages.publicScan.tagline, locale);
+  const footerHint =
+    footerVariant === "notice"
+      ? pickLocalized(messages.publicScan.footer.noticeHint, locale)
+      : pickLocalized(messages.publicScan.footer.scanHint, locale);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-white">
@@ -44,7 +51,7 @@ export function PublicScanShell({
             <p className={`mb-1 text-sm ${subtitleClass[accent]}`}>{tagline}</p>
             <h1 className="text-xl font-bold leading-snug sm:text-2xl">{headerTitle}</h1>
             {headerBadge ? (
-              <div className="mt-3 inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-sm">
+              <div className="mt-3 inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
                 {headerBadge}
               </div>
             ) : null}
@@ -57,7 +64,7 @@ export function PublicScanShell({
 
       <footer className="mx-auto max-w-2xl px-4 pb-8 text-center text-sm text-zinc-500">
         <p>{pickLocalized(messages.publicScan.footer.thanks, locale)}</p>
-        <p className="mt-1">{pickLocalized(messages.publicScan.footer.scanHint, locale)}</p>
+        <p className="mt-1">{footerHint}</p>
       </footer>
     </div>
   );

@@ -15,10 +15,16 @@ type PartyTableProps = {
   onDelete?: (row: PartyListRowVm) => void;
 };
 
+function displayValue(value: string | null | undefined): string {
+  const trimmed = value?.trim();
+  return trimmed && trimmed.length > 0 ? trimmed : "—";
+}
+
 export function PartyTable({ rows, locale, loading, disabled, onEdit, onDelete }: PartyTableProps) {
   const f = messages.party.fields;
   const name = pickLocalized(f.name, locale);
   const gln = pickLocalized(f.gln, locale);
+  const taxCode = pickLocalized(f.taxCode, locale);
   const actions = messages.party.actions;
 
   return (
@@ -26,8 +32,9 @@ export function PartyTable({ rows, locale, loading, disabled, onEdit, onDelete }
       <table className="w-max min-w-full border-collapse text-sm whitespace-nowrap">
         <thead>
           <tr className="border-b bg-muted/40">
-            <th className="p-3 text-left font-medium">{gln}</th>
             <th className="p-3 text-left font-medium">{name}</th>
+            <th className="p-3 text-left font-medium">{taxCode}</th>
+            <th className="p-3 text-left font-medium">{gln}</th>
             <th className="w-36 p-3 text-right font-medium">
               <span className="sr-only">{pickLocalized(actions.update, locale)}</span>
             </th>
@@ -36,11 +43,18 @@ export function PartyTable({ rows, locale, loading, disabled, onEdit, onDelete }
         <tbody className={(loading ?? false) ? "opacity-60" : undefined}>
           {rows.map((row) => (
             <tr key={row.partyId} className="border-b last:border-b-0">
-              <td className="max-w-[12rem] truncate p-3 font-mono text-xs">{row.gln}</td>
-              <td className="p-3">{row.name}</td>
+              <td className="max-w-[16rem] truncate p-3">{row.name}</td>
+              <td className="max-w-[10rem] truncate p-3 font-mono text-xs">{displayValue(row.taxCode)}</td>
+              <td className="max-w-[12rem] truncate p-3 font-mono text-xs">{displayValue(row.gln)}</td>
               <td className="flex flex-wrap justify-end gap-2 p-3">
                 {onEdit ? (
-                  <Button type="button" size="sm" className={BRAND_PRIMARY_BUTTON_CLASS} disabled={disabled} onClick={() => onEdit(row)}>
+                  <Button
+                    type="button"
+                    size="sm"
+                    className={BRAND_PRIMARY_BUTTON_CLASS}
+                    disabled={disabled}
+                    onClick={() => onEdit(row)}
+                  >
                     {pickLocalized(actions.update, locale)}
                   </Button>
                 ) : null}

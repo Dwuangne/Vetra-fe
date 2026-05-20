@@ -4,6 +4,8 @@ import { Controller } from "react-hook-form";
 import { useEffect, useMemo } from "react";
 
 import { DatetimeInput } from "@/components/forms/datetime-input";
+import { FormField } from "@/components/forms/form-field";
+import { optionalFieldPlaceholder } from "@/components/forms/form-field-label";
 import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,6 +66,9 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
 
   const f = messages.productionOrder.fields;
   const title = pickLocalized(messages.productionOrder.actions.create, locale);
+  const cancelLabel = pickLocalized(messages.common.cancel, locale);
+  const productLabel = pickLocalized(f.productId, locale);
+  const locationLabel = pickLocalized(f.productionLocationId, locale);
 
   const loadProductOptions = useMemo(
     () => async (query: string) => {
@@ -112,23 +117,22 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label htmlFor="production-order-number" className="text-sm font-medium">
-              {pickLocalized(f.orderNumber, locale)}
-            </label>
+          <FormField
+            id="production-order-number"
+            label={pickLocalized(f.orderNumber, locale)}
+            required
+            error={errors.orderNumber?.message}
+          >
             <Input
               id="production-order-number"
               {...register("orderNumber")}
+              aria-required
               className={cn(errors.orderNumber && "border-destructive")}
               autoComplete="off"
             />
-            {errors.orderNumber?.message ? (
-              <p className="text-sm text-destructive">{String(errors.orderNumber.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">{pickLocalized(f.productId, locale)}</label>
+          <FormField label={productLabel} required error={errors.productId?.message}>
             <Controller
               control={control}
               name="productId"
@@ -137,49 +141,44 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
                   value={field.value || null}
                   onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadProductOptions}
-                  placeholder={pickLocalized(f.productId, locale)}
+                  placeholder={productLabel}
                   disabled={isSubmitting}
                 />
               )}
             />
-            {errors.productId?.message ? (
-              <p className="text-sm text-destructive">{String(errors.productId.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
-          <div className="grid gap-2">
-            <label htmlFor="production-order-description" className="text-sm font-medium">
-              {pickLocalized(f.description, locale)}
-            </label>
+          <FormField
+            id="production-order-description"
+            label={pickLocalized(f.description, locale)}
+            optional
+            error={errors.description?.message}
+          >
             <Input
               id="production-order-description"
               {...register("description")}
               className={cn(errors.description && "border-destructive")}
               autoComplete="off"
             />
-            {errors.description?.message ? (
-              <p className="text-sm text-destructive">{String(errors.description.message)}</p>
-            ) : null}
-          </div>
+          </FormField>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="grid gap-2">
-              <label htmlFor="production-order-planned-quantity" className="text-sm font-medium">
-                {pickLocalized(f.plannedQuantity, locale)}
-              </label>
+            <FormField
+              id="production-order-planned-quantity"
+              label={pickLocalized(f.plannedQuantity, locale)}
+              required
+              error={errors.plannedQuantity?.message}
+            >
               <Input
                 id="production-order-planned-quantity"
                 type="number"
                 min={1}
                 {...register("plannedQuantity", { valueAsNumber: true })}
+                aria-required
                 className={cn(errors.plannedQuantity && "border-destructive")}
               />
-              {errors.plannedQuantity?.message ? (
-                <p className="text-sm text-destructive">{String(errors.plannedQuantity.message)}</p>
-              ) : null}
-            </div>
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.productionLocationId, locale)}</label>
+            </FormField>
+            <FormField label={locationLabel} optional error={errors.productionLocationId?.message}>
               <Controller
                 control={control}
                 name="productionLocationId"
@@ -188,20 +187,16 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
                     value={field.value || null}
                     onValueChange={(value) => setValue("productionLocationId", value ?? "", { shouldValidate: true })}
                     loadOptions={loadLocationOptions}
-                    placeholder={pickLocalized(f.productionLocationId, locale)}
+                    placeholder={optionalFieldPlaceholder(locationLabel, locale)}
                     disabled={isSubmitting}
                   />
                 )}
               />
-              {errors.productionLocationId?.message ? (
-                <p className="text-sm text-destructive">{String(errors.productionLocationId.message)}</p>
-              ) : null}
-            </div>
+            </FormField>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.plannedStartTime, locale)}</label>
+            <FormField label={pickLocalized(f.plannedStartTime, locale)} required error={errors.plannedStartTime?.message}>
               <Controller
                 control={control}
                 name="plannedStartTime"
@@ -213,13 +208,8 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
                   />
                 )}
               />
-              {errors.plannedStartTime?.message ? (
-                <p className="text-sm text-destructive">{String(errors.plannedStartTime.message)}</p>
-              ) : null}
-            </div>
-
-            <div className="grid gap-2">
-              <label className="text-sm font-medium">{pickLocalized(f.plannedEndTime, locale)}</label>
+            </FormField>
+            <FormField label={pickLocalized(f.plannedEndTime, locale)} required error={errors.plannedEndTime?.message}>
               <Controller
                 control={control}
                 name="plannedEndTime"
@@ -231,15 +221,12 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
                   />
                 )}
               />
-              {errors.plannedEndTime?.message ? (
-                <p className="text-sm text-destructive">{String(errors.plannedEndTime.message)}</p>
-              ) : null}
-            </div>
+            </FormField>
           </div>
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {title}

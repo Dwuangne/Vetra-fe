@@ -80,6 +80,14 @@
       "en": "Cannot delete this party because locations still reference it.",
       "vi": "Không thể xóa đối tác vì vẫn còn địa điểm đang tham chiếu."
     },
+    "PTY_005": {
+      "en": "Invalid tax code format. Tax code must be 10 or 13 digits.",
+      "vi": "Mã số thuế không hợp lệ. MST phải gồm 10 hoặc 13 chữ số."
+    },
+    "PTY_006": {
+      "en": "A party with this tax code already exists in this tenant.",
+      "vi": "Đã tồn tại đối tác với mã số thuế này trong tenant."
+    },
     "LOC_001": {
       "en": "Location was not found.",
       "vi": "Không tìm thấy địa điểm."
@@ -129,8 +137,8 @@
       "vi": "Định dạng GTIN không hợp lệ."
     },
     "PRD_004": {
-      "en": "Cannot delete this product because batches or product instances already exist.",
-      "vi": "Không thể xóa sản phẩm vì đã phát sinh batch hoặc product instance."
+      "en": "Cannot delete this product because batches or product codes already exist.",
+      "vi": "Không thể xóa sản phẩm vì đã phát sinh batch hoặc mã sản phẩm."
     },
     "POR_001": {
       "en": "Production order was not found.",
@@ -225,12 +233,12 @@
       "vi": "Không tìm thấy batch trong tenant này."
     },
     "PIN_002": {
-      "en": "Product instances can only be generated for released batches.",
-      "vi": "Chỉ có thể sinh product instance cho batch đã phát hành."
+      "en": "Product codes can only be generated for released batches.",
+      "vi": "Chỉ có thể sinh mã sản phẩm cho batch đã phát hành."
     },
     "PIN_003": {
-      "en": "Released or planned quantity is invalid for generating instances.",
-      "vi": "Số lượng phát hành hoặc kế hoạch không hợp lệ để sinh instance."
+      "en": "Released or planned quantity is invalid for generating product codes.",
+      "vi": "Số lượng phát hành hoặc kế hoạch không hợp lệ để sinh mã sản phẩm."
     },
     "PIN_004": {
       "en": "Product not found for this batch.",
@@ -257,20 +265,20 @@
       "vi": "Xuất CSV vượt quá số dòng tối đa cho một file."
     },
     "PIN_010": {
-      "en": "This batch already has product instances; generation can only run once per batch.",
-      "vi": "Batch này đã có product instance; chỉ được sinh một lần cho mỗi batch."
+      "en": "This batch already has product codes; generation can only run once per batch.",
+      "vi": "Batch này đã có mã sản phẩm; chỉ được sinh một lần cho mỗi batch."
     },
     "PIN_011": {
-      "en": "Product instance generation exceeds the maximum allowed per batch (1,000,000).",
-      "vi": "Số instance sinh trong một batch vượt quá giới hạn tối đa (1.000.000)."
+      "en": "Product code generation exceeds the maximum allowed per batch (1,000,000).",
+      "vi": "Số mã sản phẩm sinh trong một batch vượt quá giới hạn tối đa (1.000.000)."
     },
     "PIN_012": {
       "en": "CSV export requires exactly one of batchId or productId.",
       "vi": "Xuất CSV cần đúng một trong batchId hoặc productId."
     },
     "PIN_014": {
-      "en": "No product instances are available to export for the selected criteria.",
-      "vi": "Không có product instance nào đủ điều kiện xuất CSV cho tiêu chí đã chọn."
+      "en": "No product codes are available to export for the selected criteria.",
+      "vi": "Không có mã sản phẩm nào đủ điều kiện xuất CSV cho tiêu chí đã chọn."
     },
     "VRF_001": {
       "en": "Verification session was not found or the session token is invalid.",
@@ -473,6 +481,14 @@
     "cancel": {
       "en": "Cancel",
       "vi": "Hủy"
+    },
+    "requiredMark": {
+      "en": "required",
+      "vi": "bắt buộc"
+    },
+    "optional": {
+      "en": "optional",
+      "vi": "tùy chọn"
     }
   },
   "nav": {
@@ -576,8 +592,8 @@
         "vi": "Chứng nhận"
       },
       "productInstances": {
-        "en": "Product instances",
-        "vi": "Thể hiện sản phẩm"
+        "en": "Product codes",
+        "vi": "Mã sản phẩm"
       },
       "activeProductionOrders": {
         "en": "Active production orders",
@@ -915,9 +931,45 @@
         "en": "Name",
         "vi": "Tên"
       },
+      "taxCode": {
+        "en": "Tax code",
+        "vi": "Mã số thuế"
+      },
+      "taxCodeHint": {
+        "en": "10 or 13 digits (optional)",
+        "vi": "10 hoặc 13 chữ số (tùy chọn)"
+      },
       "gln": {
         "en": "GLN",
         "vi": "GLN"
+      },
+      "glnHint": {
+        "en": "Optional — 13-digit Global Location Number",
+        "vi": "Tùy chọn — mã GLN 13 chữ số"
+      },
+      "registeredAddress": {
+        "en": "Registered address",
+        "vi": "Địa chỉ đăng ký"
+      },
+      "registeredAddressHint": {
+        "en": "Head office or registered address (optional)",
+        "vi": "Trụ sở hoặc địa chỉ đăng ký (tùy chọn)"
+      },
+      "phone": {
+        "en": "Phone",
+        "vi": "Điện thoại"
+      },
+      "phoneHint": {
+        "en": "Contact phone (optional)",
+        "vi": "Số liên hệ (tùy chọn)"
+      },
+      "email": {
+        "en": "Email",
+        "vi": "Email"
+      },
+      "emailHint": {
+        "en": "Contact email (optional)",
+        "vi": "Email liên hệ (tùy chọn)"
       }
     }
   },
@@ -1272,8 +1324,8 @@
         "vi": "Xóa bộ lọc"
       },
       "viewInstances": {
-        "en": "View instances",
-        "vi": "Xem thể hiện"
+        "en": "View product codes",
+        "vi": "Xem mã sản phẩm"
       }
     },
     "statusTransitionDialog": {
@@ -1443,6 +1495,10 @@
         "en": "GLN",
         "vi": "GLN"
       },
+      "partyTaxCodeLabel": {
+        "en": "Tax code",
+        "vi": "Mã số thuế"
+      },
       "certificatesSection": {
         "en": "Quality certificates",
         "vi": "Chứng nhận chất lượng"
@@ -1460,6 +1516,24 @@
       "title": {
         "en": "Important product notice",
         "vi": "Thông báo quan trọng về sản phẩm"
+      },
+      "badges": {
+        "recalled": {
+          "en": "Recalled batch",
+          "vi": "Lô đã thu hồi"
+        },
+        "quarantined": {
+          "en": "Quarantined batch",
+          "vi": "Lô đang cách ly"
+        },
+        "destroyed": {
+          "en": "Destroyed batch",
+          "vi": "Lô đã tiêu hủy"
+        }
+      },
+      "batchStatusLabel": {
+        "en": "Batch status",
+        "vi": "Trạng thái lô"
       },
       "recalled": {
         "en": "This batch has been recalled. Do not use or distribute this product. Contact the supplier or point of purchase for guidance.",
@@ -1490,6 +1564,10 @@
       "scanHint": {
         "en": "Scan the QR code to verify authenticity.",
         "vi": "Quét mã QR để xác thực sản phẩm chính hãng."
+      },
+      "noticeHint": {
+        "en": "If you have questions about this notice, contact the supplier or retailer where you purchased this product.",
+        "vi": "Nếu bạn có thắc mắc về thông báo này, vui lòng liên hệ nhà cung cấp hoặc nơi mua sản phẩm."
       }
     },
     "invalidRequest": {
@@ -1531,6 +1609,10 @@
         "en": "Not public yet. The production order must be active and the batch must be released without restrictions.",
         "vi": "Chưa public. Lệnh sản xuất phải đang hiệu lực và batch phải Released, không thuộc trạng thái hạn chế."
       },
+      "noticePageLabel": {
+        "en": "Notice page",
+        "vi": "Trang cảnh báo"
+      },
       "noticePageTooltip": {
         "en": "Scanning this QR shows a public safety notice for this batch (quarantine, recall, or destroyed).",
         "vi": "Quét QR này sẽ hiển thị trang cảnh báo công khai cho batch (cách ly, thu hồi hoặc tiêu hủy)."
@@ -1553,12 +1635,12 @@
   },
   "productInstance": {
     "title": {
-      "en": "Product Instances",
-      "vi": "Thể hiện sản phẩm"
+      "en": "Product codes",
+      "vi": "Mã sản phẩm"
     },
     "selectBatchPrompt": {
-      "en": "Choose a batch to view and generate serialised instances.",
-      "vi": "Chọn một batch để xem và sinh thể hiện sản phẩm."
+      "en": "Choose a batch to view and generate product codes.",
+      "vi": "Chọn một batch để xem và sinh mã sản phẩm."
     },
     "selectPoolPrompt": {
       "en": "Or choose a product to view the pre-generation pool (print-verify flow).",
@@ -1647,8 +1729,8 @@
       },
       "preGenerateDialog": {
         "title": {
-          "en": "Pre-generate pool instances",
-          "vi": "Pre-generate pool"
+          "en": "Pre-generate product code pool",
+          "vi": "Pre-generate pool mã sản phẩm"
         },
         "hint": {
           "en": "Creates a new generation of serials for this product (not yet assigned to a batch). Each run adds to the pool; export is per generation and only once.",
@@ -1658,12 +1740,12 @@
     },
     "generateDialog": {
       "title": {
-        "en": "Generate instances (once per batch)",
-        "vi": "Sinh thể hiện (một lần cho mỗi batch)"
+        "en": "Generate product codes (once per batch)",
+        "vi": "Sinh mã sản phẩm (một lần cho mỗi batch)"
       },
       "batchScopeHint": {
-        "en": "You can generate only once per batch. The server creates one instance per unit of released quantity, or planned quantity if released quantity is not set. Serial numbers are assigned automatically—you cannot enter quantity or a serial prefix.",
-        "vi": "Mỗi batch chỉ được sinh một lần. Máy chủ tạo đủ số thể hiện theo số lượng đã phát hành (released), hoặc theo số kế hoạch (planned) nếu chưa có released. Serial được gán tự động; không thể nhập số lượng hay tiền tố serial."
+        "en": "You can generate only once per batch. The server creates one product code per unit of released quantity, or planned quantity if released quantity is not set. Serial numbers are assigned automatically—you cannot enter quantity or a serial prefix.",
+        "vi": "Mỗi batch chỉ được sinh một lần. Máy chủ tạo đủ số mã sản phẩm theo số lượng đã phát hành (released), hoặc theo số kế hoạch (planned) nếu chưa có released. Serial được gán tự động; không thể nhập số lượng hay tiền tố serial."
       }
     },
     "actions": {
@@ -1700,12 +1782,12 @@
     },
     "empty": {
       "noData": {
-        "en": "No product instance records yet.",
-        "vi": "Chưa có dữ liệu product instance."
+        "en": "No product codes yet.",
+        "vi": "Chưa có mã sản phẩm."
       },
       "noFilteredResults": {
-        "en": "No matching product instance results.",
-        "vi": "Không có kết quả product instance phù hợp."
+        "en": "No matching product codes.",
+        "vi": "Không có mã sản phẩm phù hợp."
       }
     },
     "fields": {
