@@ -12,7 +12,9 @@ import {
   publicScanBatchStatusLabel,
 } from "../lib/public-scan-format";
 import { formatPublicScanPartyLine } from "../lib/format-public-scan-party";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { SafeImage } from "@/components/ui/safe-image";
+import { isCertificateImageUrl } from "../lib/certificate-url";
 
 type PublicScanContentProps = {
   data: PublicScanResultDto;
@@ -28,6 +30,7 @@ export function PublicScanContent({ data, locale, imageAccent = "green" }: Publi
   const images = product.images.filter((url) => url?.trim());
   const hasMultipleImages = images.length > 1;
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
 
   const imageBorder = imageAccent === "red" ? "border-red-100" : "border-emerald-100";
   const imageDotActive = imageAccent === "red" ? "bg-red-500" : "bg-emerald-500";
@@ -174,20 +177,48 @@ export function PublicScanContent({ data, locale, imageAccent = "green" }: Publi
               >
                 <p className="text-sm font-semibold text-amber-900">{certificate.name}</p>
                 {certificate.url ? (
-                  <a
-                    href={certificate.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-amber-800 underline"
-                  >
-                    {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
-                  </a>
+                  isCertificateImageUrl(certificate.url) ? (
+                    <button
+                      type="button"
+                      className="text-sm font-medium text-amber-800 underline hover:text-amber-950"
+                      onClick={() => setPreviewImageUrl(certificate.url!.trim())}
+                    >
+                      {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
+                    </button>
+                  ) : (
+                    <a
+                      href={certificate.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-amber-800 underline"
+                    >
+                      {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
+                    </a>
+                  )
                 ) : null}
               </div>
             ))}
           </div>
         </section>
       ) : null}
+
+      <Dialog open={previewImageUrl !== null} onOpenChange={(open) => !open && setPreviewImageUrl(null)}>
+        <DialogContent
+          className="max-w-[min(95vw,900px)] border-0 bg-transparent p-0 shadow-none sm:rounded-none [&>button]:hidden [&>div]:overflow-visible [&>div]:p-0 [&>div]:pt-0"
+          aria-describedby={undefined}
+        >
+          <DialogTitle className="sr-only">
+            {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
+          </DialogTitle>
+          {previewImageUrl ? (
+            <SafeImage
+              src={previewImageUrl}
+              alt=""
+              className="max-h-[min(85vh,100dvh)] w-full object-contain"
+            />
+          ) : null}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

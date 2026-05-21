@@ -43,10 +43,12 @@ export function OpenVerificationSessionDialog({
   const loadBatchOptions = useMemo(
     () => async (query: string) => {
       const res = await listBatches({ keyword: query || undefined, page: 1, size: 50 });
-      return (res.data?.items ?? []).map((b) => ({
-        value: b.batchId,
-        label: b.lotNumber,
-      }));
+      return (res.data?.items ?? [])
+        .filter((b) => b.status === "InProduction")
+        .map((b) => ({
+          value: b.batchId,
+          label: b.lotNumber,
+        }));
     },
     []
   );
