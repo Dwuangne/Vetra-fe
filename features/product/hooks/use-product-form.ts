@@ -8,7 +8,7 @@ const productFieldsSchema = z.object({
   gtin: z.string().min(1, "GTIN is required"),
   name: z.string().min(1, "Name is required"),
   imageUrl: z.string().min(1, "Image URL is required"),
-  description: z.string().optional(),
+  description: z.string().max(10000).optional(),
 });
 
 export type ProductFormValues = z.infer<typeof productFieldsSchema>;

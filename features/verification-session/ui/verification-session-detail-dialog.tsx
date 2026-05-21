@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -98,6 +99,7 @@ export function VerificationSessionDetailDialog({
   const [loadingSession, setLoadingSession] = useState(false);
   const [loadingLines, setLoadingLines] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
   const [session, setSession] = useState<VerificationSessionSummaryDto | null>(null);
   const [totalAttachLines, setTotalAttachLines] = useState(0);
   const [attachLines, setAttachLines] = useState<VerificationAttachLineDto[]>([]);
@@ -195,15 +197,15 @@ export function VerificationSessionDetailDialog({
     }
   };
 
-  const onCancelSession = async () => {
+  const onConfirmCancelSession = async () => {
     if (!sessionId) return;
-    if (!window.confirm(pickLocalized(m.detailDialog.cancelConfirm, locale))) return;
 
     setCancelling(true);
     try {
       const res = await cancelVerificationSession(sessionId);
       if (res.data) setSession(res.data);
       toastMutationSuccess(locale);
+      setCancelConfirmOpen(false);
       onSessionUpdated();
     } catch (e) {
       toastApiError(e, locale);
@@ -223,6 +225,7 @@ export function VerificationSessionDetailDialog({
   );
 
   return (
+    <>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[85vh] max-w-3xl overflow-y-auto" aria-describedby={undefined}>
         <DialogHeader>
@@ -400,7 +403,12 @@ export function VerificationSessionDetailDialog({
 
         <DialogFooter className="gap-2 sm:gap-0">
           {showCancel ? (
-            <Button type="button" variant="destructive" disabled={cancelling} onClick={() => void onCancelSession()}>
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={cancelling}
+              onClick={() => setCancelConfirmOpen(true)}
+            >
               {pickLocalized(m.actions.cancelSession, locale)}
             </Button>
           ) : null}
@@ -410,5 +418,33 @@ export function VerificationSessionDetailDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
+    <Dialog open={cancelConfirmOpen} onOpenChange={setCancelConfirmOpen}>
+      <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
+        <DialogHeader>
+          <DialogTitle>{pickLocalized(m.detailDialog.cancelConfirmTitle, locale)}</DialogTitle>
+          <DialogDescription>{pickLocalized(m.detailDialog.cancelConfirm, locale)}</DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={cancelling}
+            onClick={() => setCancelConfirmOpen(false)}
+          >
+            {pickLocalized(messages.common.cancel, locale)}
+          </Button>
+          <Button
+            type="button"
+            variant="destructive"
+            disabled={cancelling}
+            onClick={() => void onConfirmCancelSession()}
+          >
+            {pickLocalized(m.detailDialog.confirmCancelButton, locale)}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }

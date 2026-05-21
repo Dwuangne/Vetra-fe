@@ -1,6 +1,12 @@
 import { ApiHttpError } from "@/lib/api/errors";
 import type { FieldPath, FieldValues, UseFormSetError } from "react-hook-form";
 
+/** ASP.NET ModelState keys are PascalCase; react-hook-form fields are camelCase. */
+function toFormFieldKey(apiKey: string): string {
+  if (!apiKey || apiKey === "_") return apiKey;
+  return apiKey.charAt(0).toLowerCase() + apiKey.slice(1);
+}
+
 /**
  * First validation message per field name (API contract: arrays per key).
  */
@@ -11,7 +17,7 @@ export function flattenApiFieldErrors(
   const out: Record<string, string> = {};
   for (const [field, msgs] of Object.entries(errors)) {
     const first = msgs?.[0];
-    if (first) out[field] = first;
+    if (first) out[toFormFieldKey(field)] = first;
   }
   return out;
 }
@@ -31,7 +37,7 @@ export function applyApiValidationErrors<T extends FieldValues>(
   for (const [field, msgs] of Object.entries(apiErrors)) {
     const first = msgs?.[0];
     if (!first) continue;
-    setError(field as FieldPath<T>, { type: "server", message: first });
+    setError(toFormFieldKey(field) as FieldPath<T>, { type: "server", message: first });
     count += 1;
   }
   return count;

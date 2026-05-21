@@ -304,6 +304,10 @@
       "en": "Unverified items cannot be attached; only Verified or Duplicate status is accepted.",
       "vi": "Không thể gắn mục Unverified; chỉ chấp nhận trạng thái Verified hoặc Duplicate."
     },
+    "VRF_007": {
+      "en": "Verification sessions and attach-items are only allowed while the batch is in production.",
+      "vi": "Chỉ được mở ca xác minh và đồng bộ attach khi lô đang ở trạng thái đang sản xuất."
+    },
     "PUB_001": {
       "en": "This QR is not available or has not been published.",
       "vi": "QR không khả dụng hoặc chưa được công bố."
@@ -2004,8 +2008,8 @@
         "vi": "Mở ca xác minh"
       },
       "hint": {
-        "en": "Select the batch to attach verified or duplicate codes from the external print-scan system. The session token is shown once—copy it for the bridge.",
-        "vi": "Chọn lô để gắn mã Verified/Duplicate từ hệ thống in–quét ngoài. Token ca chỉ hiển thị một lần—hãy sao chép cho bridge."
+        "en": "Select a batch that is in production. Attach verified or duplicate codes from the external print-scan system. The session token is shown once—copy it for the bridge.",
+        "vi": "Chọn lô đang sản xuất. Gắn mã Verified/Duplicate từ hệ thống in–quét ngoài. Token ca chỉ hiển thị một lần—hãy sao chép cho bridge."
       },
       "tokenWarning": {
         "en": "Copy this token now. It will not be shown again.",
@@ -2029,9 +2033,17 @@
         "en": "{count} line(s) total",
         "vi": "{count} dòng tổng"
       },
+      "cancelConfirmTitle": {
+        "en": "Cancel session?",
+        "vi": "Hủy ca xác minh?"
+      },
       "cancelConfirm": {
         "en": "Cancel this open session? The bridge token will stop working.",
         "vi": "Hủy ca đang mở? Token bridge sẽ không còn hiệu lực."
+      },
+      "confirmCancelButton": {
+        "en": "Confirm cancel",
+        "vi": "Xác nhận hủy"
       }
     },
     "tokenCopied": {
