@@ -53,7 +53,7 @@ export function BatchTable({
   };
 
   return (
-    <div className="overflow-x-auto rounded-md border">
+    <div className="min-w-0 max-w-full overflow-x-auto rounded-md border">
       <table className="w-max min-w-full border-collapse text-sm whitespace-nowrap">
         <thead>
           <tr className="border-b bg-muted/40">

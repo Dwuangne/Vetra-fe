@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useState } from "react";
 import messages from "@/lib/i18n/messages.json";
 import { pickLocalized } from "@/lib/i18n";
@@ -211,11 +212,21 @@ export function PublicScanContent({ data, locale, imageAccent = "green" }: Publi
             {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
           </DialogTitle>
           {previewImageUrl ? (
-            <SafeImage
-              src={previewImageUrl}
-              alt=""
-              className="max-h-[min(85vh,100dvh)] w-full object-contain"
-            />
+            <>
+              <button
+                type="button"
+                className="fixed right-4 top-4 z-[60] flex h-11 w-11 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-2 ring-white/30 transition hover:bg-black/85 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                onClick={() => setPreviewImageUrl(null)}
+                aria-label={pickLocalized(messages.publicScan.active.closeCertificatePreview, locale)}
+              >
+                <X className="h-6 w-6" aria-hidden />
+              </button>
+              <SafeImage
+                src={previewImageUrl}
+                alt=""
+                className="max-h-[min(85vh,100dvh)] w-full object-contain"
+              />
+            </>
           ) : null}
         </DialogContent>
       </Dialog>

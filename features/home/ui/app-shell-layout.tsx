@@ -38,7 +38,7 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
   return (
     <SidebarProvider>
       <HomeAppSidebar />
-      <SidebarInset className="min-w-0 transition-[margin-left,width] duration-200 ease-linear md:peer-data-[state=expanded]:ml-[var(--sidebar-width)] md:peer-data-[state=expanded]:w-[calc(100%-var(--sidebar-width))] md:peer-data-[state=collapsed]:ml-0 md:peer-data-[state=collapsed]:w-full">
+      <SidebarInset className="min-w-0 max-w-full overflow-x-hidden transition-[margin-left,width] duration-200 ease-linear md:peer-data-[state=expanded]:ml-[var(--sidebar-width)] md:peer-data-[state=expanded]:w-[calc(100%-var(--sidebar-width))] md:peer-data-[state=collapsed]:ml-0 md:peer-data-[state=collapsed]:w-full">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="relative z-20" />
           <Separator orientation="vertical" className="mr-2 h-4" />
@@ -106,7 +106,7 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
             ) : null}
           </div>
         </header>
-        <main className="flex-1 p-4 ml-[10px]">{children}</main>
+        <main className="min-w-0 max-w-full flex-1 overflow-x-hidden p-4">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
