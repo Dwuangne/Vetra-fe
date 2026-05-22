@@ -102,9 +102,10 @@ export function BatchPage() {
 
   return (
     <AppShellLayout title={pageTitle}>
-      <div className="flex flex-col gap-4">
+      <div className="flex w-full min-w-0 max-w-full flex-col gap-4 overflow-x-hidden">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <BatchFilters
+            className="min-w-0 flex-1 basis-full sm:basis-auto"
             keyword={list.keyword}
             onKeywordChange={list.setKeyword}
             onSearch={list.onSearch}
@@ -114,7 +115,7 @@ export function BatchPage() {
           {canTransition ? (
             <Button
               type="button"
-              className={BRAND_PRIMARY_BUTTON_CLASS}
+              className={`${BRAND_PRIMARY_BUTTON_CLASS} shrink-0`}
               onClick={() => setFormOpen(true)}
               disabled={filterDisabled}
             >
@@ -133,23 +134,27 @@ export function BatchPage() {
           <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
 
-        {list.hasSearched && list.initialLoad && list.loading ? <ListLoadingSkeleton rows={8} columns={8} /> : null}
+        {list.hasSearched && list.initialLoad && list.loading ? (
+          <ListLoadingSkeleton className="min-w-0 max-w-full" rows={8} columns={8} />
+        ) : null}
 
         {showEmpty ? (
           <BatchEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (
-          <BatchTable
-            rows={list.items}
-            locale={locale}
-            productNameById={productNameById}
-            orderNumberById={orderNumberById}
-            loading={list.loading}
-            disabled={list.loading}
-            resolveNextStatuses={getNextBatchStatuses}
-            onTransition={canTransition ? onTransitionSelected : undefined}
-          />
+          <div className="min-w-0 max-w-full">
+            <BatchTable
+              rows={list.items}
+              locale={locale}
+              productNameById={productNameById}
+              orderNumberById={orderNumberById}
+              loading={list.loading}
+              disabled={list.loading}
+              resolveNextStatuses={getNextBatchStatuses}
+              onTransition={canTransition ? onTransitionSelected : undefined}
+            />
+          </div>
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (

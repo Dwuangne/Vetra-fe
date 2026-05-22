@@ -27,8 +27,8 @@ export function BatchFilters({
   const label = pickLocalized(messages.batch.filters.keyword, locale);
 
   return (
-    <div className={cn("flex flex-wrap items-end gap-3", className)}>
-      <div className="flex min-w-[200px] max-w-md flex-1 flex-col gap-2">
+    <div className={cn("flex min-w-0 flex-wrap items-end gap-3", className)}>
+      <div className="flex min-w-0 w-full max-w-md flex-1 flex-col gap-2">
         <label htmlFor="batch-keyword" className="text-sm font-medium leading-none">
           {label}
         </label>

@@ -1523,6 +1523,10 @@
         "en": "View",
         "vi": "Xem"
       },
+      "closeCertificatePreview": {
+        "en": "Close",
+        "vi": "Đóng"
+      },
       "gtinLabel": {
         "en": "GTIN",
         "vi": "GTIN"
