@@ -76,16 +76,21 @@ export function EntitySelect({
     };
   }, [loadOptions, query, value]);
 
+  const displayValue = open ? query : (selected?.label ?? query);
+
   return (
     <div ref={containerRef} className={cn("relative", className)}>
       <Input
-        value={query}
-        onFocus={() => setOpen(true)}
+        value={displayValue}
+        onFocus={() => {
+          setOpen(true);
+          setQuery("");
+        }}
         onChange={(e) => {
           setQuery(e.target.value);
           if (!open) setOpen(true);
         }}
-        placeholder={selected?.label ?? placeholder}
+        placeholder={placeholder}
         disabled={disabled}
         autoComplete="off"
       />

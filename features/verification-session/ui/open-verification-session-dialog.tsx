@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { listBatches } from "@/lib/api/services/batch.service";
 import { openVerificationSession } from "@/lib/api/services/verification-session.service";
+import { normalizeBatchStatus } from "@/lib/production/batch-status";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { toast } from "@/hooks/use-toast";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
@@ -44,7 +45,6 @@ export function OpenVerificationSessionDialog({
     () => async (query: string) => {
       const res = await listBatches({ keyword: query || undefined, page: 1, size: 50 });
       return (res.data?.items ?? [])
-        .filter((b) => b.status === "InProduction")
         .map((b) => ({
           value: b.batchId,
           label: b.lotNumber,

@@ -174,6 +174,7 @@ export function BatchPage() {
       {canTransition ? (
         <BatchStatusDialog
           open={statusDialogOpen}
+          batchId={transitionTarget?.row.batchId ?? null}
           currentStatus={normalizeBatchStatus(transitionTarget?.row.status)}
           nextStatus={transitionTarget?.nextStatus ?? null}
           loading={transitioning}
