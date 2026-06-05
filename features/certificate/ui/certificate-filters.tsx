@@ -96,7 +96,6 @@ export function CertificateFilters({
           onValueChange={(value) => onProductIdChange(value ?? "")}
           loadOptions={loadProductOptions}
           placeholder={`${productLabel} (all)`}
-          searchPlaceholder={productLabel}
           disabled={disabled}
           emptyText="No products found"
         />
@@ -110,7 +109,6 @@ export function CertificateFilters({
           onValueChange={(value) => onLocationIdChange(value ?? "")}
           loadOptions={loadLocationOptions}
           placeholder={`${locationLabel} (all)`}
-          searchPlaceholder={locationLabel}
           disabled={disabled}
           emptyText="No locations found"
         />

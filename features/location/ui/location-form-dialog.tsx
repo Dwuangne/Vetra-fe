@@ -171,7 +171,6 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
                   onValueChange={(value) => setValue("partyId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadPartyOptions}
                   placeholder={optionalFieldPlaceholder(partyLabel, locale)}
-                  searchPlaceholder={partyLabel}
                   disabled={isSubmitting}
                   className={cn(errors.partyId && "rounded-md border border-destructive")}
                 />

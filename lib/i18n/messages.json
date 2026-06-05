@@ -1650,8 +1650,8 @@
         "vi": "Trang cảnh báo"
       },
       "noticePageTooltip": {
-        "en": "Scanning this QR shows a public safety notice for this batch (quarantine, recall, or destroyed).",
-        "vi": "Quét QR này sẽ hiển thị trang cảnh báo công khai cho batch (cách ly, thu hồi hoặc tiêu hủy)."
+        "en": "View a public safety notice for this batch.",
+        "vi": "Xem trang cảnh báo công khai cho batch."
       },
       "linkCopied": {
         "en": "Link copied.",
