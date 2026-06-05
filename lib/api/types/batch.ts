@@ -17,10 +17,12 @@ export type BatchDto = {
   bestBeforeDate: string | null;
   productionDate: string | null;
   packDate: string | null;
-  status: BatchStatus;
+  status: BatchStatus | number;
   plannedQuantity: number;
   releasedQuantity: number | null;
   productionOrderId: string;
+  /** Populated on GET by id: committed codes on this batch (print-verify sync). */
+  committedInstanceCount?: number | null;
 };
 
 export type BatchListQuery = PagedListQuery;

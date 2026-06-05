@@ -21,6 +21,7 @@ import {
   getProductionOrderById,
   listProductionOrders,
 } from "@/lib/api/services/production-order.service";
+import { normalizeProductionOrderStatus } from "@/lib/production/production-order-status";
 import {
   applyApiValidationErrors,
   validationErrorsFromApiError,
@@ -88,7 +89,12 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
   const loadProductionOrderOptions = useMemo(
     () => async (query: string) => {
       const res = await listProductionOrders({ keyword: query || undefined, page: 1, size: 50 });
-      return (res.data?.items ?? []).map((item) => ({ value: item.productionOrderId, label: item.orderNumber }));
+      return (res.data?.items ?? [])
+        .filter((item) => {
+          const status = normalizeProductionOrderStatus(item.status);
+          return status === "Confirmed" || status === "InProduction";
+        })
+        .map((item) => ({ value: item.productionOrderId, label: item.orderNumber }));
     },
     []
   );

@@ -213,8 +213,8 @@
       "vi": "Sản phẩm của batch phải khớp sản phẩm của lệnh sản xuất."
     },
     "BAT_007": {
-      "en": "Batch cannot be linked to a draft or cancelled production order.",
-      "vi": "Không thể liên kết batch với lệnh đang Draft hoặc đã hủy."
+      "en": "Batch can only be linked to a confirmed or in-production order (not draft, completed, or cancelled).",
+      "vi": "Chỉ được tạo lô cho lệnh đã xác nhận hoặc đang sản xuất (không áp dụng Draft, đã hoàn tất hoặc đã hủy)."
     },
     "BAT_008": {
       "en": "Invalid batch status transition.",
@@ -235,6 +235,10 @@
     "BAT_012": {
       "en": "Production order is required for every batch.",
       "vi": "Mỗi lô sản xuất phải gắn với một lệnh sản xuất."
+    },
+    "BAT_013": {
+      "en": "Released quantity must match the number of product codes already committed to this batch.",
+      "vi": "Số lượng phát hành phải bằng số mã sản phẩm đã gắn vào lô này."
     },
     "PIN_001": {
       "en": "Batch was not found in this tenant.",
@@ -1356,6 +1360,14 @@
       "confirmButton": {
         "en": "Confirm",
         "vi": "Xác nhận"
+      },
+      "releasedFromSyncHint": {
+        "en": "This batch already has committed product codes from print-verify sync. Released quantity is set to that count and cannot be changed.",
+        "vi": "Lô đã có mã sản phẩm đã gắn từ đồng bộ in–xác minh. Số lượng phát hành được lấy theo số mã đó và không thể chỉnh."
+      },
+      "releasedManualHint": {
+        "en": "No codes on this batch yet. Enter released quantity now, then generate or sync codes afterward (classic or print-verify).",
+        "vi": "Lô chưa có mã. Nhập số lượng phát hành trước, sau đó sinh mã hoặc đồng bộ (classic hoặc in–xác minh)."
       }
     },
     "filters": {
@@ -1400,6 +1412,10 @@
       "releasedQuantity": {
         "en": "Released quantity",
         "vi": "Số lượng phát hành"
+      },
+      "committedInstanceCount": {
+        "en": "Committed codes on batch",
+        "vi": "Số mã đã gắn lô"
       },
       "productionDate": {
         "en": "Production date",
