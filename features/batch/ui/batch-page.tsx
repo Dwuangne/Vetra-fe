@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { ListErrorBanner } from "@/components/list/list-error-banner";
 import { ListLoadingSkeleton } from "@/components/list/list-loading-skeleton";
@@ -13,11 +14,12 @@ import { listProducts } from "@/lib/api/services/product.service";
 import { listProductionOrders } from "@/lib/api/services/production-order.service";
 import { transitionBatchStatus } from "@/lib/api/services/batch.service";
 import type { BatchStatus } from "@/lib/api/types/batch";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { batchStatusToApiNumber, normalizeBatchStatus } from "@/lib/production/batch-status";
 import { getNextBatchStatuses } from "@/lib/production/status-transitions";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
+import { parseGuidQueryParam } from "@/lib/table/list-params";
 
 import { useBatchList } from "../hooks/use-batch-list";
 import type { BatchListRowVm } from "../model/batch.types";
@@ -30,7 +32,12 @@ import { BatchTable } from "./batch-table";
 export function BatchPage() {
   const { locale } = useLocale();
   const { user } = useAuth();
-  const list = useBatchList();
+  const searchParams = useSearchParams();
+  const initialProductionOrderId = useMemo(
+    () => parseGuidQueryParam(searchParams.get("productionOrderId")),
+    [searchParams]
+  );
+  const list = useBatchList(initialProductionOrderId);
   const [formOpen, setFormOpen] = useState(false);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
@@ -43,9 +50,9 @@ export function BatchPage() {
 
   const pageTitle = pickLocalized(messages.batch.title, locale);
   const emptyVariant = useMemo((): "filtered-empty" | "no-data" => {
-    if (list.hasActiveFilters || list.page > 1) return "filtered-empty";
+    if (list.hasActiveFilters || list.hasProductionOrderFilter || list.page > 1) return "filtered-empty";
     return "no-data";
-  }, [list.hasActiveFilters, list.page]);
+  }, [list.hasActiveFilters, list.hasProductionOrderFilter, list.page]);
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
@@ -102,12 +109,14 @@ export function BatchPage() {
 
   return (
     <AppShellLayout title={pageTitle}>
-      <div className="flex w-full min-w-0 max-w-full flex-col gap-4 overflow-x-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <BatchFilters
-            className="min-w-0 flex-1 basis-full sm:basis-auto"
+            className="w-full md:max-w-4xl"
             keyword={list.keyword}
             onKeywordChange={list.setKeyword}
+            productionOrderId={list.productionOrderId}
+            onProductionOrderIdChange={list.setProductionOrderId}
             onSearch={list.onSearch}
             disabled={filterDisabled}
             locale={locale}
@@ -115,7 +124,7 @@ export function BatchPage() {
           {canTransition ? (
             <Button
               type="button"
-              className={`${BRAND_PRIMARY_BUTTON_CLASS} shrink-0`}
+              className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
               onClick={() => setFormOpen(true)}
               disabled={filterDisabled}
             >
@@ -126,7 +135,7 @@ export function BatchPage() {
 
         {!list.hasSearched ? (
           <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-            Enter filter keyword and click Search to load data.
+            {translateCommon("searchPrompt", locale)}
           </div>
         ) : null}
 
@@ -139,7 +148,13 @@ export function BatchPage() {
         ) : null}
 
         {showEmpty ? (
-          <BatchEmptyState variant={emptyVariant} onClearFilters={() => list.setKeyword("")} />
+          <BatchEmptyState
+            variant={emptyVariant}
+            onClearFilters={() => {
+              list.setKeyword("");
+              list.setProductionOrderId("");
+            }}
+          />
         ) : null}
 
         {list.hasSearched && !showEmpty && !list.error ? (

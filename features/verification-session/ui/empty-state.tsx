@@ -1,34 +1,32 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { messages, pickLocalized } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/types";
+import { ListEmptyState } from "@/components/list/list-empty-state";
+import type { ListEmptyVariant } from "@/components/list/list-empty-state";
+import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
 type VerificationSessionEmptyStateProps = {
-  variant: "filtered-empty" | "no-data";
-  locale: Locale;
+  variant: ListEmptyVariant;
   onClearFilters?: () => void;
 };
 
 export function VerificationSessionEmptyState({
   variant,
-  locale,
   onClearFilters,
 }: VerificationSessionEmptyStateProps) {
-  const m = messages.verificationSession.empty;
-  const description =
+  const { locale } = useLocale();
+  const noData = pickLocalized(messages.verificationSession.empty.noData, locale);
+  const filtered = pickLocalized(messages.verificationSession.empty.filtered, locale);
+  const desc =
     variant === "filtered-empty"
-      ? pickLocalized(m.filtered, locale)
-      : pickLocalized(m.noData, locale);
+      ? pickLocalized(messages.common.noFilteredResultsDescription, locale)
+      : pickLocalized(messages.common.noDataDescription, locale);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-dashed px-6 py-12 text-center">
-      <p className="max-w-md text-sm text-muted-foreground">{description}</p>
-      {variant === "filtered-empty" && onClearFilters ? (
-        <Button type="button" variant="outline" size="sm" onClick={onClearFilters}>
-          {pickLocalized(messages.verificationSession.actions.clearFilters, locale)}
-        </Button>
-      ) : null}
-    </div>
+    <ListEmptyState
+      variant={variant}
+      onClearFilters={variant === "filtered-empty" ? onClearFilters : undefined}
+      localizedTitle={variant === "filtered-empty" ? filtered : noData}
+      localizedDescription={desc}
+    />
   );
 }

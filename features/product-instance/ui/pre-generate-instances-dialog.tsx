@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { preGenerateProductInstances } from "@/lib/api/services/product-instance.service";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 
@@ -56,7 +56,7 @@ export function PreGenerateInstancesDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
@@ -81,7 +81,7 @@ export function PreGenerateInstancesDialog({
         </div>
         <DialogFooter>
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
-            Cancel
+            {translateCommon("cancel", locale)}
           </Button>
           <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={() => void submit()} disabled={submitting}>
             {pickLocalized(messages.productInstance.pool.actions.preGenerate, locale)}

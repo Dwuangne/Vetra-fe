@@ -17,7 +17,7 @@ import {
 import type { LocationDto } from "@/lib/api/types/location";
 import { deleteLocation } from "@/lib/api/services/location.service";
 import { AppShellLayout } from "@/features/home";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { useEffect, useMemo, useState } from "react";
@@ -90,8 +90,9 @@ export function LocationPage() {
   return (
     <AppShellLayout title={pageTitle}>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <LocationFilters
+            className="w-full md:max-w-4xl"
             keyword={list.keyword}
             onKeywordChange={list.setKeyword}
             onSearch={list.onSearch}
@@ -101,7 +102,7 @@ export function LocationPage() {
           {canMutate ? (
             <Button
               type="button"
-              className={BRAND_PRIMARY_BUTTON_CLASS}
+              className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
               onClick={() => {
                 setEditing(null);
                 setFormOpen(true);
@@ -115,7 +116,7 @@ export function LocationPage() {
 
         {!list.hasSearched ? (
           <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-            Enter filter keyword and click Search to load data.
+            {translateCommon("searchPrompt", locale)}
           </div>
         ) : null}
 
@@ -178,7 +179,7 @@ export function LocationPage() {
           </p>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setDeleteTarget(null)}>
-              Cancel
+              {pickLocalized(messages.common.cancel, locale)}
             </Button>
             <Button type="button" variant="destructive" disabled={deleting} onClick={() => void confirmDelete()}>
               {pickLocalized(messages.location.actions.delete, locale)}

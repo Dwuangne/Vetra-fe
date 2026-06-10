@@ -83,8 +83,9 @@ export function VerificationSessionPage() {
       <div className="flex flex-col gap-4">
         <p className="text-sm text-muted-foreground">{pickLocalized(messages.verificationSession.hint, locale)}</p>
 
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <VerificationSessionFilters
+            className="w-full md:max-w-4xl"
             batchId={list.batchId}
             productId={list.productId}
             onBatchIdChange={list.setBatchId}
@@ -96,7 +97,7 @@ export function VerificationSessionPage() {
           {canManage ? (
             <Button
               type="button"
-              className={BRAND_PRIMARY_BUTTON_CLASS}
+              className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
               onClick={() => setOpenDialog(true)}
               disabled={filterDisabled}
             >
@@ -120,7 +121,6 @@ export function VerificationSessionPage() {
         {showEmpty ? (
           <VerificationSessionEmptyState
             variant={emptyVariant}
-            locale={locale}
             onClearFilters={() => {
               list.setBatchId("");
               list.setProductId("");

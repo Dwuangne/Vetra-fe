@@ -158,8 +158,9 @@ function ProductInstanceBatchScope({
         ) : null}
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <ProductInstanceFilters
+          className="w-full md:max-w-4xl"
           variant="filter-instances"
           keyword={list.keyword}
           onKeywordChange={list.setKeyword}
@@ -169,7 +170,7 @@ function ProductInstanceBatchScope({
         />
         <Button
           type="button"
-          className={BRAND_PRIMARY_BUTTON_CLASS}
+          className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
           onClick={() => setGenerateOpen(true)}
           disabled={filterDisabled}
         >

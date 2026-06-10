@@ -113,7 +113,7 @@ export function TenantUserCreateDialog({ open, onOpenChange, onCreated }: Tenant
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
+      <DialogContent className="sm:max-w-xl" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>{pickLocalized(d.createTitle, locale)}</DialogTitle>
         </DialogHeader>

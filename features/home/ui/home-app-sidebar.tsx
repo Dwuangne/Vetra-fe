@@ -3,6 +3,7 @@
 import type * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
 import {
   Award,
   Building2,
@@ -39,7 +40,14 @@ import { useAuth } from "@/features/auth";
 import { canManageConfig, hasTenantRole, isAdminRole } from "@/lib/auth/roles";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 
+import { navItemMatchesQuery } from "../lib/nav-search";
 import { HomeSearchForm } from "./home-search-form";
+
+type SidebarNavLink = {
+  href: string;
+  icon: typeof Home;
+  label: string;
+};
 
 const orgItems: { href: string; icon: typeof Home }[] = [{ href: "/tenants", icon: Building2 }];
 
@@ -55,6 +63,7 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
   const { user } = useAuth();
   const { locale } = useLocale();
   const nav = messages.nav;
+  const [navQuery, setNavQuery] = useState("");
   const roles = user?.roles ?? [];
   const showTenants = isAdminRole(roles);
   const showTenantNavigation = hasTenantRole(roles);
@@ -78,6 +87,53 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
     { href: "/certificates", icon: Award, label: pickLocalized(messages.certificate.title, locale) },
   ];
 
+  const navLinks = useMemo((): SidebarNavLink[] => {
+    const links: SidebarNavLink[] = [
+      { href: "/", icon: Home, label: pickLocalized(nav.dashboard, locale) },
+    ];
+
+    if (showTenantNavigation) {
+      for (const item of ecosystemSubItems) {
+        links.push({ href: item.href, icon: item.icon, label: item.label });
+      }
+      for (const item of productionSubItems) {
+        links.push({ href: item.href, icon: item.icon, label: pickLocalized(item.label, locale) });
+      }
+    }
+
+    if (showTeamAccountsNav) {
+      links.push({
+        href: "/tenant-users",
+        icon: UserCog,
+        label: pickLocalized(nav.teamAccounts, locale),
+      });
+    }
+
+    if (showTenants) {
+      links.push({
+        href: "/tenants",
+        icon: Building2,
+        label: pickLocalized(messages.tenant.title, locale),
+      });
+      links.push({
+        href: "/admin",
+        icon: LayoutDashboard,
+        label: pickLocalized(nav.admin, locale),
+      });
+    }
+
+    return links;
+  }, [locale, showTenantNavigation, showTeamAccountsNav, showTenants, ecosystemSubItems]);
+
+  const filteredNavLinks = useMemo(() => {
+    const q = navQuery.trim();
+    if (!q) return null;
+    return navLinks.filter((link) => navItemMatchesQuery(link.label, link.href, q));
+  }, [navLinks, navQuery]);
+
+  const isLinkActive = (href: string) =>
+    pathname === href || (href !== "/" && pathname.startsWith(href));
+
   return (
     <Sidebar
       style={
@@ -96,9 +152,31 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
           <VetraLogo alt="Vetra logo" className="size-[35px] rounded-sm" />
           <div className="ml-2 text-2xl font-bold">{pickLocalized(messages.common.appName, locale)}</div>
         </div>
-        <HomeSearchForm />
+        <HomeSearchForm value={navQuery} onChange={setNavQuery} />
       </SidebarHeader>
       <SidebarContent>
+        {filteredNavLinks ? (
+          filteredNavLinks.length === 0 ? (
+            <p className="px-4 py-4 text-sm text-muted-foreground">
+              {pickLocalized(nav.searchNoResults, locale)}
+            </p>
+          ) : (
+            <SidebarGroup>
+              <SidebarMenu>
+                {filteredNavLinks.map((link) => (
+                  <SidebarMenuItem key={link.href}>
+                    <SidebarMenuButton asChild isActive={isLinkActive(link.href)}>
+                      <Link href={link.href} onClick={() => setNavQuery("")}>
+                        <link.icon className="h-4 w-4" />
+                        <span>{link.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          )
+        ) : (
         <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem>
@@ -212,6 +290,7 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
             ) : null}
           </SidebarMenu>
         </SidebarGroup>
+        )}
       </SidebarContent>
     </Sidebar>
   );

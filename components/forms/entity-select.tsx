@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { translateCommon, useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export type EntitySelectOption = {
@@ -16,6 +17,8 @@ type EntitySelectProps = {
   value: string | null;
   onValueChange: (value: string | null, option?: EntitySelectOption) => void;
   loadOptions: (query: string) => Promise<EntitySelectOption[]>;
+  /** Display label when `value` is preset but not yet in loaded options (e.g. deep link). */
+  selectedLabel?: string;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyText?: string;
@@ -27,12 +30,18 @@ export function EntitySelect({
   value,
   onValueChange,
   loadOptions,
-  placeholder = "Select an option",
-  searchPlaceholder = "Search...",
-  emptyText = "No options found",
+  selectedLabel,
+  placeholder,
+  searchPlaceholder,
+  emptyText,
   disabled,
   className,
 }: EntitySelectProps) {
+  const { locale } = useLocale();
+  const resolvedPlaceholder = placeholder ?? translateCommon("entitySelectPlaceholder", locale);
+  const resolvedSearchPlaceholder =
+    searchPlaceholder ?? translateCommon("entitySelectSearchPlaceholder", locale);
+  const resolvedEmptyText = emptyText ?? translateCommon("entitySelectEmpty", locale);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -60,7 +69,9 @@ export function EntitySelect({
         if (!active) return;
         setOptions(next);
         if (value) {
-          const selectedOption = next.find((x) => x.value === value) ?? null;
+          const selectedOption =
+            next.find((x) => x.value === value) ??
+            (selectedLabel ? { value, label: selectedLabel } : null);
           setSelected(selectedOption);
         } else {
           setSelected(null);
@@ -74,9 +85,9 @@ export function EntitySelect({
       active = false;
       window.clearTimeout(timeout);
     };
-  }, [loadOptions, query, value]);
+  }, [loadOptions, query, value, selectedLabel]);
 
-  const displayValue = open ? query : (selected?.label ?? query);
+  const displayValue = open ? query : (selected?.label ?? selectedLabel ?? query);
 
   return (
     <div ref={containerRef} className={cn("relative", className)}>
@@ -90,7 +101,7 @@ export function EntitySelect({
           setQuery(e.target.value);
           if (!open) setOpen(true);
         }}
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         disabled={disabled}
         autoComplete="off"
       />
@@ -112,9 +123,15 @@ export function EntitySelect({
       ) : null}
       {open ? (
         <div className="absolute z-50 mt-1 w-full rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
-          <div className="px-2 py-1 text-xs text-muted-foreground">{searchPlaceholder}</div>
-          {loading ? <div className="px-2 py-1 text-sm text-muted-foreground">Loading...</div> : null}
-          {!loading && options.length === 0 ? <div className="px-2 py-1 text-sm text-muted-foreground">{emptyText}</div> : null}
+          <div className="px-2 py-1 text-xs text-muted-foreground">{resolvedSearchPlaceholder}</div>
+          {loading ? (
+            <div className="px-2 py-1 text-sm text-muted-foreground">
+              {translateCommon("loading", locale)}
+            </div>
+          ) : null}
+          {!loading && options.length === 0 ? (
+            <div className="px-2 py-1 text-sm text-muted-foreground">{resolvedEmptyText}</div>
+          ) : null}
           {!loading
             ? options.map((option) => (
                 <button

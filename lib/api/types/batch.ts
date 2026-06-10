@@ -25,7 +25,9 @@ export type BatchDto = {
   committedInstanceCount?: number | null;
 };
 
-export type BatchListQuery = PagedListQuery;
+export type BatchListQuery = PagedListQuery & {
+  productionOrderId?: string;
+};
 
 export type CreateBatchRequest = {
   productId: string;

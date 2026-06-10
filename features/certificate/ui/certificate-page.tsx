@@ -20,7 +20,7 @@ import { listProducts } from "@/lib/api/services/product.service";
 import type { CertificateDto } from "@/lib/api/types/certificate";
 import type { LocationDto } from "@/lib/api/types/location";
 import type { ProductDto } from "@/lib/api/types/product";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { useEffect, useMemo, useState } from "react";
@@ -134,7 +134,7 @@ export function CertificatePage() {
 
         {!list.hasSearched ? (
           <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-            Enter filter keyword and click Search to load data.
+            {translateCommon("searchPrompt", locale)}
           </div>
         ) : null}
 
@@ -201,7 +201,7 @@ export function CertificatePage() {
           </p>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setDeleteTarget(null)}>
-              Cancel
+              {pickLocalized(messages.common.cancel, locale)}
             </Button>
             <Button type="button" variant="destructive" disabled={deleting} onClick={() => void confirmDelete()}>
               {pickLocalized(messages.certificate.actions.delete, locale)}

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { formatLocationOptionLabel } from "@/features/location/lib/format-location-label";
 import { listLocations } from "@/lib/api/services/location.service";
 import { listProducts } from "@/lib/api/services/product.service";
-import { messages, pickLocalized } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { cn } from "@/lib/utils";
@@ -39,9 +39,10 @@ export function CertificateFilters({
   locale,
   className,
 }: CertificateFiltersProps) {
-  const keywordLabel = pickLocalized(messages.certificate.filters.keyword, locale);
-  const productLabel = pickLocalized(messages.certificate.filters.productId, locale);
-  const locationLabel = pickLocalized(messages.certificate.filters.locationId, locale);
+  const f = messages.certificate.filters;
+  const keywordLabel = pickLocalized(f.keyword, locale);
+  const productLabel = pickLocalized(f.productId, locale);
+  const locationLabel = pickLocalized(f.locationId, locale);
 
   const loadProductOptions = useMemo(
     () => async (query: string) => {
@@ -95,9 +96,9 @@ export function CertificateFilters({
           value={productId || null}
           onValueChange={(value) => onProductIdChange(value ?? "")}
           loadOptions={loadProductOptions}
-          placeholder={`${productLabel} (all)`}
+          placeholder={pickLocalized(f.allProducts, locale)}
           disabled={disabled}
-          emptyText="No products found"
+          emptyText={pickLocalized(f.noProductsFound, locale)}
         />
       </div>
       <div className="flex min-w-[180px] max-w-sm flex-1 flex-col gap-2">
@@ -108,13 +109,13 @@ export function CertificateFilters({
           value={locationId || null}
           onValueChange={(value) => onLocationIdChange(value ?? "")}
           loadOptions={loadLocationOptions}
-          placeholder={`${locationLabel} (all)`}
+          placeholder={pickLocalized(f.allLocations, locale)}
           disabled={disabled}
-          emptyText="No locations found"
+          emptyText={pickLocalized(f.noLocationsFound, locale)}
         />
       </div>
       <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={onSearch} disabled={disabled}>
-        Search
+        {translateCommon("search", locale)}
       </Button>
     </div>
   );
