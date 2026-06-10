@@ -11,7 +11,7 @@ import { useAuth } from "@/features/auth";
 import { getProductById } from "@/lib/api/services/product.service";
 import { downloadProductInstanceCsv } from "@/lib/api/services/product-instance.service";
 import { canApproveProduction } from "@/lib/auth/roles";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 
@@ -151,7 +151,7 @@ export function ProductInstancePoolScope({ productId, onChangeScope }: ProductIn
       </div>
       {!list.hasSearched ? (
         <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-          Enter filter keyword and click Search to load data.
+          {translateCommon("searchPrompt", locale)}
         </div>
       ) : null}
       {list.hasSearched && list.error ? (

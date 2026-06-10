@@ -11,7 +11,7 @@ import { AppShellLayout } from "@/features/home";
 import { listBatches } from "@/lib/api/services/batch.service";
 import { listProducts } from "@/lib/api/services/product.service";
 import { canApproveProduction } from "@/lib/auth/roles";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 
 import { useVerificationSessionList } from "../hooks/use-verification-session-list";
@@ -107,7 +107,7 @@ export function VerificationSessionPage() {
         </div>
         {!list.hasSearched ? (
           <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-            Enter filter keyword and click Search to load data.
+            {translateCommon("searchPrompt", locale)}
           </div>
         ) : null}
         {list.hasSearched && list.error ? (
