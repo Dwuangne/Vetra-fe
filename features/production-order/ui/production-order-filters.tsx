@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { messages, pickLocalized } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { cn } from "@/lib/utils";
@@ -42,7 +42,7 @@ export function ProductionOrderFilters({
         />
       </div>
       <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={onSearch} disabled={disabled}>
-        Search
+        {translateCommon("search", locale)}
       </Button>
     </div>
   );

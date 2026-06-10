@@ -6,9 +6,10 @@ import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
 import { listBatches } from "@/lib/api/services/batch.service";
 import { listProducts } from "@/lib/api/services/product.service";
-import { messages, pickLocalized } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
+import { cn } from "@/lib/utils";
 
 type VerificationSessionFiltersProps = {
   batchId: string;
@@ -18,6 +19,7 @@ type VerificationSessionFiltersProps = {
   onSearch: () => void;
   disabled?: boolean;
   locale: Locale;
+  className?: string;
 };
 
 export function VerificationSessionFilters({
@@ -28,9 +30,9 @@ export function VerificationSessionFilters({
   onSearch,
   disabled,
   locale,
+  className,
 }: VerificationSessionFiltersProps) {
   const f = messages.verificationSession.filters;
-  const searchLabel = pickLocalized(messages.productInstance.actions.search, locale);
 
   const loadBatchOptions = useMemo(
     () => async (query: string) => {
@@ -55,7 +57,7 @@ export function VerificationSessionFilters({
   );
 
   return (
-    <div className="flex flex-wrap items-end gap-3">
+    <div className={cn("flex flex-wrap items-end gap-3", className)}>
       <div className="flex min-w-[200px] max-w-xs flex-col gap-2">
         <label className="text-sm font-medium leading-none">{pickLocalized(f.batch, locale)}</label>
         <EntitySelect
@@ -77,7 +79,7 @@ export function VerificationSessionFilters({
         />
       </div>
       <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={onSearch} disabled={disabled}>
-        {searchLabel}
+        {translateCommon("search", locale)}
       </Button>
     </div>
   );

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { listBatches } from "@/lib/api/services/batch.service";
 import { listProducts } from "@/lib/api/services/product.service";
-import { messages, pickLocalized } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,6 @@ export function ProductInstanceFilters({
   const kwLabel = pickLocalized(messages.productInstance.filters.keyword, locale);
   const batchLabel = pickLocalized(messages.productInstance.filters.batchId, locale);
   const productLabel = pickLocalized(messages.productInstance.pool.filters.productId, locale);
-  const searchLabel = pickLocalized(messages.productInstance.actions.search, locale);
 
   const loadBatchOptions = useMemo(
     () => async (query: string) => {
@@ -111,7 +110,7 @@ export function ProductInstanceFilters({
             />
           </div>
           <Button type="button" className={BRAND_PRIMARY_BUTTON_CLASS} onClick={() => onSearch?.()} disabled={disabled}>
-            {searchLabel}
+            {translateCommon("search", locale)}
           </Button>
         </div>
       ) : null}

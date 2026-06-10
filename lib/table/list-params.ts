@@ -101,3 +101,12 @@ export function stringifyListParams(params: Partial<ListParams>): string {
 export function isDefaultListPage(params: Pick<ListParams, "page">): boolean {
   return params.page === DEFAULT_PAGE;
 }
+
+const GUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+/** Parses a single GUID query param; returns undefined when missing or invalid. */
+export function parseGuidQueryParam(raw: string | null | undefined): string | undefined {
+  const trimmed = raw?.trim() ?? "";
+  if (!trimmed || !GUID_RE.test(trimmed)) return undefined;
+  return trimmed;
+}

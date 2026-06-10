@@ -108,6 +108,10 @@
       "en": "Invalid GLN format.",
       "vi": "Định dạng GLN không hợp lệ."
     },
+    "LOC_006": {
+      "en": "Cannot delete this location because production orders or events still reference it.",
+      "vi": "Không thể xóa địa điểm vì vẫn còn lệnh sản xuất hoặc sự kiện tham chiếu."
+    },
     "CER_001": {
       "en": "Certificate was not found.",
       "vi": "Không tìm thấy chứng nhận."
@@ -141,8 +145,8 @@
       "vi": "Định dạng GTIN không hợp lệ."
     },
     "PRD_004": {
-      "en": "Cannot delete this product because batches or product codes already exist.",
-      "vi": "Không thể xóa sản phẩm vì đã phát sinh batch hoặc mã sản phẩm."
+      "en": "Cannot delete this product because production orders, batches, product codes, or verification sessions already exist.",
+      "vi": "Không thể xóa sản phẩm vì đã có lệnh sản xuất, lô, mã sản phẩm hoặc phiên xác minh."
     },
     "POR_001": {
       "en": "Production order was not found.",
@@ -505,6 +509,26 @@
     "optional": {
       "en": "optional",
       "vi": "tùy chọn"
+    },
+    "search": {
+      "en": "Search",
+      "vi": "Tìm kiếm"
+    },
+    "searchPrompt": {
+      "en": "Enter filter keyword and click Search to load data.",
+      "vi": "Nhập từ khóa lọc và bấm Tìm kiếm để tải dữ liệu."
+    },
+    "entitySelectPlaceholder": {
+      "en": "Select an option",
+      "vi": "Chọn một mục"
+    },
+    "entitySelectSearchPlaceholder": {
+      "en": "Search…",
+      "vi": "Tìm kiếm…"
+    },
+    "entitySelectEmpty": {
+      "en": "No options found",
+      "vi": "Không có kết quả"
     }
   },
   "nav": {
@@ -551,6 +575,14 @@
     "teamAccounts": {
       "en": "Team accounts",
       "vi": "Tài khoản nhóm"
+    },
+    "searchPlaceholder": {
+      "en": "Search navigation…",
+      "vi": "Tìm trong menu…"
+    },
+    "searchNoResults": {
+      "en": "No matching pages.",
+      "vi": "Không tìm thấy trang phù hợp."
     }
   },
   "tenantDashboard": {
@@ -1106,6 +1138,22 @@
       "locationId": {
         "en": "Location",
         "vi": "Địa điểm"
+      },
+      "allProducts": {
+        "en": "All products",
+        "vi": "Tất cả sản phẩm"
+      },
+      "allLocations": {
+        "en": "All locations",
+        "vi": "Tất cả địa điểm"
+      },
+      "noProductsFound": {
+        "en": "No products found",
+        "vi": "Không tìm thấy sản phẩm"
+      },
+      "noLocationsFound": {
+        "en": "No locations found",
+        "vi": "Không tìm thấy địa điểm"
       }
     },
     "empty": {
@@ -1374,6 +1422,18 @@
       "keyword": {
         "en": "Search keyword",
         "vi": "Từ khóa tìm kiếm"
+      },
+      "productionOrderId": {
+        "en": "Production order",
+        "vi": "Lệnh sản xuất"
+      },
+      "allProductionOrders": {
+        "en": "All production orders",
+        "vi": "Tất cả lệnh sản xuất"
+      },
+      "noProductionOrdersFound": {
+        "en": "No production orders found",
+        "vi": "Không tìm thấy lệnh sản xuất"
       }
     },
     "empty": {
@@ -1676,15 +1736,15 @@
     },
     "selectBatchPrompt": {
       "en": "Choose a batch to view and generate product codes.",
-      "vi": "Chọn một batch để xem và sinh mã sản phẩm."
+      "vi": "Chọn một lô để xem và sinh mã sản phẩm."
     },
     "selectPoolPrompt": {
       "en": "Or choose a product to view the pre-generation pool (print-verify flow).",
-      "vi": "Hoặc chọn sản phẩm để xem pool pre-generate (luồng in–xác minh)."
+      "vi": "Hoặc chọn sản phẩm để xem pool sinh trước (luồng in–xác minh)."
     },
     "changeScope": {
       "en": "Change batch or product",
-      "vi": "Đổi batch hoặc sản phẩm"
+      "vi": "Đổi lô hoặc sản phẩm"
     },
     "changeProduct": {
       "en": "Change product",
@@ -1692,7 +1752,7 @@
     },
     "changeBatch": {
       "en": "Change batch",
-      "vi": "Đổi batch"
+      "vi": "Đổi lô"
     },
     "pool": {
       "scopeProduct": {
@@ -1740,7 +1800,7 @@
       "actions": {
         "preGenerate": {
           "en": "Pre-generate",
-          "vi": "Pre-generate"
+          "vi": "Sinh trước"
         },
         "exportGeneration": {
           "en": "Export this generation",
@@ -1752,7 +1812,7 @@
         },
         "selectGenerationHint": {
           "en": "Export downloads all unexported pool serials for this product. Click a generation ID to filter the table.",
-          "vi": "Export tải mọi serial pool chưa xuất của sản phẩm. Bấm cột Đợt để lọc bảng."
+          "vi": "Xuất CSV tải mọi serial pool chưa xuất của sản phẩm. Bấm cột Đợt để lọc bảng."
         },
         "exportRequiresRole": {
           "en": "Export CSV requires Manager or Supervisor role.",
@@ -1766,22 +1826,22 @@
       "preGenerateDialog": {
         "title": {
           "en": "Pre-generate product code pool",
-          "vi": "Pre-generate pool mã sản phẩm"
+          "vi": "Sinh trước pool mã sản phẩm"
         },
         "hint": {
           "en": "Creates a new generation of serials for this product (not yet assigned to a batch). Each run adds to the pool; export is per generation and only once.",
-          "vi": "Tạo đợt serial mới cho sản phẩm (chưa gắn lô). Mỗi lần pre-gen cộng vào pool; xuất CSV theo đợt và chỉ một lần."
+          "vi": "Tạo đợt serial mới cho sản phẩm (chưa gắn lô). Mỗi lần sinh trước cộng vào pool; xuất CSV theo đợt và chỉ một lần."
         }
       }
     },
     "generateDialog": {
       "title": {
         "en": "Generate product codes (once per batch)",
-        "vi": "Sinh mã sản phẩm (một lần cho mỗi batch)"
+        "vi": "Sinh mã sản phẩm (một lần cho mỗi lô)"
       },
       "batchScopeHint": {
         "en": "You can generate only once per batch. The server creates one product code per unit of released quantity, or planned quantity if released quantity is not set. Serial numbers are assigned automatically—you cannot enter quantity or a serial prefix.",
-        "vi": "Mỗi batch chỉ được sinh một lần. Máy chủ tạo đủ số mã sản phẩm theo số lượng đã phát hành (released), hoặc theo số kế hoạch (planned) nếu chưa có released. Serial được gán tự động; không thể nhập số lượng hay tiền tố serial."
+        "vi": "Mỗi lô chỉ được sinh một lần. Máy chủ tạo đủ số mã sản phẩm theo số lượng đã phát hành (released), hoặc theo số kế hoạch (planned) nếu chưa có released. Serial được gán tự động; không thể nhập số lượng hay tiền tố serial."
       }
     },
     "actions": {
@@ -1813,7 +1873,7 @@
       },
       "batchId": {
         "en": "Batch",
-        "vi": "Batch"
+        "vi": "Lô"
       }
     },
     "empty": {
@@ -1837,7 +1897,7 @@
       },
       "batchId": {
         "en": "Batch",
-        "vi": "Batch"
+        "vi": "Lô"
       },
       "lotNumber": {
         "en": "Lot number",

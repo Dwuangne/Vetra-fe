@@ -17,7 +17,7 @@ import {
   productionOrderStatusToApiNumber,
 } from "@/lib/production/production-order-status";
 import { getNextProductionOrderStatuses } from "@/lib/production/status-transitions";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 
@@ -95,8 +95,9 @@ export function ProductionOrderPage() {
   return (
     <AppShellLayout title={pageTitle}>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <ProductionOrderFilters
+            className="w-full md:max-w-4xl"
             keyword={list.keyword}
             onKeywordChange={list.setKeyword}
             onSearch={list.onSearch}
@@ -106,7 +107,7 @@ export function ProductionOrderPage() {
           {canTransition ? (
             <Button
               type="button"
-              className={BRAND_PRIMARY_BUTTON_CLASS}
+              className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
               onClick={() => setFormOpen(true)}
               disabled={filterDisabled}
             >
@@ -117,7 +118,7 @@ export function ProductionOrderPage() {
 
         {!list.hasSearched ? (
           <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-            Enter filter keyword and click Search to load data.
+            {translateCommon("searchPrompt", locale)}
           </div>
         ) : null}
 

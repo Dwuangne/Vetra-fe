@@ -167,7 +167,7 @@ export function BatchStatusDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {pickLocalized(messages.common.cancel, locale)}
             </Button>
             <Button type="submit" disabled={loading || loadingContext || !nextStatus}>
               {pickLocalized(dialog.confirmButton, locale)}

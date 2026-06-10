@@ -14,6 +14,7 @@ function toSearchParams(query?: BatchListQuery): string {
 
   const params = new URLSearchParams();
   if (query.keyword) params.set("keyword", query.keyword);
+  if (query.productionOrderId) params.set("productionOrderId", query.productionOrderId);
   if (query.page !== undefined) params.set("page", String(query.page));
   if (query.size !== undefined) params.set("size", String(query.size));
   const raw = params.toString();

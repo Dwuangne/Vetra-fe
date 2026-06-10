@@ -1,7 +1,7 @@
 "use client";
 
 import { Controller } from "react-hook-form";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { DateInput } from "@/components/forms/date-input";
 import { FormField } from "@/components/forms/form-field";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { createBatch } from "@/lib/api/services/batch.service";
-import { listProducts } from "@/lib/api/services/product.service";
+import { getProductById } from "@/lib/api/services/product.service";
 import {
   getProductionOrderById,
   listProductionOrders,
@@ -50,12 +50,10 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
     clearErrors,
     setValue,
     setError,
-    watch,
     formState: { errors, isSubmitting },
   } = form;
 
-  const productionOrderId = watch("productionOrderId");
-  const productLockedByOrder = Boolean(productionOrderId?.trim());
+  const [productDisplayLabel, setProductDisplayLabel] = useState("");
 
   useEffect(() => {
     if (!open) return;
@@ -69,6 +67,7 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
       bestBeforeDate: "",
       expiryDate: "",
     });
+    setProductDisplayLabel("");
     clearErrors();
   }, [open, reset, clearErrors]);
 
@@ -77,14 +76,6 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
   const cancelLabel = pickLocalized(messages.common.cancel, locale);
   const productionOrderLabel = pickLocalized(f.productionOrderId, locale);
   const productLabel = pickLocalized(f.productId, locale);
-
-  const loadProductOptions = useMemo(
-    () => async (query: string) => {
-      const res = await listProducts({ keyword: query || undefined, page: 1, size: 50 });
-      return (res.data?.items ?? []).map((item) => ({ value: item.productId, label: `${item.name} (${item.gtin})` }));
-    },
-    []
-  );
 
   const loadProductionOrderOptions = useMemo(
     () => async (query: string) => {
@@ -102,7 +93,11 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
   const onProductionOrderChange = async (value: string | null) => {
     const nextId = value ?? "";
     setValue("productionOrderId", nextId, { shouldValidate: true });
-    if (!nextId) return;
+    if (!nextId) {
+      setValue("productId", "", { shouldValidate: true });
+      setProductDisplayLabel("");
+      return;
+    }
 
     try {
       const res = await getProductionOrderById(nextId);
@@ -112,7 +107,13 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
       if (order.plannedQuantity >= 1) {
         setValue("plannedQuantity", order.plannedQuantity, { shouldValidate: true });
       }
+
+      const productRes = await getProductById(order.productId);
+      const product = productRes.data;
+      setProductDisplayLabel(product ? `${product.name} (${product.gtin})` : order.productId);
     } catch (e: unknown) {
+      setValue("productId", "", { shouldValidate: true });
+      setProductDisplayLabel("");
       toastApiError(e, locale);
     }
   };
@@ -177,7 +178,6 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
                   value={field.value?.trim() ? field.value : null}
                   onValueChange={(value) => void onProductionOrderChange(value)}
                   loadOptions={loadProductionOrderOptions}
-                  searchPlaceholder={productionOrderLabel}
                   disabled={isSubmitting}
                   className={cn(errors.productionOrderId && "rounded-md border border-destructive")}
                 />
@@ -186,27 +186,20 @@ export function BatchFormDialog({ open, onOpenChange, onSaved }: BatchFormDialog
           </FormField>
 
           <FormField
+            id="batch-product"
             label={productLabel}
             required
-            hint={
-              productLockedByOrder
-                ? pickLocalized(messages.batch.createForm.productFromOrderHint, locale)
-                : undefined
-            }
+            hint={pickLocalized(messages.batch.createForm.productFromOrderHint, locale)}
             error={errors.productId?.message}
           >
-            <Controller
-              control={control}
-              name="productId"
-              render={({ field }) => (
-                <EntitySelect
-                  value={field.value || null}
-                  onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
-                  loadOptions={loadProductOptions}
-                  placeholder={productLabel}
-                  disabled={isSubmitting || productLockedByOrder}
-                />
-              )}
+            <Input
+              id="batch-product"
+              readOnly
+              disabled
+              value={productDisplayLabel}
+              placeholder="—"
+              className={cn("bg-muted", errors.productId && "border-destructive")}
+              aria-required
             />
           </FormField>
 

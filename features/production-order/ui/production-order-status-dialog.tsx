@@ -102,7 +102,7 @@ export function ProductionOrderStatusDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {pickLocalized(messages.common.cancel, locale)}
             </Button>
             <Button type="submit" disabled={loading || !nextStatus}>
               {pickLocalized(messages.productionOrder.statusTransitionDialog.confirmButton, locale)}

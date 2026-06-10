@@ -90,7 +90,7 @@ export function ProductionOrderTable({
                     <ListStatusBadge status={currentStatus} label={statusLabel(currentStatus)} />
                     <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0" asChild>
                       <Link
-                        href={`/batches?keyword=${encodeURIComponent(row.orderNumber)}`}
+                        href={`/batches?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
                         aria-label={pickLocalized(actions.viewBatches, locale)}
                         title={pickLocalized(actions.viewBatches, locale)}
                       >

@@ -125,7 +125,7 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg" aria-describedby={undefined}>
+      <DialogContent className="sm:max-w-xl" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
@@ -140,7 +140,6 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
                   onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadProductOptions}
                   placeholder={optionalFieldPlaceholder(productLabel, locale)}
-                  searchPlaceholder={productLabel}
                   disabled={isSubmitting}
                   className={cn(errors.productId && "rounded-md border border-destructive")}
                 />
@@ -157,7 +156,6 @@ export function CertificateFormDialog({ open, onOpenChange, editing, onSaved }: 
                   onValueChange={(value) => setValue("locationId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadLocationOptions}
                   placeholder={optionalFieldPlaceholder(locationLabel, locale)}
-                  searchPlaceholder={locationLabel}
                   disabled={isSubmitting}
                   className={cn(errors.locationId && "rounded-md border border-destructive")}
                 />

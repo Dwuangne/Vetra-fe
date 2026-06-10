@@ -106,7 +106,7 @@ export function AppShellLayout({ title, children }: AppShellLayoutProps) {
             ) : null}
           </div>
         </header>
-        <main className="min-w-0 max-w-full flex-1 overflow-x-hidden p-4">{children}</main>
+        <main className="ml-2 min-w-0 max-w-full flex-1 overflow-x-hidden p-4">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

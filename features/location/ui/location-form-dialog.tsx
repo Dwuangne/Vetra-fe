@@ -114,7 +114,7 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg" aria-describedby={undefined}>
+      <DialogContent className="sm:max-w-xl" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
@@ -171,7 +171,6 @@ export function LocationFormDialog({ open, onOpenChange, editing, onSaved }: Loc
                   onValueChange={(value) => setValue("partyId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadPartyOptions}
                   placeholder={optionalFieldPlaceholder(partyLabel, locale)}
-                  searchPlaceholder={partyLabel}
                   disabled={isSubmitting}
                   className={cn(errors.partyId && "rounded-md border border-destructive")}
                 />
