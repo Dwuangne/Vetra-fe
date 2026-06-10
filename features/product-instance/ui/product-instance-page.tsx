@@ -16,7 +16,7 @@ import { downloadProductInstanceUrlsCsv } from "@/lib/api/services/product-insta
 import { getProductionOrderById } from "@/lib/api/services/production-order.service";
 import { useAuth } from "@/features/auth";
 import { canApproveProduction } from "@/lib/auth/roles";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { normalizeBatchStatus } from "@/lib/production/batch-status";
 import { toGtin14PathSegment } from "@/lib/production/gtin14";
 import { normalizeProductionOrderStatus } from "@/lib/production/production-order-status";
@@ -180,7 +180,7 @@ function ProductInstanceBatchScope({
 
       {!list.hasSearched ? (
         <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
-          Enter filter keyword and click Search to load data.
+          {translateCommon("searchPrompt", locale)}
         </div>
       ) : null}
 
