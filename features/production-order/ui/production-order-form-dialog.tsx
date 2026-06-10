@@ -145,7 +145,6 @@ export function ProductionOrderFormDialog({ open, onOpenChange, onSaved }: Produ
                   value={field.value || null}
                   onValueChange={(value) => setValue("productId", value ?? "", { shouldValidate: true })}
                   loadOptions={loadProductOptions}
-                  placeholder={productLabel}
                   disabled={isSubmitting}
                 />
               )}

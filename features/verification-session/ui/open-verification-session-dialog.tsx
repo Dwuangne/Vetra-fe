@@ -45,6 +45,7 @@ export function OpenVerificationSessionDialog({
     () => async (query: string) => {
       const res = await listBatches({ keyword: query || undefined, page: 1, size: 50 });
       return (res.data?.items ?? [])
+        .filter((b) => normalizeBatchStatus(b.status) === "InProduction")
         .map((b) => ({
           value: b.batchId,
           label: b.lotNumber,

@@ -60,16 +60,7 @@ function ProductInstanceBatchScope({
     gtin14: string | null;
     publicUrlState: ProductInstancePublicUrlState;
   }>({ lotLabel: null, gtin14: null, publicUrlState: "hidden" });
-  const autoSearchOnceRef = useRef(false);
-
-  useLayoutEffect(() => {
-    if (autoSearchOnceRef.current) return;
-    autoSearchOnceRef.current = true;
-    list.onSearch();
-    // Intentionally once per mount (`batchId` scope remounts via parent `key`).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  
   useLayoutEffect(() => {
     let cancelled = false;
     void (async () => {
@@ -186,6 +177,12 @@ function ProductInstanceBatchScope({
           {pickLocalized(messages.productInstance.actions.generate, locale)}
         </Button>
       </div>
+
+      {!list.hasSearched ? (
+        <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
+          Enter filter keyword and click Search to load data.
+        </div>
+      ) : null}
 
       {list.hasSearched && list.error ? (
         <ListErrorBanner message={list.error} onRetry={() => list.reload()} />

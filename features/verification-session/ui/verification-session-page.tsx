@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { ListErrorBanner } from "@/components/list/list-error-banner";
 import { ListLoadingSkeleton } from "@/components/list/list-loading-skeleton";
@@ -39,11 +39,6 @@ export function VerificationSessionPage() {
 
   const showEmpty = list.hasSearched && !list.loading && !list.error && list.items.length === 0;
   const filterDisabled = list.initialLoad && list.loading;
-
-  useLayoutEffect(() => {
-    list.onSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -110,7 +105,11 @@ export function VerificationSessionPage() {
             </Button>
           ) : null}
         </div>
-
+        {!list.hasSearched ? (
+          <div className="rounded-md border border-dashed p-6 text-sm text-muted-foreground">
+            Enter filter keyword and click Search to load data.
+          </div>
+        ) : null}
         {list.hasSearched && list.error ? (
           <ListErrorBanner message={list.error} onRetry={() => list.reload()} />
         ) : null}
