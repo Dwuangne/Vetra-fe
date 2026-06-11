@@ -1,12 +1,15 @@
 {
   "meta": {
-    "locales": ["en", "vi"],
+    "locales": [
+      "en",
+      "vi"
+    ],
     "defaultLocale": "en"
   },
   "errors": {
     "AUTH_001": {
       "en": "Invalid email or password.",
-      "vi": "Email hoặc mật khẩu không đúng."
+      "vi": "Thư điện tử hoặc mật khẩu không đúng."
     },
     "AUTH_002": {
       "en": "Login credentials are required.",
@@ -26,7 +29,7 @@
     },
     "USER_002": {
       "en": "Email already exists.",
-      "vi": "Email đã được sử dụng."
+      "vi": "Thư điện tử đã được sử dụng."
     },
     "USER_003": {
       "en": "Invalid user data.",
@@ -50,27 +53,27 @@
     },
     "TEN_001": {
       "en": "Tenant was not found.",
-      "vi": "Không tìm thấy tenant."
+      "vi": "Không tìm thấy đơn vị."
     },
     "TEN_002": {
       "en": "Cannot delete this tenant because users still belong to it.",
-      "vi": "Không thể xóa tenant vì vẫn còn người dùng thuộc tenant đó."
+      "vi": "Không thể xóa đơn vị vì vẫn còn người dùng thuộc đơn vị đó."
     },
     "TEN_003": {
       "en": "Tenant context is missing from the token.",
-      "vi": "Thiếu thông tin tenant trong token."
+      "vi": "Thiếu thông tin đơn vị trong mã phiên."
     },
     "TEN_004": {
       "en": "Tenant name already exists.",
-      "vi": "Tên tenant đã tồn tại."
+      "vi": "Tên đơn vị đã tồn tại."
     },
     "PTY_001": {
       "en": "Party was not found.",
-      "vi": "Không tìm thấy đối tác (party)."
+      "vi": "Không tìm thấy đối tác."
     },
     "PTY_002": {
       "en": "A party with this GLN already exists for this tenant.",
-      "vi": "Đã tồn tại đối tác với GLN này trong tenant."
+      "vi": "Đã tồn tại đối tác với GLN này trong đơn vị."
     },
     "PTY_003": {
       "en": "Invalid GLN format.",
@@ -86,7 +89,7 @@
     },
     "PTY_006": {
       "en": "A party with this tax code already exists in this tenant.",
-      "vi": "Đã tồn tại đối tác với mã số thuế này trong tenant."
+      "vi": "Đã tồn tại đối tác với mã số thuế này trong đơn vị."
     },
     "LOC_001": {
       "en": "Location was not found.",
@@ -94,15 +97,15 @@
     },
     "LOC_002": {
       "en": "A location with this GLN and extension already exists for this tenant.",
-      "vi": "Đã tồn tại địa điểm với GLN và extension này trong tenant."
+      "vi": "Đã tồn tại địa điểm với GLN và phần mở rộng này trong đơn vị."
     },
     "LOC_003": {
       "en": "The selected party belongs to another tenant.",
-      "vi": "Đối tác được chọn thuộc tenant khác."
+      "vi": "Đối tác được chọn thuộc đơn vị khác."
     },
     "LOC_004": {
       "en": "Party was not found in this tenant.",
-      "vi": "Không tìm thấy đối tác trong tenant này."
+      "vi": "Không tìm thấy đối tác trong đơn vị này."
     },
     "LOC_005": {
       "en": "Invalid GLN format.",
@@ -118,15 +121,15 @@
     },
     "CER_002": {
       "en": "A certificate with this name already exists for this product in this tenant.",
-      "vi": "Đã tồn tại chứng nhận với tên này cho sản phẩm trong tenant."
+      "vi": "Đã tồn tại chứng nhận với tên này cho sản phẩm trong đơn vị."
     },
     "CER_003": {
       "en": "Product was not found in this tenant.",
-      "vi": "Không tìm thấy sản phẩm trong tenant này."
+      "vi": "Không tìm thấy sản phẩm trong đơn vị này."
     },
     "CER_004": {
       "en": "Location was not found in this tenant.",
-      "vi": "Không tìm thấy địa điểm trong tenant này."
+      "vi": "Không tìm thấy địa điểm trong đơn vị này."
     },
     "CER_005": {
       "en": "At least one scope is required: product or location.",
@@ -138,7 +141,7 @@
     },
     "PRD_002": {
       "en": "A product with this GTIN already exists for this tenant.",
-      "vi": "Đã tồn tại sản phẩm với GTIN này trong tenant."
+      "vi": "Đã tồn tại sản phẩm với GTIN này trong đơn vị."
     },
     "PRD_003": {
       "en": "Invalid GTIN format.",
@@ -154,7 +157,7 @@
     },
     "POR_002": {
       "en": "A production order with this number already exists for this tenant.",
-      "vi": "Đã tồn tại lệnh sản xuất với mã này trong tenant."
+      "vi": "Đã tồn tại lệnh sản xuất với mã này trong đơn vị."
     },
     "POR_003": {
       "en": "Invalid production order planning data.",
@@ -162,7 +165,7 @@
     },
     "POR_004": {
       "en": "Product was not found in this tenant.",
-      "vi": "Không tìm thấy sản phẩm trong tenant này."
+      "vi": "Không tìm thấy sản phẩm trong đơn vị này."
     },
     "POR_005": {
       "en": "Production location was not found.",
@@ -170,7 +173,7 @@
     },
     "POR_006": {
       "en": "Production location belongs to another tenant.",
-      "vi": "Địa điểm sản xuất thuộc tenant khác."
+      "vi": "Địa điểm sản xuất thuộc đơn vị khác."
     },
     "POR_007": {
       "en": "Invalid production order status transition.",
@@ -182,7 +185,7 @@
     },
     "POR_009": {
       "en": "Cannot complete order while some batches are still planned or in production.",
-      "vi": "Không thể hoàn tất lệnh khi vẫn còn batch đang Planned hoặc InProduction."
+      "vi": "Không thể hoàn tất lệnh khi vẫn còn lô ở trạng thái kế hoạch hoặc đang sản xuất."
     },
     "POR_010": {
       "en": "Production order number is required.",
@@ -190,23 +193,23 @@
     },
     "POR_011": {
       "en": "Cannot complete order without any linked batch.",
-      "vi": "Không thể hoàn tất lệnh khi chưa có batch liên kết."
+      "vi": "Không thể hoàn tất lệnh khi chưa có lô liên kết."
     },
     "BAT_001": {
       "en": "Batch was not found.",
-      "vi": "Không tìm thấy batch."
+      "vi": "Không tìm thấy lô."
     },
     "BAT_002": {
       "en": "A batch with this lot number already exists for this tenant.",
-      "vi": "Đã tồn tại batch với mã lô này trong tenant."
+      "vi": "Đã tồn tại lô với mã lô này trong đơn vị."
     },
     "BAT_003": {
       "en": "Invalid planned quantity for batch.",
-      "vi": "Số lượng kế hoạch của batch không hợp lệ."
+      "vi": "Số lượng kế hoạch của lô không hợp lệ."
     },
     "BAT_004": {
       "en": "Product was not found in this tenant.",
-      "vi": "Không tìm thấy sản phẩm trong tenant này."
+      "vi": "Không tìm thấy sản phẩm trong đơn vị này."
     },
     "BAT_005": {
       "en": "Production order was not found.",
@@ -214,15 +217,15 @@
     },
     "BAT_006": {
       "en": "Batch product must match production order product.",
-      "vi": "Sản phẩm của batch phải khớp sản phẩm của lệnh sản xuất."
+      "vi": "Sản phẩm của lô phải khớp sản phẩm của lệnh sản xuất."
     },
     "BAT_007": {
       "en": "Batch can only be linked to a confirmed or in-production order (not draft, completed, or cancelled).",
-      "vi": "Chỉ được tạo lô cho lệnh đã xác nhận hoặc đang sản xuất (không áp dụng Draft, đã hoàn tất hoặc đã hủy)."
+      "vi": "Chỉ được tạo lô cho lệnh đã xác nhận hoặc đang sản xuất (không áp dụng nháp, hoàn tất hoặc đã hủy)."
     },
     "BAT_008": {
       "en": "Invalid batch status transition.",
-      "vi": "Chuyển trạng thái batch không hợp lệ."
+      "vi": "Chuyển trạng thái lô không hợp lệ."
     },
     "BAT_009": {
       "en": "Released quantity must be between 1 and planned quantity.",
@@ -230,11 +233,11 @@
     },
     "BAT_010": {
       "en": "Batch lot number is required.",
-      "vi": "Bắt buộc nhập mã lô (lot number)."
+      "vi": "Bắt buộc nhập mã lô."
     },
     "BAT_011": {
       "en": "Batch dates must follow ProductionDate <= PackDate <= BestBeforeDate <= ExpiryDate.",
-      "vi": "Ngày của batch phải theo thứ tự ProductionDate <= PackDate <= BestBeforeDate <= ExpiryDate."
+      "vi": "Ngày của lô phải theo thứ tự: ngày sản xuất ≤ ngày đóng gói ≤ ngày nên dùng trước ≤ ngày hết hạn."
     },
     "BAT_012": {
       "en": "Production order is required for every batch.",
@@ -246,31 +249,31 @@
     },
     "PIN_001": {
       "en": "Batch was not found in this tenant.",
-      "vi": "Không tìm thấy batch trong tenant này."
+      "vi": "Không tìm thấy lô trong đơn vị này."
     },
     "PIN_002": {
       "en": "Product codes can only be generated for released batches.",
-      "vi": "Chỉ có thể sinh mã sản phẩm cho batch đã phát hành."
+      "vi": "Chỉ có thể sinh mã sản phẩm cho lô đã phát hành."
     },
     "PIN_003": {
       "en": "Released or planned quantity is invalid for generating product codes.",
-      "vi": "Số lượng phát hành hoặc kế hoạch không hợp lệ để sinh mã sản phẩm."
+      "vi": "Số lượng phát hành hoặc số lượng kế hoạch không hợp lệ để sinh mã sản phẩm."
     },
     "PIN_004": {
       "en": "Product not found for this batch.",
-      "vi": "Không tìm thấy sản phẩm cho batch này."
+      "vi": "Không tìm thấy sản phẩm cho lô này."
     },
     "PIN_005": {
       "en": "Requested quantity exceeds released quantity capacity for this batch.",
-      "vi": "Số lượng cần sinh vượt quá giới hạn số lượng đã phát hành của batch."
+      "vi": "Số lượng cần sinh vượt quá giới hạn số lượng đã phát hành của lô."
     },
     "PIN_006": {
       "en": "Duplicate serial number or EPC already exists.",
-      "vi": "Serial hoặc EPC đã tồn tại."
+      "vi": "Số sê-ri hoặc EPC đã tồn tại."
     },
     "PIN_007": {
       "en": "Tenant company prefix (GCP) is missing or does not match this product GTIN; cannot build SGTIN EPC URI.",
-      "vi": "Thiếu hoặc sai tiền tố công ty GS1 (GCP) của tenant so với GTIN sản phẩm; không tạo được URI SGTIN."
+      "vi": "Thiếu hoặc sai tiền tố công ty GS1 (GCP) của đơn vị so với GTIN sản phẩm; không tạo được URI SGTIN."
     },
     "PIN_008": {
       "en": "Public web base URL is not configured.",
@@ -282,15 +285,15 @@
     },
     "PIN_010": {
       "en": "This batch already has product codes; generation can only run once per batch.",
-      "vi": "Batch này đã có mã sản phẩm; chỉ được sinh một lần cho mỗi batch."
+      "vi": "Lô này đã có mã sản phẩm; chỉ được sinh một lần cho mỗi lô."
     },
     "PIN_011": {
       "en": "Product code generation exceeds the maximum allowed per batch (1,000,000).",
-      "vi": "Số mã sản phẩm sinh trong một batch vượt quá giới hạn tối đa (1.000.000)."
+      "vi": "Số mã sản phẩm sinh trong một lô vượt quá giới hạn tối đa (1.000.000)."
     },
     "PIN_012": {
       "en": "CSV export requires exactly one of batchId or productId.",
-      "vi": "Xuất CSV cần đúng một trong batchId hoặc productId."
+      "vi": "Xuất CSV cần đúng một trong mã lô hoặc mã sản phẩm."
     },
     "PIN_014": {
       "en": "No product codes are available to export for the selected criteria.",
@@ -298,7 +301,7 @@
     },
     "VRF_001": {
       "en": "Verification session was not found or the session token is invalid.",
-      "vi": "Không tìm thấy ca xác minh hoặc token ca không hợp lệ."
+      "vi": "Không tìm thấy ca xác minh hoặc mã phiên ca không hợp lệ."
     },
     "VRF_002": {
       "en": "Verification session is not open.",
@@ -306,15 +309,15 @@
     },
     "VRF_003": {
       "en": "Verification session token is required.",
-      "vi": "Thiếu token ca xác minh."
+      "vi": "Thiếu mã phiên ca xác minh."
     },
     "VRF_006": {
       "en": "Unverified items cannot be attached; only Verified or Duplicate status is accepted.",
-      "vi": "Không thể gắn mục Unverified; chỉ chấp nhận trạng thái Verified hoặc Duplicate."
+      "vi": "Không thể gắn mục chưa xác minh; chỉ chấp nhận trạng thái đã xác minh hoặc trùng lặp."
     },
     "VRF_007": {
       "en": "Verification sessions and attach-items are only allowed while the batch is in production.",
-      "vi": "Chỉ được mở ca xác minh và đồng bộ attach khi lô đang ở trạng thái đang sản xuất."
+      "vi": "Chỉ được mở ca xác minh và gắn mã khi lô đang ở trạng thái đang sản xuất."
     },
     "PUB_001": {
       "en": "This QR is not available or has not been published.",
@@ -330,11 +333,11 @@
     },
     "FTM_002": {
       "en": "A form template with this name already exists in this biz step.",
-      "vi": "Đã tồn tại mẫu biểu mẫu có tên này trong biz step."
+      "vi": "Đã tồn tại mẫu biểu mẫu có tên này trong bước nghiệp vụ."
     },
     "FTM_003": {
       "en": "Invalid biz step value.",
-      "vi": "Giá trị biz step không hợp lệ."
+      "vi": "Giá trị bước nghiệp vụ không hợp lệ."
     },
     "FTM_004": {
       "en": "Form template name is required.",
@@ -342,7 +345,7 @@
     },
     "FTM_005": {
       "en": "Cannot delete form template because it has been used in event ingest.",
-      "vi": "Không thể xóa mẫu biểu mẫu vì đã được dùng trong dữ liệu ingest event."
+      "vi": "Không thể xóa mẫu biểu mẫu vì đã được dùng khi tiếp nhận sự kiện."
     },
     "ATD_001": {
       "en": "Attribute definition was not found.",
@@ -366,91 +369,91 @@
     },
     "FFD_001": {
       "en": "Form field was not found in this template.",
-      "vi": "Không tìm thấy trường form trong template này."
+      "vi": "Không tìm thấy trường biểu mẫu trong mẫu này."
     },
     "EVT_001": {
       "en": "Invalid EPCIS event type.",
-      "vi": "Loại EPCIS event không hợp lệ."
+      "vi": "Loại sự kiện EPCIS không hợp lệ."
     },
     "EVT_002": {
       "en": "Invalid EPCIS action.",
-      "vi": "EPCIS action không hợp lệ."
+      "vi": "Thao tác EPCIS không hợp lệ."
     },
     "EVT_003": {
       "en": "Timezone offset is required.",
-      "vi": "Bắt buộc timezone offset."
+      "vi": "Bắt buộc bù múi giờ."
     },
     "EVT_004": {
       "en": "Transformation event requires transformationId.",
-      "vi": "Transformation event bắt buộc transformationId."
+      "vi": "Sự kiện chuyển đổi bắt buộc có mã chuyển đổi."
     },
     "EVT_005": {
       "en": "At least one EPC is required for event ingest.",
-      "vi": "Event ingest cần ít nhất một EPC."
+      "vi": "Tiếp nhận sự kiện cần ít nhất một EPC."
     },
     "EVT_006": {
       "en": "Referenced location was not found in this tenant.",
-      "vi": "Không tìm thấy location tham chiếu trong tenant này."
+      "vi": "Không tìm thấy địa điểm tham chiếu trong đơn vị này."
     },
     "EVT_007": {
       "en": "Referenced EPC instance was not found in this tenant.",
-      "vi": "Không tìm thấy EPC instance tham chiếu trong tenant này."
+      "vi": "Không tìm thấy thực thể EPC tham chiếu trong đơn vị này."
     },
     "EVT_008": {
       "en": "Invalid EPC list type.",
-      "vi": "Kiểu EPC list không hợp lệ."
+      "vi": "Kiểu danh sách EPC không hợp lệ."
     },
     "EVT_009": {
       "en": "Referenced attribute definition was not found in this tenant.",
-      "vi": "Không tìm thấy định nghĩa thuộc tính tham chiếu trong tenant này."
+      "vi": "Không tìm thấy định nghĩa thuộc tính tham chiếu trong đơn vị này."
     },
     "EVT_010": {
       "en": "Event attribute payload is invalid for its declared data type.",
-      "vi": "Giá trị thuộc tính event không hợp lệ với kiểu dữ liệu đã khai báo."
+      "vi": "Giá trị thuộc tính sự kiện không hợp lệ với kiểu dữ liệu đã khai báo."
     },
     "EVT_011": {
       "en": "Extension data must be a valid JSON object.",
-      "vi": "Extension data phải là JSON object hợp lệ."
+      "vi": "Dữ liệu mở rộng phải là đối tượng JSON hợp lệ."
     },
     "EVT_012": {
       "en": "Event was not found.",
-      "vi": "Không tìm thấy event."
+      "vi": "Không tìm thấy sự kiện."
     },
     "EVT_013": {
       "en": "Timeline time range is invalid.",
-      "vi": "Khoảng thời gian timeline không hợp lệ."
+      "vi": "Khoảng thời gian dòng thời gian không hợp lệ."
     },
     "EVT_014": {
       "en": "Batch was not found in this tenant.",
-      "vi": "Không tìm thấy batch trong tenant này."
+      "vi": "Không tìm thấy lô trong đơn vị này."
     },
     "EVT_015": {
       "en": "Event time is outside allowed ingest window.",
-      "vi": "Thời gian sự kiện nằm ngoài cửa sổ ingest cho phép."
+      "vi": "Thời gian sự kiện nằm ngoài cửa sổ tiếp nhận cho phép."
     },
     "EVT_016": {
       "en": "Timeline query requires at least one filter.",
-      "vi": "Truy vấn timeline cần ít nhất một điều kiện lọc."
+      "vi": "Truy vấn dòng thời gian cần ít nhất một điều kiện lọc."
     },
     "EVT_017": {
       "en": "Timeline query time window is too large.",
-      "vi": "Khoảng thời gian truy vấn timeline quá lớn."
+      "vi": "Khoảng thời gian truy vấn dòng thời gian quá lớn."
     },
     "EVT_018": {
       "en": "Cannot share event with the owner tenant.",
-      "vi": "Không thể chia sẻ event cho chính tenant sở hữu."
+      "vi": "Không thể chia sẻ sự kiện cho chính đơn vị sở hữu."
     },
     "EVT_019": {
       "en": "Target tenant for event sharing was not found.",
-      "vi": "Không tìm thấy tenant đích để chia sẻ event."
+      "vi": "Không tìm thấy đơn vị đích để chia sẻ sự kiện."
     },
     "EVT_020": {
       "en": "Event visibility rule was not found.",
-      "vi": "Không tìm thấy quy tắc chia sẻ event."
+      "vi": "Không tìm thấy quy tắc chia sẻ sự kiện."
     },
     "EVT_021": {
       "en": "Only the owner tenant can manage event sharing.",
-      "vi": "Chỉ tenant sở hữu mới có thể quản lý chia sẻ event."
+      "vi": "Chỉ đơn vị sở hữu mới có thể quản lý chia sẻ sự kiện."
     },
     "ERR_UNKNOWN": {
       "en": "An unexpected error occurred.",
@@ -596,7 +599,7 @@
     },
     "chartBatchesByStatus": {
       "en": "Batches by status",
-      "vi": "Batch theo trạng thái"
+      "vi": "Lô theo trạng thái"
     },
     "chartOrdersByStatus": {
       "en": "Production orders by status",
@@ -649,7 +652,7 @@
       },
       "batches": {
         "en": "Batches",
-        "vi": "Batch"
+        "vi": "Lô sản xuất"
       }
     },
     "batchStatus": {
@@ -746,7 +749,7 @@
   "tenant": {
     "title": {
       "en": "Tenants",
-      "vi": "Tenant"
+      "vi": "Đơn vị"
     },
     "actions": {
       "create": {
@@ -779,11 +782,11 @@
     "empty": {
       "noData": {
         "en": "No tenant records yet.",
-        "vi": "Chưa có dữ liệu tenant."
+        "vi": "Chưa có dữ liệu đơn vị."
       },
       "noFilteredResults": {
         "en": "No matching tenant results.",
-        "vi": "Không có kết quả tenant phù hợp."
+        "vi": "Không có kết quả đơn vị phù hợp."
       }
     },
     "fields": {
@@ -804,7 +807,7 @@
     },
     "subtitle": {
       "en": "Manage Supervisor and Operator accounts for your tenant.",
-      "vi": "Quản lý tài khoản Giám sát và Vận hành trong tenant của bạn."
+      "vi": "Quản lý tài khoản Giám sát và Vận hành trong đơn vị của bạn."
     },
     "actions": {
       "create": {
@@ -961,7 +964,7 @@
       },
       "tenant": {
         "en": "Tenant",
-        "vi": "Tenant"
+        "vi": "Đơn vị"
       }
     },
     "empty": {
@@ -1013,11 +1016,11 @@
       },
       "email": {
         "en": "Email",
-        "vi": "Email"
+        "vi": "Thư điện tử"
       },
       "emailHint": {
         "en": "Contact email (optional)",
-        "vi": "Email liên hệ (tùy chọn)"
+        "vi": "Thư điện tử liên hệ (tùy chọn)"
       }
     }
   },
@@ -1055,7 +1058,7 @@
       },
       "tenant": {
         "en": "Tenant",
-        "vi": "Tenant"
+        "vi": "Đơn vị"
       },
       "party": {
         "en": "Party",
@@ -1087,7 +1090,7 @@
       },
       "extension": {
         "en": "Extension",
-        "vi": "Extension"
+        "vi": "Phần mở rộng"
       },
       "partyId": {
         "en": "Party",
@@ -1219,7 +1222,7 @@
       },
       "tenant": {
         "en": "Tenant",
-        "vi": "Tenant"
+        "vi": "Đơn vị"
       }
     },
     "empty": {
@@ -1275,7 +1278,7 @@
       },
       "viewBatches": {
         "en": "View batches for this order",
-        "vi": "Xem batch của lệnh này"
+        "vi": "Xem lô của lệnh này"
       }
     },
     "statusTransitionDialog": {
@@ -1399,7 +1402,7 @@
     "statusTransitionDialog": {
       "title": {
         "en": "Confirm batch status",
-        "vi": "Xác nhận đổi trạng thái batch"
+        "vi": "Xác nhận đổi trạng thái lô"
       },
       "description": {
         "en": "Review the transition below. The API is called only after you click Confirm—you can cancel before that.",
@@ -1415,7 +1418,7 @@
       },
       "releasedManualHint": {
         "en": "No codes on this batch yet. Enter released quantity now, then generate or sync codes afterward (classic or print-verify).",
-        "vi": "Lô chưa có mã. Nhập số lượng phát hành trước, sau đó sinh mã hoặc đồng bộ (classic hoặc in–xác minh)."
+        "vi": "Lô chưa có mã. Nhập số lượng phát hành trước, sau đó sinh mã hoặc đồng bộ (luồng truyền thống hoặc in–xác minh)."
       }
     },
     "filters": {
@@ -1439,11 +1442,11 @@
     "empty": {
       "noData": {
         "en": "No batch records yet.",
-        "vi": "Chưa có dữ liệu batch."
+        "vi": "Chưa có dữ liệu lô."
       },
       "noFilteredResults": {
         "en": "No matching batch results.",
-        "vi": "Không có kết quả batch phù hợp."
+        "vi": "Không có kết quả lô phù hợp."
       }
     },
     "createForm": {
@@ -1703,7 +1706,7 @@
       },
       "notPublicYet": {
         "en": "Not public yet. The production order must be active and the batch must be released without restrictions.",
-        "vi": "Chưa public. Lệnh sản xuất phải đang hiệu lực và batch phải Released, không thuộc trạng thái hạn chế."
+        "vi": "Chưa công khai. Lệnh sản xuất phải đang hiệu lực và lô phải đã phát hành, không thuộc trạng thái hạn chế."
       },
       "noticePageLabel": {
         "en": "Notice page",
@@ -1711,7 +1714,7 @@
       },
       "noticePageTooltip": {
         "en": "View a public safety notice for this batch.",
-        "vi": "Xem trang cảnh báo công khai cho batch."
+        "vi": "Xem trang cảnh báo công khai cho lô."
       },
       "linkCopied": {
         "en": "Link copied.",
@@ -1721,7 +1724,7 @@
     "batchDialog": {
       "publicScanReleasedHint": {
         "en": "Releasing this batch publishes generated serials: public scan URLs under /01/{GTIN}/21/{serial} become available.",
-        "vi": "Khi phát hành batch, các serial đã sinh sẽ được công khai: URL quét công khai dạng /01/{GTIN}/21/{serial} sẽ hoạt động."
+        "vi": "Khi phát hành lô, các số sê-ri đã sinh sẽ được công khai: URL quét công khai dạng /01/{GTIN}/21/{serial} sẽ hoạt động."
       },
       "publicScanRestrictedHint": {
         "en": "This status makes the public scan page show a restricted safety notice for this batch immediately.",
@@ -1740,7 +1743,7 @@
     },
     "selectPoolPrompt": {
       "en": "Or choose a product to view the pre-generation pool (print-verify flow).",
-      "vi": "Hoặc chọn sản phẩm để xem pool sinh trước (luồng in–xác minh)."
+      "vi": "Hoặc chọn sản phẩm để xem kho sinh trước (luồng in–xác minh)."
     },
     "changeScope": {
       "en": "Change batch or product",
@@ -1812,11 +1815,11 @@
         },
         "selectGenerationHint": {
           "en": "Export downloads all unexported pool serials for this product. Click a generation ID to filter the table.",
-          "vi": "Xuất CSV tải mọi serial pool chưa xuất của sản phẩm. Bấm cột Đợt để lọc bảng."
+          "vi": "Xuất CSV tải mọi số sê-ri trong kho chưa xuất của sản phẩm. Bấm cột Đợt để lọc bảng."
         },
         "exportRequiresRole": {
           "en": "Export CSV requires Manager or Supervisor role.",
-          "vi": "Xuất CSV cần quyền Manager hoặc Supervisor."
+          "vi": "Xuất CSV cần quyền Quản lý hoặc Giám sát."
         },
         "selectGenerationRow": {
           "en": "Select generation",
@@ -1826,11 +1829,11 @@
       "preGenerateDialog": {
         "title": {
           "en": "Pre-generate product code pool",
-          "vi": "Sinh trước pool mã sản phẩm"
+          "vi": "Sinh trước kho mã sản phẩm"
         },
         "hint": {
           "en": "Creates a new generation of serials for this product (not yet assigned to a batch). Each run adds to the pool; export is per generation and only once.",
-          "vi": "Tạo đợt serial mới cho sản phẩm (chưa gắn lô). Mỗi lần sinh trước cộng vào pool; xuất CSV theo đợt và chỉ một lần."
+          "vi": "Tạo đợt số sê-ri mới cho sản phẩm (chưa gắn lô). Mỗi lần sinh trước cộng vào kho; xuất CSV theo đợt và chỉ một lần."
         }
       }
     },
@@ -1841,7 +1844,7 @@
       },
       "batchScopeHint": {
         "en": "You can generate only once per batch. The server creates one product code per unit of released quantity, or planned quantity if released quantity is not set. Serial numbers are assigned automatically—you cannot enter quantity or a serial prefix.",
-        "vi": "Mỗi lô chỉ được sinh một lần. Máy chủ tạo đủ số mã sản phẩm theo số lượng đã phát hành (released), hoặc theo số kế hoạch (planned) nếu chưa có released. Serial được gán tự động; không thể nhập số lượng hay tiền tố serial."
+        "vi": "Mỗi lô chỉ được sinh một lần. Máy chủ tạo đủ số mã sản phẩm theo số lượng đã phát hành, hoặc theo số kế hoạch nếu chưa có số phát hành. Số sê-ri được gán tự động; không thể nhập số lượng hay tiền tố số sê-ri."
       }
     },
     "actions": {
@@ -1889,7 +1892,7 @@
     "fields": {
       "serialNumber": {
         "en": "Serial number",
-        "vi": "Mã serial"
+        "vi": "Số sê-ri"
       },
       "epcUri": {
         "en": "EPC URI",
@@ -1909,7 +1912,7 @@
       },
       "serialPrefix": {
         "en": "Serial prefix",
-        "vi": "Tiền tố serial"
+        "vi": "Tiền tố số sê-ri"
       }
     }
   },
@@ -1920,7 +1923,7 @@
     },
     "hint": {
       "en": "Open a session after exporting the print-verify pool. Copy the session token for the external bridge; attach results appear in the log below.",
-      "vi": "Mở ca sau khi xuất pool in–xác minh. Sao chép token ca cho bridge ngoài; kết quả attach hiển thị trong nhật ký."
+      "vi": "Mở ca sau khi xuất kho in–xác minh. Sao chép mã phiên ca cho cầu nối ngoài; kết quả gắn mã hiển thị trong nhật ký."
     },
     "filters": {
       "batch": {
@@ -1963,7 +1966,7 @@
       },
       "token": {
         "en": "Session token",
-        "vi": "Token ca"
+        "vi": "Mã phiên ca"
       },
       "code": {
         "en": "Code",
@@ -1971,7 +1974,7 @@
       },
       "clientStatus": {
         "en": "Client status",
-        "vi": "Trạng thái client"
+        "vi": "Trạng thái thiết bị"
       },
       "outcome": {
         "en": "Outcome",
@@ -1983,7 +1986,7 @@
       },
       "totalAttachLines": {
         "en": "Attach lines",
-        "vi": "Dòng attach"
+        "vi": "Dòng gắn mã"
       }
     },
     "attachLogFilters": {
@@ -1997,11 +2000,11 @@
       },
       "clientStatus": {
         "en": "Client status",
-        "vi": "Trạng thái client"
+        "vi": "Trạng thái thiết bị"
       },
       "clientStatusPlaceholder": {
         "en": "e.g. Verified",
-        "vi": "vd. Verified"
+        "vi": "vd. Đã xác minh"
       },
       "codeKeyword": {
         "en": "Code contains",
@@ -2009,7 +2012,7 @@
       },
       "codeKeywordPlaceholder": {
         "en": "Filter by URL or path",
-        "vi": "Lọc theo URL hoặc path"
+        "vi": "Lọc theo URL hoặc đường dẫn"
       }
     },
     "status": {
@@ -2059,11 +2062,11 @@
       },
       "viewLog": {
         "en": "Attach log",
-        "vi": "Nhật ký attach"
+        "vi": "Nhật ký gắn mã"
       },
       "copyToken": {
         "en": "Copy token",
-        "vi": "Sao chép token"
+        "vi": "Sao chép mã phiên"
       },
       "cancelSession": {
         "en": "Cancel session",
@@ -2089,25 +2092,25 @@
       },
       "hint": {
         "en": "Select a batch that is in production. Attach verified or duplicate codes from the external print-scan system. The session token is shown once—copy it for the bridge.",
-        "vi": "Chọn lô đang sản xuất. Gắn mã Verified/Duplicate từ hệ thống in–quét ngoài. Token ca chỉ hiển thị một lần—hãy sao chép cho bridge."
+        "vi": "Chọn lô đang sản xuất. Gắn mã đã xác minh hoặc trùng lặp từ hệ thống in–quét ngoài. Mã phiên ca chỉ hiển thị một lần—hãy sao chép cho cầu nối."
       },
       "tokenWarning": {
         "en": "Copy this token now. It will not be shown again.",
-        "vi": "Sao chép token ngay. Token sẽ không hiển thị lại."
+        "vi": "Sao chép mã phiên ngay. Mã phiên sẽ không hiển thị lại."
       }
     },
     "detailDialog": {
       "title": {
         "en": "Session attach log",
-        "vi": "Nhật ký attach ca"
+        "vi": "Nhật ký gắn mã ca"
       },
       "emptyLog": {
         "en": "No attach lines yet.",
-        "vi": "Chưa có dòng attach."
+        "vi": "Chưa có dòng gắn mã."
       },
       "emptyLogFiltered": {
         "en": "No attach lines match the filters.",
-        "vi": "Không có dòng attach khớp bộ lọc."
+        "vi": "Không có dòng gắn mã khớp bộ lọc."
       },
       "totalLines": {
         "en": "{count} line(s) total",
@@ -2119,7 +2122,7 @@
       },
       "cancelConfirm": {
         "en": "Cancel this open session? The bridge token will stop working.",
-        "vi": "Hủy ca đang mở? Token bridge sẽ không còn hiệu lực."
+        "vi": "Hủy ca đang mở? Mã phiên cầu nối sẽ không còn hiệu lực."
       },
       "confirmCancelButton": {
         "en": "Confirm cancel",
@@ -2128,7 +2131,7 @@
     },
     "tokenCopied": {
       "en": "Session token copied.",
-      "vi": "Đã sao chép token ca."
+      "vi": "Đã sao chép mã phiên ca."
     },
     "empty": {
       "noData": {
