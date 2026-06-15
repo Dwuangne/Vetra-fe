@@ -34,8 +34,9 @@ import {
 } from "@/lib/forms/api-error-to-form";
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
-import { getBizStepLabel, PLANT_BIZ_STEPS } from "@/lib/production/cbv-biz-steps";
+import { getBizStepLabel, ALL_BIZ_STEPS } from "@/lib/production/cbv-biz-steps";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
+import { NATIVE_SELECT_CLASS } from "@/lib/ui/form-control-classes";
 import {
 
   getDefaultEventIngestValues,
@@ -62,9 +63,7 @@ type EventIngestDialogProps = {
 
 
 
-const selectClass =
-
-  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm";
+const selectClass = NATIVE_SELECT_CLASS;
 
 
 
@@ -615,15 +614,6 @@ export function EventIngestDialog({ open, onOpenChange, onIngested }: EventInges
         <form onSubmit={(event) => void onSubmit(event)} className="flex flex-col gap-5">
 
           <section>
-
-            <h3 className="text-sm font-medium">{pickLocalized(ing.sections.anchors, locale)}</h3>
-
-            <p className="mb-3 text-xs text-muted-foreground">
-
-              {pickLocalized(ing.anchors.batchHint, locale)}
-
-            </p>
-
             <div className="grid gap-3 sm:grid-cols-2">
 
               <FormField
@@ -794,7 +784,7 @@ export function EventIngestDialog({ open, onOpenChange, onIngested }: EventInges
 
                   <option value="">{pickLocalized(ing.fields.none, locale)}</option>
 
-                  {PLANT_BIZ_STEPS.map((step) => (
+                  {ALL_BIZ_STEPS.map((step) => (
 
                     <option key={step} value={step}>
 

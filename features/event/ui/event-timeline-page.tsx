@@ -67,45 +67,21 @@ export function EventTimelinePage() {
   return (
     <AppShellLayout title={pageTitle}>
       <div className="flex flex-col gap-4">
-        <EventTimelineFilters
-          lotKeyword={list.lotKeyword}
-          productionOrderId={list.productionOrderId}
-          locationId={list.locationId}
-          epcUri={list.epcUri}
-          batchId={list.batchId}
-          onLotKeywordChange={list.setLotKeyword}
-          onProductionOrderIdChange={list.setProductionOrderId}
-          onLocationIdChange={list.setLocationId}
-          onEpcUriChange={list.setEpcUri}
-          onBatchIdChange={list.setBatchId}
-          onSearch={list.onSearch}
-          disabled={filterDisabled}
-          locale={locale}
-        />
-
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div className="flex flex-wrap items-end gap-3">
-            <div className="flex min-w-[180px] max-w-xs flex-col gap-2">
-              <label className="text-sm font-medium leading-none">
-                {pickLocalized(timeFilters.fromTime, locale)}
-              </label>
-              <DatetimeInput
-                value={list.fromTime || null}
-                onValueChange={(value) => list.setFromTime(value ?? "")}
-                disabled={filterDisabled}
-              />
-            </div>
-            <div className="flex min-w-[180px] max-w-xs flex-col gap-2">
-              <label className="text-sm font-medium leading-none">
-                {pickLocalized(timeFilters.toTime, locale)}
-              </label>
-              <DatetimeInput
-                value={list.toTime || null}
-                onValueChange={(value) => list.setToTime(value ?? "")}
-                disabled={filterDisabled}
-              />
-            </div>
-          </div>
+          <EventTimelineFilters
+            className="w-full min-w-0 flex-1 md:max-w-4xl"
+            productionOrderId={list.productionOrderId}
+            locationId={list.locationId}
+            epcUri={list.epcUri}
+            batchId={list.batchId}
+            onProductionOrderIdChange={list.setProductionOrderId}
+            onLocationIdChange={list.setLocationId}
+            onEpcUriChange={list.setEpcUri}
+            onBatchIdChange={list.setBatchId}
+            onSearch={list.onSearch}
+            disabled={filterDisabled}
+            locale={locale}
+          />
           <Button
             type="button"
             className={`${BRAND_PRIMARY_BUTTON_CLASS} w-full md:w-auto md:shrink-0`}
@@ -114,6 +90,29 @@ export function EventTimelinePage() {
           >
             {pickLocalized(messages.event.actions.ingest, locale)}
           </Button>
+        </div>
+
+        <div className="flex flex-wrap items-end gap-3">
+          <div className="flex min-w-[180px] max-w-xs flex-col gap-2">
+            <label className="text-sm font-medium leading-none">
+              {pickLocalized(timeFilters.fromTime, locale)}
+            </label>
+            <DatetimeInput
+              value={list.fromTime || null}
+              onValueChange={(value) => list.setFromTime(value ?? "")}
+              disabled={filterDisabled}
+            />
+          </div>
+          <div className="flex min-w-[180px] max-w-xs flex-col gap-2">
+            <label className="text-sm font-medium leading-none">
+              {pickLocalized(timeFilters.toTime, locale)}
+            </label>
+            <DatetimeInput
+              value={list.toTime || null}
+              onValueChange={(value) => list.setToTime(value ?? "")}
+              disabled={filterDisabled}
+            />
+          </div>
         </div>
 
         {!list.hasSearched && !showPreSearchError ? (

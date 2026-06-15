@@ -57,8 +57,8 @@ export function VerificationSessionFilters({
   );
 
   return (
-    <div className={cn("flex flex-wrap items-end gap-3", className)}>
-      <div className="flex min-w-[200px] max-w-xs flex-col gap-2">
+    <div className={cn("flex w-full flex-wrap items-end gap-3", className)}>
+      <div className="flex min-w-[180px] max-w-sm flex-1 flex-col gap-2">
         <label className="text-sm font-medium leading-none">{pickLocalized(f.batch, locale)}</label>
         <EntitySelect
           value={batchId || null}
@@ -68,7 +68,7 @@ export function VerificationSessionFilters({
           disabled={disabled}
         />
       </div>
-      <div className="flex min-w-[200px] max-w-xs flex-col gap-2">
+      <div className="flex min-w-[180px] max-w-sm flex-1 flex-col gap-2">
         <label className="text-sm font-medium leading-none">{pickLocalized(f.product, locale)}</label>
         <EntitySelect
           value={productId || null}

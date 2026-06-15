@@ -738,18 +738,6 @@
       }
     }
   },
-  "auth": {
-    "forbidden": {
-      "title": {
-        "en": "Access denied",
-        "vi": "Không có quyền truy cập"
-      },
-      "message": {
-        "en": "Your account does not have permission to perform this action.",
-        "vi": "Tài khoản của bạn không có quyền thực hiện thao tác này."
-      }
-    }
-  },
   "tenant": {
     "title": {
       "en": "Tenants",
@@ -808,10 +796,6 @@
     "title": {
       "en": "Team accounts",
       "vi": "Tài khoản nhóm"
-    },
-    "subtitle": {
-      "en": "Manage Supervisor and Operator accounts for your tenant.",
-      "vi": "Quản lý tài khoản Giám sát và Vận hành trong đơn vị của bạn."
     },
     "actions": {
       "create": {
@@ -1313,10 +1297,6 @@
       "en": "Form fields",
       "vi": "Trường biểu mẫu"
     },
-    "breadcrumbFields": {
-      "en": "Fields",
-      "vi": "Trường"
-    },
     "invalidTemplateId": {
       "en": "Invalid form template.",
       "vi": "Biểu mẫu không hợp lệ."
@@ -1365,10 +1345,6 @@
       "attributePlaceholder": {
         "en": "Select an attribute",
         "vi": "Chọn thuộc tính"
-      },
-      "attributeSearchPlaceholder": {
-        "en": "Search attributes",
-        "vi": "Tìm thuộc tính"
       },
       "attributeEmpty": {
         "en": "No matching attributes.",
@@ -1757,10 +1733,6 @@
       "en": "Product traceability",
       "vi": "Truy xuất nguồn gốc sản phẩm"
     },
-    "logoAlt": {
-      "en": "Vetra",
-      "vi": "Vetra"
-    },
     "active": {
       "title": {
         "en": "Verified product",
@@ -1854,10 +1826,6 @@
           "vi": "Lô đã tiêu hủy"
         }
       },
-      "batchStatusLabel": {
-        "en": "Batch status",
-        "vi": "Trạng thái lô"
-      },
       "recalled": {
         "en": "This batch has been recalled. Do not use or distribute this product. Contact the supplier or point of purchase for guidance.",
         "vi": "Lô hàng này đã bị thu hồi. Không sử dụng hoặc lưu hành sản phẩm. Vui lòng liên hệ nhà cung cấp hoặc nơi mua hàng để được hướng dẫn."
@@ -1873,10 +1841,6 @@
       "contactSupport": {
         "en": "If you need help, please contact customer support or the store where you purchased this product.",
         "vi": "Nếu bạn cần hỗ trợ, vui lòng liên hệ bộ phận chăm sóc khách hàng hoặc cửa hàng nơi bạn mua sản phẩm."
-      },
-      "factoryLabel": {
-        "en": "Manufacturing site",
-        "vi": "Nhà máy"
       }
     },
     "footer": {
@@ -1946,10 +1910,6 @@
       }
     },
     "batchDialog": {
-      "publicScanReleasedHint": {
-        "en": "Releasing this batch publishes generated serials: public scan URLs under /01/{GTIN}/21/{serial} become available.",
-        "vi": "Khi phát hành lô, các số sê-ri đã sinh sẽ được công khai: URL quét công khai dạng /01/{GTIN}/21/{serial} sẽ hoạt động."
-      },
       "publicScanRestrictedHint": {
         "en": "This status makes the public scan page show a restricted safety notice for this batch immediately.",
         "vi": "Trạng thái này khiến trang quét công khai chuyển sang dạng cảnh báo (ẩn bớt chi tiết) ngay lập tức."
@@ -1960,18 +1920,6 @@
     "title": {
       "en": "Product codes",
       "vi": "Mã sản phẩm"
-    },
-    "selectBatchPrompt": {
-      "en": "Choose a batch to view and generate product codes.",
-      "vi": "Chọn một lô để xem và sinh mã sản phẩm."
-    },
-    "selectPoolPrompt": {
-      "en": "Or choose a product to view the pre-generation pool (print-verify flow).",
-      "vi": "Hoặc chọn sản phẩm để xem kho sinh trước (luồng in–xác minh)."
-    },
-    "changeScope": {
-      "en": "Change batch or product",
-      "vi": "Đổi lô hoặc sản phẩm"
     },
     "changeProduct": {
       "en": "Change product",
@@ -1985,10 +1933,6 @@
       "scopeProduct": {
         "en": "Product",
         "vi": "Sản phẩm"
-      },
-      "activeGeneration": {
-        "en": "Generation",
-        "vi": "Đợt"
       },
       "filters": {
         "productId": {
@@ -2029,25 +1973,9 @@
           "en": "Pre-generate",
           "vi": "Sinh trước"
         },
-        "exportGeneration": {
-          "en": "Export this generation",
-          "vi": "Xuất đợt này"
-        },
-        "clearGenerationFilter": {
-          "en": "All generations",
-          "vi": "Tất cả đợt"
-        },
-        "selectGenerationHint": {
-          "en": "Export downloads all unexported pool serials for this product. Click a generation ID to filter the table.",
-          "vi": "Xuất CSV tải mọi số sê-ri trong kho chưa xuất của sản phẩm. Bấm cột Đợt để lọc bảng."
-        },
         "exportRequiresRole": {
           "en": "Export CSV requires Manager or Supervisor role.",
           "vi": "Xuất CSV cần quyền Quản lý hoặc Giám sát."
-        },
-        "selectGenerationRow": {
-          "en": "Select generation",
-          "vi": "Chọn đợt"
         }
       },
       "preGenerateDialog": {
@@ -2137,10 +2065,6 @@
       "quantity": {
         "en": "Quantity",
         "vi": "Số lượng"
-      },
-      "serialPrefix": {
-        "en": "Serial prefix",
-        "vi": "Tiền tố số sê-ri"
       }
     }
   },
@@ -2148,10 +2072,6 @@
     "title": {
       "en": "Verification sessions",
       "vi": "Ca xác minh"
-    },
-    "hint": {
-      "en": "Open a session after exporting the print-verify pool. Copy the session token for the external bridge; attach results appear in the log below.",
-      "vi": "Mở ca sau khi xuất kho in–xác minh. Sao chép mã phiên ca cho cầu nối ngoài; kết quả gắn mã hiển thị trong nhật ký."
     },
     "filters": {
       "batch": {
@@ -2395,25 +2315,7 @@
       "en": "Production log",
       "vi": "Nhật ký sản xuất"
     },
-    "plant": {
-      "emptyHint": {
-        "en": "Search by lot number or production order to find production steps.",
-        "vi": "Tìm theo số lô hoặc lệnh sản xuất để xem các bước trong nhật ký."
-      },
-      "emptyFilteredHint": {
-        "en": "No steps match. Try a different lot or production order.",
-        "vi": "Không có bước phù hợp. Thử số lô hoặc lệnh sản xuất khác."
-      }
-    },
     "filters": {
-      "lot": {
-        "en": "Goods lot",
-        "vi": "Lô Hàng Hóa"
-      },
-      "lotPlaceholder": {
-        "en": "Goods / raw material lot number",
-        "vi": "Số lô hàng hóa / NVL"
-      },
       "productionOrder": {
         "en": "Production order",
         "vi": "Lệnh sản xuất"
@@ -2425,10 +2327,6 @@
       "epcUri": {
         "en": "EPC URI",
         "vi": "EPC URI"
-      },
-      "epcUriPlaceholder": {
-        "en": "Partial match supported",
-        "vi": "Hỗ trợ khớp một phần"
       },
       "batch": {
         "en": "Production lot",
@@ -2520,14 +2418,6 @@
         "plant": {
           "en": "In-plant",
           "vi": "Trong nhà máy"
-        },
-        "serialHint": {
-          "en": "EPCs are required. Use batch scope to pick product instances.",
-          "vi": "Bắt buộc có EPC. Chọn lô để tra instance sản phẩm."
-        },
-        "plantHint": {
-          "en": "Anchor by production order and/or batch. EPCs are optional.",
-          "vi": "Neo theo lệnh SX và/hoặc lô. EPC là tùy chọn."
         }
       },
       "sections": {
@@ -2589,10 +2479,6 @@
           "en": "Business location",
           "vi": "Địa điểm nghiệp vụ"
         },
-        "bizLocationPlaceholder": {
-          "en": "Select business location",
-          "vi": "Chọn địa điểm nghiệp vụ"
-        },
         "clientEventId": {
           "en": "Client event ID",
           "vi": "Mã sự kiện client"
@@ -2601,10 +2487,6 @@
           "en": "Parent instance",
           "vi": "Instance cha"
         },
-        "parentInstancePlaceholder": {
-          "en": "Select parent instance",
-          "vi": "Chọn instance cha"
-        },
         "transformationId": {
           "en": "Transformation ID",
           "vi": "Mã biến đổi"
@@ -2612,10 +2494,6 @@
         "extensionData": {
           "en": "Extension data (JSON)",
           "vi": "Dữ liệu mở rộng (JSON)"
-        },
-        "extensionDataHint": {
-          "en": "Optional JSON object. Must parse as valid JSON when provided.",
-          "vi": "JSON tùy chọn. Phải là JSON hợp lệ khi nhập."
         },
         "none": {
           "en": "— None —",
@@ -2645,17 +2523,9 @@
         }
       },
       "epcs": {
-        "plantOptionalHint": {
-          "en": "Optional in in-plant mode. Select a batch anchor to pick instances.",
-          "vi": "Tùy chọn ở chế độ trong nhà máy. Chọn lô neo để tra instance."
-        },
         "batchScope": {
           "en": "Batch (for instance lookup)",
           "vi": "Lô (để tra instance)"
-        },
-        "batchScopePlaceholder": {
-          "en": "Select batch",
-          "vi": "Chọn lô"
         },
         "batchScopeHint": {
           "en": "Select a batch before picking product instances for EPC rows.",
@@ -2664,10 +2534,6 @@
         "instance": {
           "en": "Product instance",
           "vi": "Instance sản phẩm"
-        },
-        "instancePlaceholder": {
-          "en": "Select instance",
-          "vi": "Chọn instance"
         },
         "epcType": {
           "en": "EPC type",
@@ -2878,10 +2744,6 @@
           "vi": "Giá trị"
         }
       },
-      "emptyEpcs": {
-        "en": "No EPCs on this event.",
-        "vi": "Sự kiện không có EPC."
-      },
       "emptyAttributes": {
         "en": "No attributes on this event.",
         "vi": "Sự kiện không có thuộc tính."
@@ -2931,20 +2793,6 @@
       "TransformationEvent": {
         "en": "Transformation event",
         "vi": "Sự kiện biến đổi"
-      }
-    },
-    "epcAction": {
-      "ADD": {
-        "en": "Add",
-        "vi": "Thêm"
-      },
-      "OBSERVE": {
-        "en": "Observe",
-        "vi": "Quan sát"
-      },
-      "DELETE": {
-        "en": "Delete",
-        "vi": "Xóa"
       }
     }
   },

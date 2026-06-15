@@ -22,6 +22,7 @@ import {
 import { messages, pickLocalized, useLocale } from "@/lib/i18n";
 import { ALL_BIZ_STEPS, getBizStepLabel } from "@/lib/production/cbv-biz-steps";
 import { toastApiError, toastMutationSuccess } from "@/lib/ui/api-toast";
+import { NATIVE_SELECT_CLASS } from "@/lib/ui/form-control-classes";
 import { cn } from "@/lib/utils";
 
 import type { FormTemplateFormValues } from "../hooks/use-form-template-form";
@@ -34,8 +35,7 @@ type FormTemplateFormDialogProps = {
   onSaved: () => void;
 };
 
-const selectClass =
-  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm";
+const selectClass = NATIVE_SELECT_CLASS;
 
 export function FormTemplateFormDialog({
   open,

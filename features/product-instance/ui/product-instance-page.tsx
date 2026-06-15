@@ -238,9 +238,6 @@ function ProductInstancePageBody() {
       {!batchId && !productId ? (
         <div className="flex flex-col gap-8">
           <section className="flex flex-col gap-4">
-            <p className="text-sm text-muted-foreground">
-              {pickLocalized(messages.productInstance.selectBatchPrompt, locale)}
-            </p>
             <ProductInstanceFilters
               variant="pick-batch"
               locale={locale}
@@ -250,9 +247,6 @@ function ProductInstancePageBody() {
             />
           </section>
           <section className="flex flex-col gap-4 border-t pt-6">
-            <p className="text-sm text-muted-foreground">
-              {pickLocalized(messages.productInstance.selectPoolPrompt, locale)}
-            </p>
             <ProductInstanceFilters
               variant="pick-product"
               locale={locale}

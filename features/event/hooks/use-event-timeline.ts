@@ -12,11 +12,21 @@ const PAGE_SIZE = 20;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MAX_TIMELINE_MS = 31 * DAY_MS;
 
+type AppliedEventTimelineFilters = {
+  productionOrderId?: string;
+  epcUri?: string;
+  batchId?: string;
+  locationId?: string;
+  fromTime?: string;
+  toTime?: string;
+};
+
+const EMPTY_APPLIED_FILTERS: AppliedEventTimelineFilters = {};
+
 export type EventTimelineInitialParams = {
   epcUri?: string;
   batchId?: string;
   productionOrderId?: string;
-  lotKeyword?: string;
   locationId?: string;
   fromTime?: string;
   toTime?: string;
@@ -36,7 +46,6 @@ export function parseEventTimelineSearchParams(
   const epcUri = params.get("epcUri")?.trim() || undefined;
   const batchId = parseGuidQueryParam(params.get("batchId"));
   const productionOrderId = parseGuidQueryParam(params.get("productionOrderId"));
-  const lotKeyword = params.get("lotKeyword")?.trim() || undefined;
   const locationId = parseGuidQueryParam(params.get("locationId"));
   const fromTime = parseDateTimeQueryParam(params.get("fromTime"));
   const toTime = parseDateTimeQueryParam(params.get("toTime"));
@@ -45,24 +54,49 @@ export function parseEventTimelineSearchParams(
     epcUri,
     batchId,
     productionOrderId,
-    lotKeyword,
     locationId,
     fromTime,
     toTime,
   };
 }
 
+function hasStrongTimelineFilter(params?: EventTimelineInitialParams): boolean {
+  return Boolean(
+    params?.productionOrderId ||
+      params?.batchId ||
+      params?.epcUri ||
+      params?.locationId ||
+      params?.fromTime ||
+      params?.toTime
+  );
+}
+
+function toAppliedFilters(params?: EventTimelineInitialParams): AppliedEventTimelineFilters {
+  if (!params || !hasStrongTimelineFilter(params)) return EMPTY_APPLIED_FILTERS;
+  return {
+    productionOrderId: params.productionOrderId,
+    epcUri: params.epcUri,
+    batchId: params.batchId,
+    locationId: params.locationId,
+    fromTime: params.fromTime,
+    toTime: params.toTime,
+  };
+}
+
 export function useEventTimeline(initial?: EventTimelineInitialParams) {
   const { locale } = useLocale();
-  const [lotKeyword, setLotKeyword] = useState(initial?.lotKeyword ?? "");
+  const initialHasStrongFilter = hasStrongTimelineFilter(initial);
   const [productionOrderId, setProductionOrderId] = useState(initial?.productionOrderId ?? "");
   const [epcUri, setEpcUri] = useState(initial?.epcUri ?? "");
   const [batchId, setBatchId] = useState(initial?.batchId ?? "");
   const [locationId, setLocationId] = useState(initial?.locationId ?? "");
   const [fromTime, setFromTime] = useState(initial?.fromTime ?? "");
   const [toTime, setToTime] = useState(initial?.toTime ?? "");
+  const [appliedFilters, setAppliedFilters] = useState<AppliedEventTimelineFilters>(() =>
+    toAppliedFilters(initial)
+  );
   const [page, setPage] = useState(1);
-  const [hasSearched, setHasSearched] = useState(false);
+  const [hasSearched, setHasSearched] = useState(initialHasStrongFilter);
   const [searchTick, setSearchTick] = useState(0);
   const [items, setItems] = useState<EventTimelineItemResult[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -71,22 +105,13 @@ export function useEventTimeline(initial?: EventTimelineInitialParams) {
   const [error, setError] = useState<string | null>(null);
   const requestIdRef = useRef(0);
 
-  const appliedLotKeyword = lotKeyword.trim() || undefined;
-  const appliedProductionOrderId = productionOrderId.trim() || undefined;
-  const appliedEpcUri = epcUri.trim() || undefined;
-  const appliedBatchId = batchId.trim() || undefined;
-  const appliedLocationId = locationId.trim() || undefined;
-  const appliedFromTime = fromTime || undefined;
-  const appliedToTime = toTime || undefined;
-
   const hasActiveFilters = Boolean(
-    appliedLotKeyword ||
-      appliedProductionOrderId ||
-      appliedEpcUri ||
-      appliedBatchId ||
-      appliedLocationId ||
-      appliedFromTime ||
-      appliedToTime
+    appliedFilters.productionOrderId ||
+      appliedFilters.epcUri ||
+      appliedFilters.batchId ||
+      appliedFilters.locationId ||
+      appliedFilters.fromTime ||
+      appliedFilters.toTime
   );
 
   const validateClient = useCallback((): string | null => {
@@ -110,13 +135,12 @@ export function useEventTimeline(initial?: EventTimelineInitialParams) {
     setError(null);
     try {
       const res = await queryEventTimeline({
-        lotKeyword: appliedLotKeyword,
-        productionOrderId: appliedProductionOrderId,
-        epcUri: appliedEpcUri,
-        batchId: appliedBatchId,
-        locationId: appliedLocationId,
-        fromTime: appliedFromTime,
-        toTime: appliedToTime,
+        productionOrderId: appliedFilters.productionOrderId,
+        epcUri: appliedFilters.epcUri,
+        batchId: appliedFilters.batchId,
+        locationId: appliedFilters.locationId,
+        fromTime: appliedFilters.fromTime,
+        toTime: appliedFilters.toTime,
         page,
         size: PAGE_SIZE,
       });
@@ -141,17 +165,7 @@ export function useEventTimeline(initial?: EventTimelineInitialParams) {
         setInitialLoad(false);
       }
     }
-  }, [
-    appliedBatchId,
-    appliedEpcUri,
-    appliedFromTime,
-    appliedLocationId,
-    appliedLotKeyword,
-    appliedProductionOrderId,
-    appliedToTime,
-    locale,
-    page,
-  ]);
+  }, [appliedFilters, locale, page]);
 
   useEffect(() => {
     if (!hasSearched) return;
@@ -165,11 +179,41 @@ export function useEventTimeline(initial?: EventTimelineInitialParams) {
       setError(validationMessage);
       return;
     }
+    const nextFilters = {
+      productionOrderId: productionOrderId.trim() || undefined,
+      epcUri: epcUri.trim() || undefined,
+      batchId: batchId.trim() || undefined,
+      locationId: locationId.trim() || undefined,
+      fromTime: fromTime || undefined,
+      toTime: toTime || undefined,
+    };
+    const hasFilter = Boolean(
+      nextFilters.productionOrderId ||
+        nextFilters.epcUri ||
+        nextFilters.batchId ||
+        nextFilters.locationId ||
+        nextFilters.fromTime ||
+        nextFilters.toTime
+    );
+    if (!hasFilter) {
+      setError(translateErrorCode("EVT_016", locale) ?? "At least one filter is required.");
+      return;
+    }
     setError(null);
+    setAppliedFilters(nextFilters);
     setHasSearched(true);
     setPage(1);
     setSearchTick((t) => t + 1);
-  }, [validateClient]);
+  }, [
+    batchId,
+    epcUri,
+    fromTime,
+    locationId,
+    productionOrderId,
+    toTime,
+    validateClient,
+    locale,
+  ]);
 
   const reload = useCallback(() => {
     if (!hasSearched) {
@@ -180,19 +224,24 @@ export function useEventTimeline(initial?: EventTimelineInitialParams) {
   }, [hasSearched, onSearch]);
 
   const clearFilters = useCallback(() => {
-    setLotKeyword("");
     setProductionOrderId("");
     setEpcUri("");
     setBatchId("");
     setLocationId("");
     setFromTime("");
     setToTime("");
+    setAppliedFilters(EMPTY_APPLIED_FILTERS);
     setHasSearched(false);
     setError(null);
     setItems([]);
     setTotalPages(0);
     setPage(1);
   }, []);
+
+  const handleProductionOrderIdChange = useCallback((value: string) => {
+    setProductionOrderId(value);
+    setBatchId((current) => (current && value.trim() !== productionOrderId.trim() ? "" : current));
+  }, [productionOrderId]);
 
   return {
     items,
@@ -205,10 +254,8 @@ export function useEventTimeline(initial?: EventTimelineInitialParams) {
     hasSearched,
     onSearch,
     reload,
-    lotKeyword,
-    setLotKeyword,
     productionOrderId,
-    setProductionOrderId,
+    setProductionOrderId: handleProductionOrderIdChange,
     epcUri,
     setEpcUri,
     batchId,

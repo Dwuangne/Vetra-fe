@@ -7,6 +7,7 @@ import { messages, pickLocalized, translateCommon } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { ATTRIBUTE_DATA_TYPES, getAttributeDataTypeLabel } from "@/lib/production/attribute-data-types";
 import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
+import { NATIVE_SELECT_CLASS } from "@/lib/ui/form-control-classes";
 import { cn } from "@/lib/utils";
 
 type AttributeDefinitionFiltersProps = {
@@ -20,8 +21,7 @@ type AttributeDefinitionFiltersProps = {
   className?: string;
 };
 
-const selectClass =
-  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm";
+const selectClass = NATIVE_SELECT_CLASS;
 
 export function AttributeDefinitionFilters({
   keyword,

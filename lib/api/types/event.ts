@@ -65,7 +65,6 @@ export type EventTimelineQuery = PagedListQuery & {
   epcUri?: string;
   batchId?: string;
   productionOrderId?: string;
-  lotKeyword?: string;
   locationId?: string;
   fromTime?: string;
   toTime?: string;

@@ -18,7 +18,6 @@ function toTimelineSearchParams(query?: EventTimelineQuery): string {
   if (query.epcUri) params.set("epcUri", query.epcUri);
   if (query.batchId) params.set("batchId", query.batchId);
   if (query.productionOrderId) params.set("productionOrderId", query.productionOrderId);
-  if (query.lotKeyword) params.set("lotKeyword", query.lotKeyword);
   if (query.locationId) params.set("locationId", query.locationId);
   if (query.fromTime) params.set("fromTime", query.fromTime);
   if (query.toTime) params.set("toTime", query.toTime);

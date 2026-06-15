@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 
 import { EntitySelect } from "@/components/forms/entity-select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { listBatches } from "@/lib/api/services/batch.service";
 import {
   getProductionOrderById,
@@ -16,12 +15,10 @@ import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 import { cn } from "@/lib/utils";
 
 type EventTimelineFiltersProps = {
-  lotKeyword: string;
   productionOrderId: string;
   locationId: string;
   epcUri: string;
   batchId: string;
-  onLotKeywordChange: (value: string) => void;
   onProductionOrderIdChange: (value: string) => void;
   onLocationIdChange: (value: string) => void;
   onEpcUriChange: (value: string) => void;
@@ -33,12 +30,10 @@ type EventTimelineFiltersProps = {
 };
 
 export function EventTimelineFilters({
-  lotKeyword,
   productionOrderId,
   locationId: _locationId,
   epcUri: _epcUri,
   batchId,
-  onLotKeywordChange,
   onProductionOrderIdChange,
   onLocationIdChange: _onLocationIdChange,
   onEpcUriChange: _onEpcUriChange,
@@ -91,63 +86,53 @@ export function EventTimelineFilters({
 
   const loadBatchOptions = useMemo(
     () => async (query: string) => {
-      const res = await listBatches({ keyword: query || undefined, page: 1, size: 50 });
+      const res = await listBatches({
+        keyword: query || undefined,
+        productionOrderId: productionOrderId.trim() || undefined,
+        page: 1,
+        size: 50,
+      });
       return (res.data?.items ?? []).map((b) => ({
         value: b.batchId,
         label: b.lotNumber,
       }));
     },
-    []
+    [productionOrderId]
   );
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
-      <div className="flex w-full flex-wrap items-end gap-3">
-        <div className="flex min-w-[200px] max-w-md flex-1 flex-col gap-2">
-          <label htmlFor="event-lot-keyword" className="text-sm font-medium leading-none">
-            {pickLocalized(f.lot, locale)}
-          </label>
-          <Input
-            id="event-lot-keyword"
-            value={lotKeyword}
-            onChange={(e) => onLotKeywordChange(e.target.value)}
-            disabled={disabled}
-            placeholder={pickLocalized(f.lotPlaceholder, locale)}
-            autoComplete="off"
-          />
-        </div>
-        <div className="flex min-w-[200px] max-w-xs flex-1 flex-col gap-2">
-          <label className="text-sm font-medium leading-none">
-            {pickLocalized(f.productionOrder, locale)}
-          </label>
-          <EntitySelect
-            value={productionOrderId || null}
-            onValueChange={(id) => onProductionOrderIdChange(id ?? "")}
-            loadOptions={loadProductionOrderOptions}
-            selectedLabel={selectedProductionOrderLabel}
-            placeholder={pickLocalized(f.allProductionOrders, locale)}
-            disabled={disabled}
-          />
-        </div>
-        <div className="flex min-w-[200px] max-w-xs flex-1 flex-col gap-2">
-          <label className="text-sm font-medium leading-none">{pickLocalized(f.batch, locale)}</label>
-          <EntitySelect
-            value={batchId || null}
-            onValueChange={(id) => onBatchIdChange(id ?? "")}
-            loadOptions={loadBatchOptions}
-            placeholder={pickLocalized(f.allBatches, locale)}
-            disabled={disabled}
-          />
-        </div>
-        <Button
-          type="button"
-          className={BRAND_PRIMARY_BUTTON_CLASS}
-          onClick={onSearch}
+    <div className={cn("flex w-full flex-wrap items-end gap-3", className)}>
+      <div className="flex min-w-[180px] max-w-md flex-1 flex-col gap-2">
+        <label className="text-sm font-medium leading-none">
+          {pickLocalized(f.productionOrder, locale)}
+        </label>
+        <EntitySelect
+          value={productionOrderId || null}
+          onValueChange={(id) => onProductionOrderIdChange(id ?? "")}
+          loadOptions={loadProductionOrderOptions}
+          selectedLabel={selectedProductionOrderLabel}
+          placeholder={pickLocalized(f.allProductionOrders, locale)}
           disabled={disabled}
-        >
-          {translateCommon("search", locale)}
-        </Button>
+        />
       </div>
+      <div className="flex min-w-[180px] max-w-md flex-1 flex-col gap-2">
+        <label className="text-sm font-medium leading-none">{pickLocalized(f.batch, locale)}</label>
+        <EntitySelect
+          value={batchId || null}
+          onValueChange={(id) => onBatchIdChange(id ?? "")}
+          loadOptions={loadBatchOptions}
+          placeholder={pickLocalized(f.allBatches, locale)}
+          disabled={disabled}
+        />
+      </div>
+      <Button
+        type="button"
+        className={BRAND_PRIMARY_BUTTON_CLASS}
+        onClick={onSearch}
+        disabled={disabled}
+      >
+        {translateCommon("search", locale)}
+      </Button>
     </div>
   );
 }

@@ -90,9 +90,10 @@ export function EntitySelect({
   const displayValue = open ? query : (selected?.label ?? selectedLabel ?? query);
 
   return (
-    <div ref={containerRef} className={cn("relative", className)}>
+    <div ref={containerRef} className={cn("relative w-full", className)}>
       <Input
         value={displayValue}
+        className={cn(value && "pr-9")}
         onFocus={() => {
           setOpen(true);
           setQuery("");
