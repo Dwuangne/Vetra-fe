@@ -5,18 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import {
+  Activity,
   Award,
   Building2,
   ChevronRight,
   ClipboardCheck,
   ClipboardList,
   Factory,
+  FileText,
   Home,
   LayoutDashboard,
   Layers,
   MapPin,
   Network,
   Package,
+  SlidersHorizontal,
   Tag,
   UserCog,
   Users,
@@ -56,6 +59,12 @@ const productionSubItems: { href: string; icon: typeof Home; label: { en: string
   { href: "/batches", icon: Package, label: messages.batch.title },
   { href: "/product-instances", icon: Layers, label: messages.productInstance.title },
   { href: "/verification-sessions", icon: ClipboardCheck, label: messages.verificationSession.title },
+  { href: "/events", icon: Activity, label: messages.event.title },
+];
+
+const configurationSubItems: { href: string; icon: typeof Home; label: { en: string; vi: string } }[] = [
+  { href: "/attribute-definitions", icon: Tag, label: messages.attributeDefinition.title },
+  { href: "/form-templates", icon: FileText, label: messages.formTemplate.title },
 ];
 
 export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -78,7 +87,10 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
     pathname.startsWith("/production-orders") ||
     pathname.startsWith("/batches") ||
     pathname.startsWith("/product-instances") ||
-    pathname.startsWith("/verification-sessions");
+    pathname.startsWith("/verification-sessions") ||
+    pathname.startsWith("/events");
+  const isConfigurationActive =
+    pathname.startsWith("/attribute-definitions") || pathname.startsWith("/form-templates");
 
   const ecosystemSubItems: { href: string; icon: typeof Home; label: string }[] = [
     { href: "/parties", icon: Users, label: pickLocalized(messages.party.title, locale) },
@@ -97,6 +109,9 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
         links.push({ href: item.href, icon: item.icon, label: item.label });
       }
       for (const item of productionSubItems) {
+        links.push({ href: item.href, icon: item.icon, label: pickLocalized(item.label, locale) });
+      }
+      for (const item of configurationSubItems) {
         links.push({ href: item.href, icon: item.icon, label: pickLocalized(item.label, locale) });
       }
     }
@@ -237,6 +252,39 @@ export function HomeAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar
                     <SidebarMenuSub>
                       {productionSubItems.map((subItem) => {
                         const isSubActive = pathname === subItem.href || pathname.startsWith(subItem.href);
+                        return (
+                          <SidebarMenuSubItem key={subItem.href}>
+                            <SidebarMenuSubButton asChild isActive={isSubActive}>
+                              <Link href={subItem.href}>
+                                <subItem.icon className="h-4 w-4" />
+                                <span>{pickLocalized(subItem.label, locale)}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        );
+                      })}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarMenuItem>
+            ) : null}
+            {showTenantNavigation ? (
+              <SidebarMenuItem>
+                <Collapsible
+                  className="group/collapsible w-full"
+                  defaultOpen={isConfigurationActive}
+                >
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton isActive={isConfigurationActive}>
+                      <SlidersHorizontal className="h-4 w-4" />
+                      <span>{pickLocalized(nav.configuration, locale)}</span>
+                      <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {configurationSubItems.map((subItem) => {
+                        const isSubActive = pathname === subItem.href || pathname.startsWith(`${subItem.href}/`);
                         return (
                           <SidebarMenuSubItem key={subItem.href}>
                             <SidebarMenuSubButton asChild isActive={isSubActive}>

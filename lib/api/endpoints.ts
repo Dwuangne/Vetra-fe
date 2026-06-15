@@ -15,4 +15,7 @@ export const API_ENDPOINTS = {
   productInstances: "/api/product-instances",
   verificationSessions: "/api/verification-sessions",
   tenantDashboard: "/api/tenant-dashboard",
+  attributeDefinitions: "/api/attribute-definitions",
+  formTemplates: "/api/form-templates",
+  events: "/api/events",
 } as const;

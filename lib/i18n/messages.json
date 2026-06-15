@@ -388,8 +388,8 @@
       "vi": "Sự kiện chuyển đổi bắt buộc có mã chuyển đổi."
     },
     "EVT_005": {
-      "en": "At least one EPC is required for event ingest.",
-      "vi": "Tiếp nhận sự kiện cần ít nhất một EPC."
+      "en": "Event ingest requires at least one EPC, batch, or production order.",
+      "vi": "Tiếp nhận sự kiện cần ít nhất một EPC, lô hoặc lệnh sản xuất."
     },
     "EVT_006": {
       "en": "Referenced location was not found in this tenant.",
@@ -546,6 +546,10 @@
     "production": {
       "en": "Production",
       "vi": "Sản xuất"
+    },
+    "configuration": {
+      "en": "Configuration",
+      "vi": "Cấu hình"
     },
     "admin": {
       "en": "Admin",
@@ -1188,6 +1192,218 @@
       }
     }
   },
+  "attributeDefinition": {
+    "title": {
+      "en": "Attributes",
+      "vi": "Thuộc tính"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "dataType": {
+        "en": "Data type",
+        "vi": "Kiểu dữ liệu"
+      },
+      "allDataTypes": {
+        "en": "All data types",
+        "vi": "Tất cả kiểu dữ liệu"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No attribute definitions yet.",
+        "vi": "Chưa có định nghĩa thuộc tính."
+      },
+      "noFilteredResults": {
+        "en": "No matching attribute definitions.",
+        "vi": "Không có định nghĩa thuộc tính phù hợp."
+      }
+    },
+    "fields": {
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "dataType": {
+        "en": "Data type",
+        "vi": "Kiểu dữ liệu"
+      }
+    }
+  },
+  "formTemplate": {
+    "title": {
+      "en": "Event form templates",
+      "vi": "Biểu mẫu sự kiện"
+    },
+    "actions": {
+      "create": {
+        "en": "Create",
+        "vi": "Tạo mới"
+      },
+      "update": {
+        "en": "Update",
+        "vi": "Cập nhật"
+      },
+      "delete": {
+        "en": "Delete",
+        "vi": "Xóa"
+      },
+      "manageFields": {
+        "en": "Manage fields",
+        "vi": "Quản lý trường"
+      }
+    },
+    "filters": {
+      "keyword": {
+        "en": "Search keyword",
+        "vi": "Từ khóa tìm kiếm"
+      },
+      "bizStep": {
+        "en": "Business step",
+        "vi": "Bước nghiệp vụ"
+      },
+      "allBizSteps": {
+        "en": "All business steps",
+        "vi": "Tất cả bước nghiệp vụ"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No form templates yet.",
+        "vi": "Chưa có biểu mẫu sự kiện."
+      },
+      "noFilteredResults": {
+        "en": "No matching form templates.",
+        "vi": "Không có biểu mẫu sự kiện phù hợp."
+      }
+    },
+    "fields": {
+      "name": {
+        "en": "Name",
+        "vi": "Tên"
+      },
+      "bizStep": {
+        "en": "Business step",
+        "vi": "Bước nghiệp vụ"
+      },
+      "fieldCount": {
+        "en": "Fields",
+        "vi": "Số trường"
+      }
+    }
+  },
+  "formField": {
+    "title": {
+      "en": "Form fields",
+      "vi": "Trường biểu mẫu"
+    },
+    "breadcrumbFields": {
+      "en": "Fields",
+      "vi": "Trường"
+    },
+    "invalidTemplateId": {
+      "en": "Invalid form template.",
+      "vi": "Biểu mẫu không hợp lệ."
+    },
+    "requiredYes": {
+      "en": "Required",
+      "vi": "Bắt buộc"
+    },
+    "requiredNo": {
+      "en": "Optional",
+      "vi": "Tùy chọn"
+    },
+    "actions": {
+      "add": {
+        "en": "Add field",
+        "vi": "Thêm trường"
+      },
+      "remove": {
+        "en": "Remove",
+        "vi": "Gỡ"
+      }
+    },
+    "fields": {
+      "attributeName": {
+        "en": "Attribute name",
+        "vi": "Tên thuộc tính"
+      },
+      "dataType": {
+        "en": "Data type",
+        "vi": "Kiểu dữ liệu"
+      },
+      "isRequired": {
+        "en": "Required",
+        "vi": "Bắt buộc"
+      }
+    },
+    "upsert": {
+      "title": {
+        "en": "Add field",
+        "vi": "Thêm trường"
+      },
+      "selectAttribute": {
+        "en": "Attribute",
+        "vi": "Thuộc tính"
+      },
+      "attributePlaceholder": {
+        "en": "Select an attribute",
+        "vi": "Chọn thuộc tính"
+      },
+      "attributeSearchPlaceholder": {
+        "en": "Search attributes",
+        "vi": "Tìm thuộc tính"
+      },
+      "attributeEmpty": {
+        "en": "No matching attributes.",
+        "vi": "Không có thuộc tính phù hợp."
+      },
+      "attributeRequired": {
+        "en": "Select an attribute.",
+        "vi": "Vui lòng chọn thuộc tính."
+      },
+      "requiredHint": {
+        "en": "Values must be provided when ingesting events with this form.",
+        "vi": "Bắt buộc nhập khi tiếp nhận sự kiện với biểu mẫu này."
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No fields yet — add from the attribute catalog.",
+        "vi": "Chưa có trường — thêm từ danh mục thuộc tính."
+      },
+      "noDataDescription": {
+        "en": "Choose attributes from your catalog to include on this event form.",
+        "vi": "Chọn thuộc tính từ danh mục để đưa vào biểu mẫu sự kiện."
+      }
+    },
+    "removeConfirm": {
+      "title": {
+        "en": "Remove field",
+        "vi": "Gỡ trường"
+      },
+      "description": {
+        "en": "Remove this attribute from the form template?",
+        "vi": "Gỡ thuộc tính này khỏi biểu mẫu?"
+      }
+    }
+  },
   "product": {
     "title": {
       "en": "Products",
@@ -1279,6 +1495,10 @@
       "viewBatches": {
         "en": "View batches for this order",
         "vi": "Xem lô của lệnh này"
+      },
+      "viewProductionLog": {
+        "en": "View production log for this order",
+        "vi": "Xem nhật ký lệnh này"
       }
     },
     "statusTransitionDialog": {
@@ -1397,6 +1617,10 @@
       "viewInstances": {
         "en": "View product codes",
         "vi": "Xem mã sản phẩm"
+      },
+      "viewProductionLog": {
+        "en": "Production log",
+        "vi": "Nhật ký"
       }
     },
     "statusTransitionDialog": {
@@ -1867,6 +2091,10 @@
       "clearFilters": {
         "en": "Clear filters",
         "vi": "Xóa bộ lọc"
+      },
+      "viewEventTimeline": {
+        "en": "Timeline",
+        "vi": "Dòng thời gian"
       }
     },
     "filters": {
@@ -2142,6 +2370,628 @@
         "en": "No sessions match the selected filters.",
         "vi": "Không có ca nào khớp bộ lọc."
       }
+    }
+  },
+  "attributeDataType": {
+    "STRING": {
+      "en": "String",
+      "vi": "Chuỗi"
+    },
+    "NUMERIC": {
+      "en": "Numeric",
+      "vi": "Số"
+    },
+    "DATE": {
+      "en": "Date",
+      "vi": "Ngày"
+    },
+    "BOOLEAN": {
+      "en": "Boolean",
+      "vi": "Đúng/Sai"
+    }
+  },
+  "event": {
+    "title": {
+      "en": "Production log",
+      "vi": "Nhật ký sản xuất"
+    },
+    "plant": {
+      "emptyHint": {
+        "en": "Search by lot number or production order to find production steps.",
+        "vi": "Tìm theo số lô hoặc lệnh sản xuất để xem các bước trong nhật ký."
+      },
+      "emptyFilteredHint": {
+        "en": "No steps match. Try a different lot or production order.",
+        "vi": "Không có bước phù hợp. Thử số lô hoặc lệnh sản xuất khác."
+      }
+    },
+    "filters": {
+      "lot": {
+        "en": "Goods lot",
+        "vi": "Lô Hàng Hóa"
+      },
+      "lotPlaceholder": {
+        "en": "Goods / raw material lot number",
+        "vi": "Số lô hàng hóa / NVL"
+      },
+      "productionOrder": {
+        "en": "Production order",
+        "vi": "Lệnh sản xuất"
+      },
+      "allProductionOrders": {
+        "en": "All production orders",
+        "vi": "Tất cả lệnh SX"
+      },
+      "epcUri": {
+        "en": "EPC URI",
+        "vi": "EPC URI"
+      },
+      "epcUriPlaceholder": {
+        "en": "Partial match supported",
+        "vi": "Hỗ trợ khớp một phần"
+      },
+      "batch": {
+        "en": "Production lot",
+        "vi": "Lô Sản Xuất"
+      },
+      "location": {
+        "en": "Location",
+        "vi": "Địa điểm"
+      },
+      "fromTime": {
+        "en": "From",
+        "vi": "Từ"
+      },
+      "toTime": {
+        "en": "To",
+        "vi": "Đến"
+      },
+      "allBatches": {
+        "en": "All batches",
+        "vi": "Tất cả Lô Sản Xuất"
+      },
+      "allLocations": {
+        "en": "All locations",
+        "vi": "Tất cả địa điểm"
+      }
+    },
+    "table": {
+      "eventTime": {
+        "en": "Event time",
+        "vi": "Thời gian sự kiện"
+      },
+      "eventType": {
+        "en": "Type",
+        "vi": "Loại"
+      },
+      "action": {
+        "en": "Action",
+        "vi": "Hành động"
+      },
+      "bizStep": {
+        "en": "Step",
+        "vi": "Bước"
+      },
+      "lot": {
+        "en": "Lot",
+        "vi": "Lô"
+      },
+      "disposition": {
+        "en": "Disposition",
+        "vi": "Trạng thái CBV"
+      },
+      "readPoint": {
+        "en": "Read point",
+        "vi": "Điểm đọc"
+      },
+      "epcCount": {
+        "en": "EPCs",
+        "vi": "Số EPC"
+      }
+    },
+    "actions": {
+      "viewDetail": {
+        "en": "Detail",
+        "vi": "Chi tiết"
+      },
+      "ingest": {
+        "en": "Record",
+        "vi": "Ghi nhận"
+      }
+    },
+    "ingest": {
+      "title": {
+        "en": "Record production ",
+        "vi": "Ghi nhận sản xuất"
+      },
+      "submit": {
+        "en": "Ingest",
+        "vi": "Tiếp nhận"
+      },
+      "mode": {
+        "label": {
+          "en": "Ingest mode",
+          "vi": "Chế độ tiếp nhận"
+        },
+        "serial": {
+          "en": "By serial",
+          "vi": "Theo serial"
+        },
+        "plant": {
+          "en": "In-plant",
+          "vi": "Trong nhà máy"
+        },
+        "serialHint": {
+          "en": "EPCs are required. Use batch scope to pick product instances.",
+          "vi": "Bắt buộc có EPC. Chọn lô để tra instance sản phẩm."
+        },
+        "plantHint": {
+          "en": "Anchor by production order and/or batch. EPCs are optional.",
+          "vi": "Neo theo lệnh SX và/hoặc lô. EPC là tùy chọn."
+        }
+      },
+      "sections": {
+        "core": {
+          "en": "Event metadata",
+          "vi": "Thông tin sự kiện"
+        },
+        "anchors": {
+          "en": "Production anchors",
+          "vi": "Neo sản xuất"
+        },
+        "epcs": {
+          "en": "EPCs",
+          "vi": "EPC"
+        },
+        "attributes": {
+          "en": "Attributes",
+          "vi": "Thuộc tính"
+        },
+        "extension": {
+          "en": "Extension data",
+          "vi": "Dữ liệu mở rộng"
+        }
+      },
+      "fields": {
+        "eventTime": {
+          "en": "Event time",
+          "vi": "Thời gian sự kiện"
+        },
+        "timezoneOffset": {
+          "en": "Timezone offset",
+          "vi": "Múi giờ"
+        },
+        "eventType": {
+          "en": "Type",
+          "vi": "Loại"
+        },
+        "action": {
+          "en": "Action",
+          "vi": "Hành động"
+        },
+        "bizStep": {
+          "en": "Business step",
+          "vi": "Bước nghiệp vụ"
+        },
+        "disposition": {
+          "en": "Disposition",
+          "vi": "Trạng thái CBV"
+        },
+        "readPoint": {
+          "en": "Read point",
+          "vi": "Điểm đọc"
+        },
+        "readPointPlaceholder": {
+          "en": "Select read point",
+          "vi": "Chọn điểm đọc"
+        },
+        "bizLocation": {
+          "en": "Business location",
+          "vi": "Địa điểm nghiệp vụ"
+        },
+        "bizLocationPlaceholder": {
+          "en": "Select business location",
+          "vi": "Chọn địa điểm nghiệp vụ"
+        },
+        "clientEventId": {
+          "en": "Client event ID",
+          "vi": "Mã sự kiện client"
+        },
+        "parentInstance": {
+          "en": "Parent instance",
+          "vi": "Instance cha"
+        },
+        "parentInstancePlaceholder": {
+          "en": "Select parent instance",
+          "vi": "Chọn instance cha"
+        },
+        "transformationId": {
+          "en": "Transformation ID",
+          "vi": "Mã biến đổi"
+        },
+        "extensionData": {
+          "en": "Extension data (JSON)",
+          "vi": "Dữ liệu mở rộng (JSON)"
+        },
+        "extensionDataHint": {
+          "en": "Optional JSON object. Must parse as valid JSON when provided.",
+          "vi": "JSON tùy chọn. Phải là JSON hợp lệ khi nhập."
+        },
+        "none": {
+          "en": "— None —",
+          "vi": "— Không chọn —"
+        }
+      },
+      "anchors": {
+        "productionOrder": {
+          "en": "Production order",
+          "vi": "Lệnh sản xuất"
+        },
+        "productionOrderPlaceholder": {
+          "en": "Select production order",
+          "vi": "Chọn lệnh sản xuất"
+        },
+        "batch": {
+          "en": "Batch",
+          "vi": "Lô"
+        },
+        "batchPlaceholder": {
+          "en": "Select batch",
+          "vi": "Chọn lô"
+        },
+        "batchHint": {
+          "en": "At least one of production order or batch is required.",
+          "vi": "Cần ít nhất lệnh SX hoặc lô."
+        }
+      },
+      "epcs": {
+        "plantOptionalHint": {
+          "en": "Optional in in-plant mode. Select a batch anchor to pick instances.",
+          "vi": "Tùy chọn ở chế độ trong nhà máy. Chọn lô neo để tra instance."
+        },
+        "batchScope": {
+          "en": "Batch (for instance lookup)",
+          "vi": "Lô (để tra instance)"
+        },
+        "batchScopePlaceholder": {
+          "en": "Select batch",
+          "vi": "Chọn lô"
+        },
+        "batchScopeHint": {
+          "en": "Select a batch before picking product instances for EPC rows.",
+          "vi": "Chọn lô trước khi chọn instance cho các dòng EPC."
+        },
+        "instance": {
+          "en": "Product instance",
+          "vi": "Instance sản phẩm"
+        },
+        "instancePlaceholder": {
+          "en": "Select instance",
+          "vi": "Chọn instance"
+        },
+        "epcType": {
+          "en": "EPC type",
+          "vi": "Loại EPC"
+        },
+        "addRow": {
+          "en": "Add EPC",
+          "vi": "Thêm EPC"
+        },
+        "removeRow": {
+          "en": "Remove EPC row",
+          "vi": "Xóa dòng EPC"
+        }
+      },
+      "attributes": {
+        "templateSection": {
+          "en": "From form template",
+          "vi": "Theo mẫu biểu mẫu"
+        },
+        "templateHint": {
+          "en": "Required fields follow the form template for the selected business step.",
+          "vi": "Trường bắt buộc theo mẫu biểu mẫu của bước nghiệp vụ đã chọn."
+        },
+        "manualSection": {
+          "en": "Additional attributes",
+          "vi": "Thuộc tính bổ sung"
+        },
+        "loadingTemplate": {
+          "en": "Loading form template fields…",
+          "vi": "Đang tải trường mẫu biểu mẫu…"
+        },
+        "noTemplate": {
+          "en": "No form template is configured for this business step.",
+          "vi": "Chưa có mẫu biểu mẫu cho bước nghiệp vụ này."
+        },
+        "attribute": {
+          "en": "Attribute",
+          "vi": "Thuộc tính"
+        },
+        "attributePlaceholder": {
+          "en": "Select attribute",
+          "vi": "Chọn thuộc tính"
+        },
+        "value": {
+          "en": "Value",
+          "vi": "Giá trị"
+        },
+        "addRow": {
+          "en": "Add attribute",
+          "vi": "Thêm thuộc tính"
+        },
+        "removeRow": {
+          "en": "Remove attribute row",
+          "vi": "Xóa dòng thuộc tính"
+        },
+        "booleanValue": {
+          "true": {
+            "en": "True",
+            "vi": "Đúng"
+          },
+          "false": {
+            "en": "False",
+            "vi": "Sai"
+          }
+        }
+      }
+    },
+    "detail": {
+      "title": {
+        "en": "Step detail",
+        "vi": "Chi tiết bước"
+      },
+      "close": {
+        "en": "Close",
+        "vi": "Đóng"
+      },
+      "sections": {
+        "summary": {
+          "en": "Summary",
+          "vi": "Tóm tắt"
+        },
+        "location": {
+          "en": "Location",
+          "vi": "Điểm đọc"
+        },
+        "metadata": {
+          "en": "Metadata",
+          "vi": "Thông tin chung"
+        },
+        "epcs": {
+          "en": "EPCs",
+          "vi": "EPC"
+        },
+        "attributes": {
+          "en": "Attributes",
+          "vi": "Thuộc tính"
+        },
+        "extensionData": {
+          "en": "Extension data",
+          "vi": "Dữ liệu mở rộng"
+        },
+        "anchors": {
+          "en": "Production anchors",
+          "vi": "Neo sản xuất"
+        }
+      },
+      "fields": {
+        "eventTime": {
+          "en": "Event time",
+          "vi": "Thời gian sự kiện"
+        },
+        "recordTime": {
+          "en": "Record time",
+          "vi": "Thời gian ghi nhận"
+        },
+        "timezoneOffset": {
+          "en": "Timezone offset",
+          "vi": "Múi giờ"
+        },
+        "clientEventId": {
+          "en": "Client event ID",
+          "vi": "Mã sự kiện client"
+        },
+        "eventType": {
+          "en": "Type",
+          "vi": "Loại"
+        },
+        "action": {
+          "en": "Action",
+          "vi": "Hành động"
+        },
+        "bizStep": {
+          "en": "Business step",
+          "vi": "Bước nghiệp vụ"
+        },
+        "disposition": {
+          "en": "Disposition",
+          "vi": "Trạng thái CBV"
+        },
+        "readPoint": {
+          "en": "Read point",
+          "vi": "Điểm đọc"
+        },
+        "bizLocation": {
+          "en": "Business location",
+          "vi": "Địa điểm nghiệp vụ"
+        },
+        "parentInstance": {
+          "en": "Parent instance",
+          "vi": "Instance cha"
+        },
+        "transformationId": {
+          "en": "Transformation ID",
+          "vi": "Mã biến đổi"
+        },
+        "eventId": {
+          "en": "Event ID",
+          "vi": "Mã sự kiện"
+        },
+        "productionOrder": {
+          "en": "Production order",
+          "vi": "Lệnh sản xuất"
+        },
+        "batchLot": {
+          "en": "Batch lot",
+          "vi": "Lô sản xuất"
+        }
+      },
+      "mixInputs": {
+        "title": {
+          "en": "Production inputs",
+          "vi": "Đầu vào sản xuất"
+        }
+      },
+      "epcs": {
+        "total": {
+          "en": "Total EPCs: {count}",
+          "vi": "Tổng EPC: {count}"
+        },
+        "refresh": {
+          "en": "Refresh",
+          "vi": "Tải lại"
+        },
+        "epcUri": {
+          "en": "EPC URI",
+          "vi": "EPC URI"
+        },
+        "epcType": {
+          "en": "EPC type",
+          "vi": "Loại EPC"
+        },
+        "batchId": {
+          "en": "Batch",
+          "vi": "Lô"
+        }
+      },
+      "attributes": {
+        "name": {
+          "en": "Name",
+          "vi": "Tên"
+        },
+        "dataType": {
+          "en": "Data type",
+          "vi": "Kiểu dữ liệu"
+        },
+        "value": {
+          "en": "Value",
+          "vi": "Giá trị"
+        }
+      },
+      "emptyEpcs": {
+        "en": "No EPCs on this event.",
+        "vi": "Sự kiện không có EPC."
+      },
+      "emptyAttributes": {
+        "en": "No attributes on this event.",
+        "vi": "Sự kiện không có thuộc tính."
+      }
+    },
+    "epcType": {
+      "epcList": {
+        "en": "EPC list",
+        "vi": "Danh sách EPC"
+      },
+      "childEPCs": {
+        "en": "Child EPCs",
+        "vi": "EPC con"
+      },
+      "inputEPC": {
+        "en": "Input EPC",
+        "vi": "EPC đầu vào"
+      },
+      "outputEPC": {
+        "en": "Output EPC",
+        "vi": "EPC đầu ra"
+      }
+    },
+    "empty": {
+      "noData": {
+        "en": "No events found for this query.",
+        "vi": "Không có sự kiện cho truy vấn này."
+      },
+      "filtered": {
+        "en": "No events match the current filters.",
+        "vi": "Không có sự kiện phù hợp bộ lọc hiện tại."
+      }
+    },
+    "eventType": {
+      "ObjectEvent": {
+        "en": "Object event",
+        "vi": "Sự kiện đối tượng"
+      },
+      "AggregationEvent": {
+        "en": "Aggregation event",
+        "vi": "Sự kiện gom nhóm"
+      },
+      "TransactionEvent": {
+        "en": "Transaction event",
+        "vi": "Sự kiện giao dịch"
+      },
+      "TransformationEvent": {
+        "en": "Transformation event",
+        "vi": "Sự kiện biến đổi"
+      }
+    },
+    "epcAction": {
+      "ADD": {
+        "en": "Add",
+        "vi": "Thêm"
+      },
+      "OBSERVE": {
+        "en": "Observe",
+        "vi": "Quan sát"
+      },
+      "DELETE": {
+        "en": "Delete",
+        "vi": "Xóa"
+      }
+    }
+  },
+  "cbvBizStep": {
+    "commissioning": {
+      "en": "Commissioning",
+      "vi": "Khởi tạo"
+    },
+    "decommissioning": {
+      "en": "Decommissioning",
+      "vi": "Ngừng sử dụng"
+    },
+    "packing": {
+      "en": "Packing",
+      "vi": "Đóng gói"
+    },
+    "unpacking": {
+      "en": "Unpacking",
+      "vi": "Tháo gói"
+    },
+    "shipping": {
+      "en": "Shipping",
+      "vi": "Vận chuyển đi"
+    },
+    "receiving": {
+      "en": "Receiving",
+      "vi": "Nhận hàng"
+    },
+    "in_transit": {
+      "en": "In transit",
+      "vi": "Đang vận chuyển"
+    },
+    "inspecting": {
+      "en": "Inspecting",
+      "vi": "Kiểm tra"
+    },
+    "dispensing": {
+      "en": "Dispensing",
+      "vi": "Cấp phát"
+    },
+    "storing": {
+      "en": "Storing",
+      "vi": "Lưu kho"
+    },
+    "production": {
+      "en": "Production",
+      "vi": "Sản xuất"
     }
   }
 }

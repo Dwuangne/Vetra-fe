@@ -20,7 +20,7 @@ import {
   listVerificationSessionAttachLines,
 } from "@/lib/api/services/verification-session.service";
 import type { VerificationAttachLineDto, VerificationSessionSummaryDto } from "@/lib/api/types/verification-session";
-import { messages, pickLocalized, useLocale } from "@/lib/i18n";
+import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import {
   isVerificationSessionOpen,
   normalizeVerificationSessionStatus,
@@ -108,6 +108,7 @@ export function VerificationSessionDetailDialog({
   const [outcomeFilter, setOutcomeFilter] = useState("");
   const [clientStatusFilter, setClientStatusFilter] = useState("");
   const [codeKeyword, setCodeKeyword] = useState("");
+  const [hasSearchedLog, setHasSearchedLog] = useState(false);
 
   const loadSession = useCallback(async () => {
     if (!sessionId) return;
@@ -157,6 +158,9 @@ export function VerificationSessionDetailDialog({
     setOutcomeFilter("");
     setClientStatusFilter("");
     setCodeKeyword("");
+    setHasSearchedLog(false);
+    setAttachLines([]);
+    setAttachTotalPages(1);
   }, [open, sessionId]);
 
   useEffect(() => {
@@ -164,14 +168,15 @@ export function VerificationSessionDetailDialog({
     void loadSession();
   }, [open, sessionId, loadSession]);
 
-  useEffect(() => {
-    if (!open || !sessionId) return;
-    void loadAttachLines(attachPage);
-  }, [open, sessionId, attachPage, loadAttachLines]);
-
   const onApplyLogFilters = () => {
+    setHasSearchedLog(true);
     setAttachPage(1);
     void loadAttachLines(1);
+  };
+
+  const goAttachPage = (page: number) => {
+    setAttachPage(page);
+    void loadAttachLines(page);
   };
 
   const onClearLogFilters = async () => {
@@ -179,6 +184,7 @@ export function VerificationSessionDetailDialog({
     setClientStatusFilter("");
     setCodeKeyword("");
     setAttachPage(1);
+    setHasSearchedLog(true);
     if (!sessionId) return;
     setLoadingLines(true);
     try {
@@ -271,7 +277,7 @@ export function VerificationSessionDetailDialog({
                 size="sm"
                 onClick={() => {
                   void loadSession();
-                  void loadAttachLines(attachPage);
+                  if (hasSearchedLog) void loadAttachLines(attachPage);
                 }}
                 disabled={loading}
               >
@@ -346,9 +352,15 @@ export function VerificationSessionDetailDialog({
               ) : null}
             </div>
 
-            {loadingLines ? <ListLoadingSkeleton rows={3} columns={4} /> : null}
+            {!hasSearchedLog ? (
+              <div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">
+                {translateCommon("searchPrompt", locale)}
+              </div>
+            ) : null}
 
-            {!loadingLines && attachLines.length === 0 ? (
+            {hasSearchedLog && loadingLines ? <ListLoadingSkeleton rows={3} columns={4} /> : null}
+
+            {hasSearchedLog && !loadingLines && attachLines.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 {pickLocalized(
                   hasLogFilters ? m.detailDialog.emptyLogFiltered : m.detailDialog.emptyLog,
@@ -357,7 +369,7 @@ export function VerificationSessionDetailDialog({
               </p>
             ) : null}
 
-            {!loadingLines && attachLines.length > 0 ? (
+            {hasSearchedLog && !loadingLines && attachLines.length > 0 ? (
               <div className="overflow-hidden rounded-md border">
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[600px] text-sm">
@@ -393,8 +405,8 @@ export function VerificationSessionDetailDialog({
                   page={attachPage}
                   totalPages={attachTotalPages}
                   loading={loadingLines}
-                  onPrev={() => setAttachPage((p) => Math.max(1, p - 1))}
-                  onNext={() => setAttachPage((p) => Math.min(attachTotalPages, p + 1))}
+                  onPrev={() => goAttachPage(Math.max(1, attachPage - 1))}
+                  onNext={() => goAttachPage(Math.min(attachTotalPages, attachPage + 1))}
                 />
               </div>
             ) : null}

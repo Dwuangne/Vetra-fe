@@ -1,10 +1,15 @@
 "use client";
 
+import Link from "next/link";
+
 import type { ProductInstanceDto } from "@/lib/api/types/product-instance";
+import { Button } from "@/components/ui/button";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import type { ProductInstanceStatus } from "@/lib/api/types/product-instance";
 import { normalizeProductInstanceStatus } from "@/lib/production/product-instance-status";
+
+import { SHOW_INSTANCE_EVENT_TIMELINE_LINK } from "../constants";
 
 type ProductInstancePoolTableProps = {
   rows: ProductInstanceDto[];
@@ -36,6 +41,7 @@ function instanceStatusLabel(status: ProductInstanceStatus, locale: Locale): str
 
 export function ProductInstancePoolTable({ rows, locale, loading }: ProductInstancePoolTableProps) {
   const f = messages.productInstance.fields;
+  const actions = messages.productInstance.actions;
   const pool = messages.productInstance.pool.fields;
 
   return (
@@ -47,6 +53,9 @@ export function ProductInstancePoolTable({ rows, locale, loading }: ProductInsta
             <th className="p-3 text-left font-medium">{pickLocalized(f.epcUri, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(pool.instanceStatus, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(pool.exportedAt, locale)}</th>
+            {SHOW_INSTANCE_EVENT_TIMELINE_LINK ? (
+              <th className="p-3 text-right font-medium">{pickLocalized(actions.viewEventTimeline, locale)}</th>
+            ) : null}
           </tr>
         </thead>
         <tbody className={(loading ?? false) ? "opacity-60" : undefined}>
@@ -60,6 +69,19 @@ export function ProductInstancePoolTable({ rows, locale, loading }: ProductInsta
                 </td>
                 <td className="p-3 text-xs">{instanceStatusLabel(status, locale)}</td>
                 <td className="p-3 text-xs text-muted-foreground">{formatDateTime(row.exportedAt, locale)}</td>
+                {SHOW_INSTANCE_EVENT_TIMELINE_LINK ? (
+                  <td className="p-3 text-right">
+                    {row.epcUri ? (
+                      <Button type="button" variant="outline" size="sm" asChild>
+                        <Link href={`/events?epcUri=${encodeURIComponent(row.epcUri)}`}>
+                          {pickLocalized(actions.viewEventTimeline, locale)}
+                        </Link>
+                      </Button>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
+                ) : null}
               </tr>
             );
           })}

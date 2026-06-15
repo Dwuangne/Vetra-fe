@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Layers2 } from "lucide-react";
+import { Layers2, ScrollText } from "lucide-react";
 
 import { ListStatusBadge } from "@/components/list/list-status-badge";
 import { StatusTransitionMenu } from "@/components/list/status-transition-menu";
@@ -88,6 +88,15 @@ export function ProductionOrderTable({
                 <td className="p-3">
                   <div className="flex flex-wrap items-center gap-1">
                     <ListStatusBadge status={currentStatus} label={statusLabel(currentStatus)} />
+                    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0" asChild>
+                      <Link
+                        href={`/events?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
+                        aria-label={pickLocalized(actions.viewProductionLog, locale)}
+                        title={pickLocalized(actions.viewProductionLog, locale)}
+                      >
+                        <ScrollText className="h-4 w-4" aria-hidden />
+                      </Link>
+                    </Button>
                     <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0" asChild>
                       <Link
                         href={`/batches?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
