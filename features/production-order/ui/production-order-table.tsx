@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { Layers2, ScrollText } from "lucide-react";
+import { Layers, Layers2, ScrollText } from "lucide-react";
 
+import { ListRowIconLink } from "@/components/list/list-row-icon-link";
 import { ListStatusBadge } from "@/components/list/list-status-badge";
 import { StatusTransitionMenu } from "@/components/list/status-transition-menu";
-import { Button } from "@/components/ui/button";
 import type { ProductionOrderStatus } from "@/lib/api/types/production-order";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
@@ -65,7 +64,7 @@ export function ProductionOrderTable({
             <th className="p-3 text-left font-medium">{pickLocalized(f.plannedStartTime, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.plannedEndTime, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.status, locale)}</th>
-            <th className="w-44 p-3 text-right font-medium">
+            <th className="w-64 p-3 text-right font-medium">
               <span className="sr-only">{pickLocalized(actions.transitionStatus, locale)}</span>
             </th>
           </tr>
@@ -86,39 +85,31 @@ export function ProductionOrderTable({
                 <td className="max-w-[12rem] truncate p-3">{formatDateTime(row.plannedStartTime)}</td>
                 <td className="max-w-[12rem] truncate p-3">{formatDateTime(row.plannedEndTime)}</td>
                 <td className="p-3">
-                  <div className="flex flex-wrap items-center gap-1">
-                    <ListStatusBadge status={currentStatus} label={statusLabel(currentStatus)} />
-                    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0" asChild>
-                      <Link
-                        href={`/events?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
-                        aria-label={pickLocalized(actions.viewProductionLog, locale)}
-                        title={pickLocalized(actions.viewProductionLog, locale)}
-                      >
-                        <ScrollText className="h-4 w-4" aria-hidden />
-                      </Link>
-                    </Button>
-                    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0" asChild>
-                      <Link
-                        href={`/batches?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
-                        aria-label={pickLocalized(actions.viewBatches, locale)}
-                        title={pickLocalized(actions.viewBatches, locale)}
-                      >
-                        <Layers2 className="h-4 w-4" aria-hidden />
-                      </Link>
-                    </Button>
-                  </div>
+                  <ListStatusBadge status={currentStatus} label={statusLabel(currentStatus)} />
                 </td>
                 <td className="p-3 text-right">
-                  {onTransition ? (
-                    <StatusTransitionMenu
-                      currentStatus={currentStatus}
-                      nextStatuses={nextStatuses}
-                      onTransition={(nextStatus) => onTransition(row, nextStatus)}
-                      disabled={disabled}
-                      labelResolver={statusLabel}
-                      triggerText={pickLocalized(actions.transitionStatus, locale)}
+                  <div className="flex items-center justify-end gap-1">
+                    <ListRowIconLink
+                      href={`/events?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
+                      label={pickLocalized(actions.viewProductionLog, locale)}
+                      icon={ScrollText}
                     />
-                  ) : null}
+                    <ListRowIconLink
+                      href={`/batches?productionOrderId=${encodeURIComponent(row.productionOrderId)}`}
+                      label={pickLocalized(actions.viewBatches, locale)}
+                      icon={Layers2}
+                    />
+                    {onTransition ? (
+                      <StatusTransitionMenu
+                        currentStatus={currentStatus}
+                        nextStatuses={nextStatuses}
+                        onTransition={(nextStatus) => onTransition(row, nextStatus)}
+                        disabled={disabled}
+                        labelResolver={statusLabel}
+                        triggerText={pickLocalized(actions.transitionStatus, locale)}
+                      />
+                    ) : null}
+                  </div>
                 </td>
               </tr>
             );

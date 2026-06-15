@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { Layers, ScrollText } from "lucide-react";
 
+import { ListRowIconLink } from "@/components/list/list-row-icon-link";
 import { ListStatusBadge } from "@/components/list/list-status-badge";
 import { StatusTransitionMenu } from "@/components/list/status-transition-menu";
-import { Button } from "@/components/ui/button";
 import type { BatchStatus } from "@/lib/api/types/batch";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
@@ -64,7 +64,7 @@ export function BatchTable({
             <th className="p-3 text-left font-medium">{pickLocalized(f.releasedQuantity, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.productionDate, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.status, locale)}</th>
-            <th className="w-72 p-3 text-right font-medium">
+            <th className="w-64 p-3 text-right font-medium">
               <span className="sr-only">{pickLocalized(actions.transitionStatus, locale)}</span>
             </th>
           </tr>
@@ -90,17 +90,17 @@ export function BatchTable({
                   <ListStatusBadge status={currentStatus} label={statusLabel(currentStatus)} />
                 </td>
                 <td className="p-3 text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button type="button" variant="outline" size="sm" asChild>
-                      <Link href={`/events?batchId=${encodeURIComponent(row.batchId)}`}>
-                        {pickLocalized(actions.viewProductionLog, locale)}
-                      </Link>
-                    </Button>
-                    <Button type="button" variant="outline" size="sm" asChild>
-                      <Link href={`/product-instances?batchId=${encodeURIComponent(row.batchId)}`}>
-                        {pickLocalized(actions.viewInstances, locale)}
-                      </Link>
-                    </Button>
+                  <div className="flex items-center justify-end gap-1">
+                    <ListRowIconLink
+                      href={`/events?batchId=${encodeURIComponent(row.batchId)}`}
+                      label={pickLocalized(actions.viewProductionLog, locale)}
+                      icon={ScrollText}
+                    />
+                    <ListRowIconLink
+                      href={`/product-instances?batchId=${encodeURIComponent(row.batchId)}`}
+                      label={pickLocalized(actions.viewInstances, locale)}
+                      icon={Layers}
+                    />
                     {onTransition ? (
                       <StatusTransitionMenu
                         currentStatus={currentStatus}
