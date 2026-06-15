@@ -94,3 +94,18 @@ export {
   updateCertificate,
   deleteCertificate,
 } from "./services/certificate.service";
+export type {
+  EventResult,
+  EventTimelineItemResult,
+  EventTimelineQuery,
+  EventEpcResult,
+  EventAttributeResult,
+  IngestEventRequest,
+  IngestEventEpcRequest,
+  IngestEventAttributeRequest,
+} from "./types/event";
+export {
+  ingestEvent,
+  getEventById,
+  queryEventTimeline,
+} from "./services/event.service";

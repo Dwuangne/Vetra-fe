@@ -36,7 +36,6 @@ export function TenantUserPage() {
   const [resetTarget, setResetTarget] = useState<TenantUserSummaryDto | null>(null);
 
   const pageTitle = pickLocalized(messages.tenantUser.title, locale);
-  const subtitle = pickLocalized(messages.tenantUser.subtitle, locale);
   const d = messages.tenantUser.dialogs;
 
   const showEmpty = !list.loading && !list.error && list.items.length === 0;
@@ -70,8 +69,7 @@ export function TenantUserPage() {
   return (
     <AppShellLayout title={pageTitle}>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <p className="max-w-2xl text-sm text-muted-foreground">{subtitle}</p>
+        <div className="flex justify-end">
           <Button
             type="button"
             className={BRAND_PRIMARY_BUTTON_CLASS}

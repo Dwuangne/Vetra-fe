@@ -64,7 +64,7 @@ export function BatchTable({
             <th className="p-3 text-left font-medium">{pickLocalized(f.releasedQuantity, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.productionDate, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.status, locale)}</th>
-            <th className="w-56 p-3 text-right font-medium">
+            <th className="w-72 p-3 text-right font-medium">
               <span className="sr-only">{pickLocalized(actions.transitionStatus, locale)}</span>
             </th>
           </tr>
@@ -91,6 +91,11 @@ export function BatchTable({
                 </td>
                 <td className="p-3 text-right">
                   <div className="flex justify-end gap-2">
+                    <Button type="button" variant="outline" size="sm" asChild>
+                      <Link href={`/events?batchId=${encodeURIComponent(row.batchId)}`}>
+                        {pickLocalized(actions.viewProductionLog, locale)}
+                      </Link>
+                    </Button>
                     <Button type="button" variant="outline" size="sm" asChild>
                       <Link href={`/product-instances?batchId=${encodeURIComponent(row.batchId)}`}>
                         {pickLocalized(actions.viewInstances, locale)}

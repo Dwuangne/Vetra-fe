@@ -3,6 +3,8 @@
 import type { ComponentProps } from "react";
 
 import { Input } from "@/components/ui/input";
+import { HIDE_NATIVE_PICKER_CLASS } from "@/lib/ui/form-control-classes";
+import { cn } from "@/lib/utils";
 
 type DatetimeInputProps = Omit<ComponentProps<typeof Input>, "type" | "value" | "onChange"> & {
   value: string | null;
@@ -18,10 +20,11 @@ function toDatetimeLocalValue(iso: string | null): string {
   return local.toISOString().slice(0, 16);
 }
 
-export function DatetimeInput({ value, onValueChange, ...props }: DatetimeInputProps) {
+export function DatetimeInput({ value, onValueChange, className, ...props }: DatetimeInputProps) {
   return (
     <Input
       type="datetime-local"
+      className={cn(HIDE_NATIVE_PICKER_CLASS, className)}
       value={toDatetimeLocalValue(value)}
       onChange={(e) => onValueChange(e.target.value ? new Date(e.target.value).toISOString() : null)}
       {...props}

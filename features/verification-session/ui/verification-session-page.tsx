@@ -81,8 +81,6 @@ export function VerificationSessionPage() {
   return (
     <AppShellLayout title={pageTitle}>
       <div className="flex flex-col gap-4">
-        <p className="text-sm text-muted-foreground">{pickLocalized(messages.verificationSession.hint, locale)}</p>
-
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <VerificationSessionFilters
             className="w-full md:max-w-4xl"

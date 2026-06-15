@@ -16,6 +16,8 @@ import {
 } from "@/lib/production/product-instance-public-url";
 import { toast } from "@/hooks/use-toast";
 
+import { SHOW_INSTANCE_EVENT_TIMELINE_LINK } from "../constants";
+
 type ProductInstanceTableProps = {
   rows: ProductInstanceDto[];
   locale: Locale;
@@ -32,6 +34,7 @@ export function ProductInstanceTable({
   publicUrlState,
 }: ProductInstanceTableProps) {
   const f = messages.productInstance.fields;
+  const actions = messages.productInstance.actions;
   const pub = messages.production.instance;
   const baseUrl = getPublicAppBaseUrl();
 
@@ -56,6 +59,9 @@ export function ProductInstanceTable({
               <th className="p-3 text-left font-medium">{pickLocalized(f.epcUri, locale)}</th>
               <th className="p-3 text-left font-medium">{pickLocalized(f.lotNumber, locale)}</th>
               <th className="p-3 text-left font-medium">{pickLocalized(pub.publicUrl, locale)}</th>
+              {SHOW_INSTANCE_EVENT_TIMELINE_LINK ? (
+                <th className="p-3 text-right font-medium">{pickLocalized(actions.viewEventTimeline, locale)}</th>
+              ) : null}
             </tr>
           </thead>
           <tbody className={(loading ?? false) ? "opacity-60" : undefined}>
@@ -161,6 +167,19 @@ export function ProductInstanceTable({
                       </div>
                     )}
                   </td>
+                  {SHOW_INSTANCE_EVENT_TIMELINE_LINK ? (
+                    <td className="p-3 text-right">
+                      {row.epcUri ? (
+                        <Button type="button" variant="outline" size="sm" asChild>
+                          <Link href={`/events?epcUri=${encodeURIComponent(row.epcUri)}`}>
+                            {pickLocalized(actions.viewEventTimeline, locale)}
+                          </Link>
+                        </Button>
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </td>
+                  ) : null}
                 </tr>
               );
             })}
