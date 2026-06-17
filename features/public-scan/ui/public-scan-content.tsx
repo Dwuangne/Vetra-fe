@@ -45,20 +45,23 @@ export function PublicScanContent({ data, locale, imageAccent = "green" }: Publi
     <div className="space-y-4">
       {images.length > 0 ? (
         <section className={`overflow-hidden rounded-2xl border ${imageBorder} bg-white shadow-md`}>
-          <SafeImage
-            src={images[imageIndex]}
-            alt={product.name}
-            className="max-h-80 w-full object-cover"
-            onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
-            onTouchEnd={(event) => {
-              if (!hasMultipleImages || touchStartX === null) return;
-              const delta = event.changedTouches[0].clientX - touchStartX;
-              if (Math.abs(delta) < 40) return;
-              if (delta < 0) goToNextImage();
-              if (delta > 0) goToPrevImage();
-              setTouchStartX(null);
-            }}
-          />
+          <div className="flex w-full items-center justify-center bg-zinc-50/70 px-3 py-3 sm:px-4 sm:py-4">
+            <SafeImage
+              src={images[imageIndex]}
+              alt={product.name}
+              className="mx-auto max-h-[min(75dvh,20rem)] w-auto max-w-full cursor-zoom-in object-contain object-center sm:max-h-[min(70dvh,24rem)] md:max-h-[min(65dvh,28rem)] lg:max-h-[min(60dvh,32rem)]"
+              onClick={() => setPreviewImageUrl(images[imageIndex])}
+              onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
+              onTouchEnd={(event) => {
+                if (!hasMultipleImages || touchStartX === null) return;
+                const delta = event.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(delta) < 40) return;
+                if (delta < 0) goToNextImage();
+                if (delta > 0) goToPrevImage();
+                setTouchStartX(null);
+              }}
+            />
+          </div>
           {hasMultipleImages ? (
             <div className={`flex items-center justify-center gap-2 border-t ${imageBorder} px-3 py-3`}>
               {images.map((_, index) => (
@@ -209,7 +212,9 @@ export function PublicScanContent({ data, locale, imageAccent = "green" }: Publi
           aria-describedby={undefined}
         >
           <DialogTitle className="sr-only">
-            {pickLocalized(messages.publicScan.active.viewCertificate, locale)}
+            {previewImageUrl && images.includes(previewImageUrl)
+              ? product.name
+              : pickLocalized(messages.publicScan.active.viewCertificate, locale)}
           </DialogTitle>
           {previewImageUrl ? (
             <>
@@ -223,8 +228,8 @@ export function PublicScanContent({ data, locale, imageAccent = "green" }: Publi
               </button>
               <SafeImage
                 src={previewImageUrl}
-                alt=""
-                className="max-h-[min(85vh,100dvh)] w-full object-contain"
+                alt={images.includes(previewImageUrl) ? product.name : ""}
+                className="mx-auto max-h-[min(90dvh,100dvh)] w-auto max-w-[min(95vw,900px)] object-contain"
               />
             </>
           ) : null}
