@@ -33,14 +33,14 @@ export function resolveProductInstancePublicUrlState(
   return "hidden";
 }
 
-export function buildPublicGs1ScanPath(gtin14: string, serial: string): string {
-  const g = gtin14.trim();
+export function buildPublicGs1ScanPath(gtin: string, serial: string): string {
+  const g = gtin.trim();
   const encSerial = encodeURIComponent(serial);
   return `/01/${g}/21/${encSerial}`;
 }
 
-export function buildPublicGs1ScanUrl(baseUrl: string, gtin14: string, serial: string): string {
-  const path = buildPublicGs1ScanPath(gtin14, serial);
+export function buildPublicGs1ScanUrl(baseUrl: string, gtin: string, serial: string): string {
+  const path = buildPublicGs1ScanPath(gtin, serial);
   const base = baseUrl.replace(/\/+$/, "");
   if (!base) return path;
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;

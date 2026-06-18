@@ -18,7 +18,7 @@ import { useAuth } from "@/features/auth";
 import { canApproveProduction } from "@/lib/auth/roles";
 import { messages, pickLocalized, translateCommon, useLocale } from "@/lib/i18n";
 import { normalizeBatchStatus } from "@/lib/production/batch-status";
-import { toGtin14PathSegment } from "@/lib/production/gtin14";
+import { toGtinPathSegment } from "@/lib/production/gtin";
 import { normalizeProductionOrderStatus } from "@/lib/production/production-order-status";
 import {
   resolveProductInstancePublicUrlState,
@@ -57,9 +57,9 @@ function ProductInstanceBatchScope({
   const [exporting, setExporting] = useState(false);
   const [batchScope, setBatchScope] = useState<{
     lotLabel: string | null;
-    gtin14: string | null;
+    gtin: string | null;
     publicUrlState: ProductInstancePublicUrlState;
-  }>({ lotLabel: null, gtin14: null, publicUrlState: "hidden" });
+  }>({ lotLabel: null, gtin: null, publicUrlState: "hidden" });
   
   useLayoutEffect(() => {
     let cancelled = false;
@@ -68,7 +68,7 @@ function ProductInstanceBatchScope({
         const batchRes = await getBatchById(batchId);
         if (cancelled) return;
         if (!batchRes.data) {
-          setBatchScope({ lotLabel: null, gtin14: null, publicUrlState: "hidden" });
+          setBatchScope({ lotLabel: null, gtin: null, publicUrlState: "hidden" });
           return;
         }
         const batch = batchRes.data;
@@ -86,16 +86,16 @@ function ProductInstanceBatchScope({
         const prodRes = await getProductById(batch.productId);
         if (cancelled) return;
         const gtinRaw = prodRes.data?.gtin ?? "";
-        const gtin14 = gtinRaw ? toGtin14PathSegment(gtinRaw) : null;
+        const gtin = gtinRaw ? toGtinPathSegment(gtinRaw) : null;
         const publicUrlState = resolveProductInstancePublicUrlState(batchSt, poStatus);
 
         setBatchScope({
           lotLabel: batch.lotNumber ?? null,
-          gtin14,
+          gtin,
           publicUrlState,
         });
       } catch {
-        if (!cancelled) setBatchScope({ lotLabel: null, gtin14: null, publicUrlState: "hidden" });
+        if (!cancelled) setBatchScope({ lotLabel: null, gtin: null, publicUrlState: "hidden" });
       }
     })();
     return () => {
@@ -199,7 +199,7 @@ function ProductInstanceBatchScope({
           rows={list.items}
           locale={locale}
           loading={list.loading}
-          gtin14={batchScope.gtin14}
+          gtin={batchScope.gtin}
           publicUrlState={batchScope.publicUrlState}
         />
       ) : null}
