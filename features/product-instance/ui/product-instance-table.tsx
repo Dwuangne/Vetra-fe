@@ -22,7 +22,7 @@ type ProductInstanceTableProps = {
   rows: ProductInstanceDto[];
   locale: Locale;
   loading?: boolean;
-  gtin14: string | null;
+  gtin: string | null;
   publicUrlState: ProductInstancePublicUrlState;
 };
 
@@ -30,7 +30,7 @@ export function ProductInstanceTable({
   rows,
   locale,
   loading,
-  gtin14,
+  gtin,
   publicUrlState,
 }: ProductInstanceTableProps) {
   const f = messages.productInstance.fields;
@@ -47,7 +47,7 @@ export function ProductInstanceTable({
     }
   };
 
-  const showPublicActions = publicUrlState !== "hidden" && Boolean(gtin14);
+  const showPublicActions = publicUrlState !== "hidden" && Boolean(gtin);
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -67,8 +67,8 @@ export function ProductInstanceTable({
           <tbody className={(loading ?? false) ? "opacity-60" : undefined}>
             {rows.map((row) => {
               const path =
-                gtin14 && row.serialNumber ? buildPublicGs1ScanPath(gtin14, row.serialNumber) : null;
-              const absolute = path && baseUrl ? buildPublicGs1ScanUrl(baseUrl, gtin14!, row.serialNumber) : path ?? "";
+                gtin && row.serialNumber ? buildPublicGs1ScanPath(gtin, row.serialNumber) : null;
+              const absolute = path && baseUrl ? buildPublicGs1ScanUrl(baseUrl, gtin!, row.serialNumber) : path ?? "";
 
               return (
                 <tr key={row.instanceId} className="border-b last:border-b-0">
