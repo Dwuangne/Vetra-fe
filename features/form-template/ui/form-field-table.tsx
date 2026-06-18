@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { ListRowActionsMenu } from "@/components/list/list-row-actions-menu";
 import type { FormFieldDto } from "@/lib/api/types/form-template";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
@@ -23,6 +23,7 @@ export function FormFieldTable({ rows, locale, loading, disabled, onRemove }: Fo
   const removeLabel = pickLocalized(messages.formField.actions.remove, locale);
   const requiredYes = pickLocalized(messages.formField.requiredYes, locale);
   const requiredNo = pickLocalized(messages.formField.requiredNo, locale);
+  const rowActionsLabel = pickLocalized(messages.common.rowActionsLabel, locale);
 
   return (
     <div className="overflow-x-auto rounded-md border">
@@ -32,8 +33,8 @@ export function FormFieldTable({ rows, locale, loading, disabled, onRemove }: Fo
             <th className="p-3 text-left font-medium">{attributeName}</th>
             <th className="p-3 text-left font-medium">{dataType}</th>
             <th className="p-3 text-left font-medium">{isRequired}</th>
-            <th className="w-28 p-3 text-right font-medium">
-              <span className="sr-only">{removeLabel}</span>
+            <th className="w-14 p-3 text-right font-medium">
+              <span className="sr-only">{rowActionsLabel}</span>
             </th>
           </tr>
         </thead>
@@ -63,17 +64,15 @@ export function FormFieldTable({ rows, locale, loading, disabled, onRemove }: Fo
                 </span>
               </td>
               <td className="p-3 text-right">
-                {onRemove ? (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    disabled={disabled}
-                    onClick={() => onRemove(row)}
-                  >
-                    {removeLabel}
-                  </Button>
-                ) : null}
+                <ListRowActionsMenu
+                  actionsLabel={rowActionsLabel}
+                  disabled={disabled}
+                  items={
+                    onRemove
+                      ? [{ key: "remove", label: removeLabel, onSelect: () => onRemove(row), destructive: true }]
+                      : []
+                  }
+                />
               </td>
             </tr>
           ))}

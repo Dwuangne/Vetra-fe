@@ -1,17 +1,10 @@
 "use client";
 
+import { ListRowActionsMenu } from "@/components/list/list-row-actions-menu";
 import type { TenantUserSummaryDto } from "@/lib/api/types/tenant-user";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { cn } from "@/lib/utils";
-import { MoreHorizontal } from "lucide-react";
 
 import { tenantUserRoleLabel } from "./tenant-user-role-label";
 
@@ -37,6 +30,10 @@ export function TenantUserTable({
   const f = messages.tenantUser.fields;
   const a = messages.tenantUser.actions;
   const s = messages.tenantUser.status;
+  const rowActionsLabel = pickLocalized(messages.common.rowActionsLabel, locale);
+  const disableLabel = pickLocalized(a.disable, locale);
+  const enableLabel = pickLocalized(a.enable, locale);
+  const resetPasswordLabel = pickLocalized(a.resetPassword, locale);
 
   return (
     <div className="overflow-x-auto rounded-md border">
@@ -47,7 +44,7 @@ export function TenantUserTable({
             <th className="p-3 text-left font-medium">{pickLocalized(f.role, locale)}</th>
             <th className="p-3 text-left font-medium">{pickLocalized(f.status, locale)}</th>
             <th className="w-14 p-3 text-right font-medium">
-              <span className="sr-only">{pickLocalized(a.rowActionsLabel, locale)}</span>
+              <span className="sr-only">{rowActionsLabel}</span>
             </th>
           </tr>
         </thead>
@@ -73,34 +70,16 @@ export function TenantUserTable({
                 </span>
               </td>
               <td className="p-3 text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      className="h-8 w-8"
-                      aria-label={pickLocalized(a.rowActionsLabel, locale)}
-                      disabled={disabled}
-                    >
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
-                    {!row.isDisabled ? (
-                      <DropdownMenuItem onSelect={() => onDisable(row)}>
-                        {pickLocalized(a.disable, locale)}
-                      </DropdownMenuItem>
-                    ) : (
-                      <DropdownMenuItem onSelect={() => onEnable(row)}>
-                        {pickLocalized(a.enable, locale)}
-                      </DropdownMenuItem>
-                    )}
-                    <DropdownMenuItem onSelect={() => onResetPassword(row)}>
-                      {pickLocalized(a.resetPassword, locale)}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <ListRowActionsMenu
+                  actionsLabel={rowActionsLabel}
+                  disabled={disabled}
+                  items={[
+                    !row.isDisabled
+                      ? { key: "disable", label: disableLabel, onSelect: () => onDisable(row) }
+                      : { key: "enable", label: enableLabel, onSelect: () => onEnable(row) },
+                    { key: "reset", label: resetPasswordLabel, onSelect: () => onResetPassword(row) },
+                  ]}
+                />
               </td>
             </tr>
           ))}

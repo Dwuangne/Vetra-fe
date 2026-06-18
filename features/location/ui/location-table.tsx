@@ -1,10 +1,9 @@
 "use client";
 
-import type { LocationListRowVm } from "../model/location.types";
-import { Button } from "@/components/ui/button";
+import { ListRowActionsMenu } from "@/components/list/list-row-actions-menu";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
-import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
+import type { LocationListRowVm } from "../model/location.types";
 
 type LocationTableProps = {
   rows: LocationListRowVm[];
@@ -32,6 +31,9 @@ export function LocationTable({
   const address = pickLocalized(f.address, locale);
   const party = pickLocalized(f.partyId, locale);
   const actions = messages.location.actions;
+  const rowActionsLabel = pickLocalized(messages.common.rowActionsLabel, locale);
+  const updateLabel = pickLocalized(actions.update, locale);
+  const deleteLabel = pickLocalized(actions.delete, locale);
 
   return (
     <div className="overflow-x-auto rounded-md border">
@@ -43,8 +45,8 @@ export function LocationTable({
             <th className="p-3 text-left font-medium">{name}</th>
             <th className="p-3 text-left font-medium">{address}</th>
             <th className="p-3 text-left font-medium">{party}</th>
-            <th className="w-36 p-3 text-right font-medium">
-              <span className="sr-only">{pickLocalized(actions.update, locale)}</span>
+            <th className="w-14 p-3 text-right font-medium">
+              <span className="sr-only">{rowActionsLabel}</span>
             </th>
           </tr>
         </thead>
@@ -62,23 +64,17 @@ export function LocationTable({
               <td className="max-w-[10rem] truncate p-3 text-muted-foreground">
                 {row.partyId ? (partyNameById?.[row.partyId] ?? row.partyId) : "—"}
               </td>
-              <td className="flex flex-wrap justify-end gap-2 p-3">
-                {onEdit ? (
-                  <Button type="button" size="sm" className={BRAND_PRIMARY_BUTTON_CLASS} disabled={disabled} onClick={() => onEdit(row)}>
-                    {pickLocalized(actions.update, locale)}
-                  </Button>
-                ) : null}
-                {onDelete ? (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    disabled={disabled}
-                    onClick={() => onDelete(row)}
-                  >
-                    {pickLocalized(actions.delete, locale)}
-                  </Button>
-                ) : null}
+              <td className="p-3 text-right">
+                <ListRowActionsMenu
+                  actionsLabel={rowActionsLabel}
+                  disabled={disabled}
+                  items={[
+                    ...(onEdit ? [{ key: "edit", label: updateLabel, onSelect: () => onEdit(row) }] : []),
+                    ...(onDelete
+                      ? [{ key: "delete", label: deleteLabel, onSelect: () => onDelete(row), destructive: true }]
+                      : []),
+                  ]}
+                />
               </td>
             </tr>
           ))}
