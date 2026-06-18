@@ -517,6 +517,10 @@
       "en": "Search",
       "vi": "Tìm kiếm"
     },
+    "rowActionsLabel": {
+      "en": "Actions",
+      "vi": "Thao tác"
+    },
     "searchPrompt": {
       "en": "Enter filter keyword and click Search to load data.",
       "vi": "Nhập từ khóa lọc và bấm Tìm kiếm để tải dữ liệu."

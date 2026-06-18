@@ -1,13 +1,10 @@
 "use client";
 
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
+import { ListRowActionsMenu } from "@/components/list/list-row-actions-menu";
 import type { FormTemplateDto } from "@/lib/api/types/form-template";
 import { messages, pickLocalized } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/types";
 import { getBizStepLabel } from "@/lib/production/cbv-biz-steps";
-import { BRAND_PRIMARY_BUTTON_CLASS } from "@/lib/ui/brand";
 
 type FormTemplateTableProps = {
   rows: FormTemplateDto[];
@@ -31,6 +28,10 @@ export function FormTemplateTable({
   const bizStep = pickLocalized(f.bizStep, locale);
   const fieldCount = pickLocalized(f.fieldCount, locale);
   const actions = messages.formTemplate.actions;
+  const rowActionsLabel = pickLocalized(messages.common.rowActionsLabel, locale);
+  const manageFieldsLabel = pickLocalized(actions.manageFields, locale);
+  const updateLabel = pickLocalized(actions.update, locale);
+  const deleteLabel = pickLocalized(actions.delete, locale);
 
   return (
     <div className="overflow-x-auto rounded-md border">
@@ -40,8 +41,8 @@ export function FormTemplateTable({
             <th className="p-3 text-left font-medium">{name}</th>
             <th className="p-3 text-left font-medium">{bizStep}</th>
             <th className="p-3 text-left font-medium">{fieldCount}</th>
-            <th className="w-48 p-3 text-right font-medium">
-              <span className="sr-only">{pickLocalized(actions.manageFields, locale)}</span>
+            <th className="w-14 p-3 text-right font-medium">
+              <span className="sr-only">{rowActionsLabel}</span>
             </th>
           </tr>
         </thead>
@@ -51,28 +52,22 @@ export function FormTemplateTable({
               <td className="max-w-[20rem] truncate p-3">{row.name}</td>
               <td className="max-w-[16rem] truncate p-3">{getBizStepLabel(row.bizStep, locale)}</td>
               <td className="p-3">{Array.isArray(row.fields) ? row.fields.length : "—"}</td>
-              <td className="flex flex-wrap justify-end gap-2 p-3">
-                <Button type="button" variant="outline" size="sm" disabled={disabled} asChild>
-                  <Link href={`/form-templates/${encodeURIComponent(row.templateId)}/fields`}>
-                    {pickLocalized(actions.manageFields, locale)}
-                  </Link>
-                </Button>
-                {onEdit ? (
-                  <Button type="button" size="sm" className={BRAND_PRIMARY_BUTTON_CLASS} disabled={disabled} onClick={() => onEdit(row)}>
-                    {pickLocalized(actions.update, locale)}
-                  </Button>
-                ) : null}
-                {onDelete ? (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    disabled={disabled}
-                    onClick={() => onDelete(row)}
-                  >
-                    {pickLocalized(actions.delete, locale)}
-                  </Button>
-                ) : null}
+              <td className="p-3 text-right">
+                <ListRowActionsMenu
+                  actionsLabel={rowActionsLabel}
+                  disabled={disabled}
+                  items={[
+                    {
+                      key: "fields",
+                      label: manageFieldsLabel,
+                      href: `/form-templates/${encodeURIComponent(row.templateId)}/fields`,
+                    },
+                    ...(onEdit ? [{ key: "edit", label: updateLabel, onSelect: () => onEdit(row) }] : []),
+                    ...(onDelete
+                      ? [{ key: "delete", label: deleteLabel, onSelect: () => onDelete(row), destructive: true }]
+                      : []),
+                  ]}
+                />
               </td>
             </tr>
           ))}
